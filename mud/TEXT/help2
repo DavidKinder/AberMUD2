@@ -1,0 +1,22 @@
+Wizard Commands
+
+Removing Players
+ZAP [player]	EXORCISE [player]
+Resetting Game
+CRASH		RESET		
+Utility
+STATS [user/item]		DIRECTORY	LOC		GOTO [room]
+IN [room] [command]		VIS		INVIS		WIZLIST
+RESSURECT [item]
+Changing Name/Game Versions
+BECOME [user]	UPDATE
+Weather
+SUN		RAIN		SNOW		STORM		BLIZZARD
+For being nosey
+SNOOP  [user]
+The SET Command
+SET [item] [state]	SET [mobile] [stamina]
+SET [item] BIT [bitflagnum] [optional value if setting]
+SET [item] BYTE [bitflagnum] [optional value if setting]
+Room entry and exit message changing
+SETIN <msg>	SETOUT <msg> 	SETMIN <msg>	SETMOUT <msg>

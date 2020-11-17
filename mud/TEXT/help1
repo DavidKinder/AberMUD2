@@ -1,0 +1,21 @@
+Some Standard Commands, there are plenty of others....
+
+Moving Around
+N E S W U D    GO      JUMP   LOOK    EXITS          
+Items
+GET     DROP    WEAR   REMOVE GIVE    STEAL    INVENTORY      PUT     UNLOCK
+EXAMINE VALUE   LIGHT  EXTINGUISH     TURN     OPEN           CLOSE   LOCK
+EAT     PRESS   PUSH   DRINK	      EMPTY
+Talking
+SHOUT   SAY    TELL    
+Informational
+WHO     HELP   LEVELS  
+Utility 
+QUIT    SAVE   SCORE   BRIEF  CONVERSE         LOG     
+Combat
+WEAPON  KILL   <WITH WEAPON> to select weapon  FLEE
+Atmosphere
+LAUGH   CRY    BURP    HICCUP SLAP    TICKLE   KISS    SCREAM BOUNCE  STARE
+GRIN    SMILE  WINK    GROAN  SING    HUG      MOAN    YAWN   SNIGGER PRAY
+SIGH    PURR   CUDDLE
+

@@ -1,0 +1,6 @@
+Doors are pairs of items even numbered first eg 28,29 112,113
+
+
+Each door is set up in an exit by making the exit value
+
+1000+(doornumber of other side of door)

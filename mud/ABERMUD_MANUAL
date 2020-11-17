@@ -1,0 +1,244 @@
+			A B E R M U D
+
+		A guide to the system and its use
+
+
+Contents
+
+	1.	Idea of the game
+
+	2.	Commands For The Privileged
+
+	3.	How It Works
+
+	4.	Security Aspects
+
+	5.	Extending The System
+
+	6.	Installation Guide
+
+	7.	Portability Aspects
+
+
+
+Introduction
+
+	
+	AberMUD is a multi user adventure system for up to 16 players, it is
+designed to run on almost anything with a processor in it, and has been 
+succesfully run originally on a Honeywell L66 under GCOS 3, as well as
+UNIX Sun 3.4 . Indeed the orginal system was written in B , which is why the
+system is full of wonderful type conversions and twiddles.
+	The game is currently a fantasy scenario , but could easily be 
+changed to any other idea.
+	Note that AberMUD is far from the complete multi-user game system, its
+a simple system that works and was intended to be such, there's huge scope
+for improvement, so if you don't like something, then change it!
+
+
+
+Idea Of The Game
+
+	The idea of the current game is to score 140,000 points and become a 
+wizard. Points are scored for dropping treasure into the sacrificial pit
+at the temple, and the one at the village church. Points can also be scored
+for killing mobiles (although within the current system they aren't that 
+mobile!), and of course for killing players, which is a pastime many players
+like to have a go at.
+	The game has a complete combat system , which considers weapons and
+shields, and also allows people to flee from fights. To complement this the
+game also has a magic system with several spells of both informational,
+combat and utility nature.
+
+
+Commands
+
+	The game system supports all the basic adventure type commands
+like take the sword, drop the axe, as well as a whole host of commands
+which are needed for a multi-user system. Some of these commands are
+
+WHO	:	Show the players on the game, of course certain more
+		powerful beings may not wish to show up on the list..
+
+SHOUT   :	Shout a message across the game, normally used for uttering
+		those nasty death threats to the person who killed you for
+		the fourteenth time this week.
+
+TELL    :	Allows you to tell a player something. Although really you
+		you ought only to be able to tell something to someone in the
+		same room we found the game as a whole works better with 
+		tell as it currently is. Similarly you could argue that who
+		is unrealistic, but the results of its absence are simply a lot
+		of "Whos playing ?" shouts
+
+SAY	:	Says something to everyone else in the room. Assuming they
+		haven't been deafened.....
+
+STEAL   :	For all those moments when some other player or mobile
+		has something you fancy - just dont get caught at it!
+
+GIVE    :	If you are feeling generous  you can donate goodies to other
+		players
+
+KILL	:	Your oppotunity to beat mobiles and players to death.
+
+WIELD   :	Select something as your weapon to hand, for when those
+		nasty people decide to brain you.
+
+SAVE	:	Saves your characters current score and status. The things
+		you carry and wear are not saved.
+
+QUIT	:	Exits the game, saving the character automatically. All your
+		belongings will be left where you quit, and should you 
+		re-enter the game it will be carrying nothing and at one of
+		the start positions.
+
+
+Life And Death
+
+	All the scoring points is fine, but there is one important problem
+with life in the game, that is dying. There are two ways of dying in the game
+dying through little accidents with puzzles is a non fatal event which simply
+kicks you off the game, while dying in a fight is FATAL, that is your
+character will be no more, and its back to 0 points. Most players will
+rapidly get the hang of dying, living takes a little longer to master.
+
+
+
+2.	Commands For The Privileged
+
+	Once a player achieves the status of wizard he/she gets the right to use
+a great many more powers, such as ZAP which can be used to totally destroy a
+person, exorcise to kick players off the game, and a vast range of 
+miscelleaneous wonders like POSE, DIR, LOC,goto any room...
+	The system assumes that wizards in return for having these powers have
+a certain amount of responsibility for the way they use them. We haven't had to
+turn any wizards back into mortals yet, but if needs be ...
+
+
+2b.	Commands for the really privileged
+
+RMEDIT:		Enter the internal room editor (we use emacs). This command also
+		inherently allows its user to shell out as the game id, see
+		security.
+
+SHELL:		Sends all commands as if they had TSS in front until ** is typed
+		commands beginning * are treated as normal commands
+
+TSS:		The name of this command is a historical accident to do with
+		GCOS3, but basically it passes the current command via
+		system().
+
+RAW:		Allows superusers to make announcements. Certain very 
+		privileged people can send totally raw messages.
+
+SYSTAT:		Not used under unix - we couldnt work out an easy PORTABLE
+		way to find out how much memory the program was running in
+		It was needed under GCOS as we were running close to 
+		installation size limits for programs.
+
+INUM:		Returns the internal number of an item - or -1 if it doesnt
+		exist. Mainly used when debugging new parts of the game
+
+DEBUGMODE:	Enter debug mode, this is subject to a PFLAG so it can be 
+		used with mortals too. It gives all the messages passed and
+		information on item numbers along with the normal game data
+
+PATCH:		Allows DIRECT editing of the game world file. Not to be used
+		lightly, it just happens to be handy when debugging at times
+
+PFLAGS:		Allows editing of a users privileges
+
+
+Of course all the other useful commands like SET and DIR are also available
+
+
+Registering wizards
+
+	The way we handled wizards within the system is to let them choose
+a suitable name and to assign that name to a suitable spare level in
+objsys.c and recompile. Finally FROB the player to the correct level. The levels
+for wizards should be in the range 10-9999.(lotta wizzes!)
+
+
+3.	How It Works
+
+	AberMUD is actually a very simple multi user game system working
+entirely with files, which while slower than the UNIX gurus beloved sockets
+is far more portable. Indeed AberMUD should run quite happily on SYS V with
+few changes (The only obvious one being to the use of getpass()).
+	The system shares game data in a single 153K or so file, which holds
+all the player data and some of the object data. In addition it also includes
+a message passing mechanism which allows messages to be sent to players or
+rooms or whatever.
+	Each player inspects this file regularly (on a 2sec alarm) and when
+changing it, so as to keep up with the world. Flock() is used to lock the file
+hence one important restriction - the system cannot run across networked hosts
+This is for one simple reason - lockf() on our suns was having little accidents
+like locking the entire Network Filing System so I had to resort to flock
+which is both faster and avoids getting the system manager cross.
+	All the user output is buffered via a routine called bprintf() which
+serves to ensure no smart alec can hit CTRL-S while he has the file locked, and
+also helps to improve performance.
+	Thats about it really, the rest of the game logic and coding is no
+different to a single user game.
+
+
+4.	Security Aspects
+
+Certain users may shell out of AberMUD, they are - any user with the RMEDIT
+pflag , or obviously the EDITPFLAG pflag, and any Arch_Wizard (level>9999)
+who is already on the game id. No one else is capable of shelling out - save
+to the bulletin board - hence the rather peculiar "Honeyboard" command lying 
+around, you may wish to improve this.
+
+5.	Extending The System
+
+	The system is designed to be easy to extend and patch, its whole basis
+being to keep it simple but working. The objects for the game and the mobiles
+can both be expanded by editing the obdat and reset player data. In addition
+for objects they need to be added to the ob.in file and ogenerate run over it
+to produce a file called ob.out which should then be copied to the RESET_DATA
+file.
+	The current system is far from perfect, it was written originally as a
+joke, so don't blame me!, but at least this means there is plenty of scope
+for frobnicating with the code.
+
+
+Installation Guide
+
+	Make a directory called ABERMUD or something similar then in that 
+directory , and on the correct host execute.( If your machine does not 
+support gethostname() then you should remove the sections using it from
+make.h.c, and gmain2.c)
+
+sh <shar
+sh <shar1
+sh <shar1b
+sh <shar2
+sh <install.sh
+sh <shar3
+sh <shar4
+sh <shar5
+sh <shar6
+sh <shar7
+sh <shar8
+sh <install2.sh
+
+and the system will be installed!!!
+
+You will probably want to change the ids recognized as "special" in gmlnk.c.
+and also the trap for Anarchy being the user with the automatic right to edit
+PFLAGS, in support.c
+
+
+7. Portability Aspects
+
+	So far as I know the only things which may cause porting problems
+across different versions of UNIX is the flock call and the use of getpass
+which behaves differently on Sys V - it will need a trap for a null return
+which should then exit with crapup("Not a terminal"); or something similar
+	The code should port reasonably to other systems
+
+
+END

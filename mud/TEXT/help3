@@ -1,0 +1,16 @@
+Archwizard Only Facilities
+  
+RMEDIT       Enter The Internal Room Editor
+SHELL        All commands sent to TSS, until * typed
+RAW <msg>    Raw Message Broadcast
+SYSTAT       Running System Statistics (Defuncted under unix)
+UPDATE       Exit Game and return to new version
+TSS <cmd>    Execute shell command
+INUM  <item> Returns games internal number for given object
+DEBUGMODE    Enter debug information mode, gives obnums etc too
+PATCH        Patch the running world file
+PFLAGS	     Set players PFLAGS
+ 
+Have Fun
+  
+           ---->(A)

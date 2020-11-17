@@ -1,0 +1,15 @@
+#
+#
+#
+OBJ =	blib.o gmain2.o gmainstubs.o gmlnk.o obdat.o flock.o
+INCL=	object.h files.h System.h
+
+mud.1:	${OBJ}
+	gcc ${OBJ} -o mud.1 -lcrypt
+	strip mud.1
+#	chmod 4711 mud.1
+
+.c.o:
+	gcc $*.c -c -w
+
+${OBJ}:	${INCL}
