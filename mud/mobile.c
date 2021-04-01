@@ -33,6 +33,7 @@ if( iscarrby( 32, mynum ) ) dorune(  ) ;
 if(phelping(mynum)!=-1) helpchkr();
     }
  
+void /*anachronism*/
  chkfight( x )
     {
     extern long curch ;
@@ -53,6 +54,7 @@ return ;
  consid_move(x)
  {;}
  
+void /*anachronism*/
  crashcom(  )
     {
     extern long my_lev ;
@@ -67,6 +69,7 @@ return ;
     rescom(  ) ;
     }
  
+void /*anachronism*/
  singcom(  )
     {
     if( chkdumb(  ) ) return ;
@@ -74,6 +77,7 @@ return ;
     bprintf( "You sing\n" ) ;
     }
  
+void /*anachronism*/
  spraycom(  )
     {
     long a, b ;
@@ -114,6 +118,7 @@ return ;
  
  /* More new stuff */
  
+void /*anachronism*/
  dircom(  )
     {
     long a ;
@@ -142,6 +147,7 @@ return ;
     bprintf( "\n" ) ;
     }
  
+void /*anachronism*/
  sys_reset(  )
     {
     extern long my_lev ;
@@ -170,6 +176,7 @@ errk:t=my_lev ;
     }
  
  
+void /*anachronism*/
  dorune(  )
     {
     char bf[ 128 ] ;
@@ -194,6 +201,7 @@ errk:t=my_lev ;
     }
  
 
+void /*anachronism*/
  pepdrop(  )
     {
     extern long my_sco ;
@@ -235,6 +243,7 @@ if( l== -1 ) return( 0 ) ;
     return( 1 ) ;
     }
 
+void /*anachronism*/
 helpchkr()
 {
 	extern long mynum;

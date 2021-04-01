@@ -43,6 +43,7 @@ char key_buff[256];
 char pr_bf[32];
 long key_mode= -1;
 
+void /*anachronism*/
 key_input(ppt,len_max)
 char *ppt;
 int len_max;

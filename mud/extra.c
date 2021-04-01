@@ -15,6 +15,7 @@ long getnarg();
 
 
 
+void /*anachronism*/
 helpcom()
     {
 extern char wordbuf[];
@@ -79,6 +80,7 @@ if(brkword()!= -1)
     bprintf("\001f%s\001",LEVELS);
     }
  
+void /*anachronism*/
  valuecom()
     {
     long a,b;
@@ -98,6 +100,7 @@ if(brkword()!= -1)
     bprintf("%s : %d points\n",wordbuf,(tscale()*(obaseval(b)))/5);
     return;
     }
+void /*anachronism*/
  stacom()
     {
     long a,b;
@@ -135,6 +138,7 @@ else
     bprintf("\nBase Value  :%d",obaseval(a));
     bprintf("\n");
     }
+void /*anachronism*/
  examcom()
     {
     long a,b;
@@ -242,6 +246,7 @@ oclrbit(107,0);
  }
  }
  
+void /*anachronism*/
  statplyr()
  {
  extern char wordbuf[];
@@ -259,6 +264,7 @@ oclrbit(107,0);
  bprintf("Location  : ");
  showname(ploc(b));
  }
+void /*anachronism*/
  wizlist()
  {
  extern long my_lev;
@@ -271,6 +277,7 @@ oclrbit(107,0);
  bprintf("\001f%s\001",WIZLIST);
  }
  
+void /*anachronism*/
  incom()
  {
  extern long my_lev,curch;
@@ -330,6 +337,7 @@ if(unit==NULL){curch=y;bprintf("No such room\n");return;}
  lightcom();
  }
  
+void /*anachronism*/
  jumpcom()
  {
  long a,b;
@@ -364,6 +372,7 @@ if(unit==NULL){curch=y;bprintf("No such room\n");return;}
  
 long jumtb[]={-643,-633,-1050,-662,-1082,-1053,0,0};
 
+void /*anachronism*/
 wherecom()
  {
  extern long mynum,curch,my_lev,my_str;
@@ -418,6 +427,7 @@ if(my_lev>9999) bprintf("[%3d]",cha);
  bprintf("I dont know what that is\n");
  }
  
+void /*anachronism*/
  desrm(loc,cf)
  {
  extern long my_lev;
@@ -455,6 +465,7 @@ else bprintf("\n");
 
 
 
+void /*anachronism*/
 edit_world()
 {
 	extern long my_lev,numobs;

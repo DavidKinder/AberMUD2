@@ -34,6 +34,7 @@ extern char wordbuf[];
  */
  
  
+void /*anachronism*/
  setwthr(n)
     {
     extern long my_lev;
@@ -79,6 +80,7 @@ extern char wordbuf[];
     if(x!=n) sendsys(globme,globme,-10030,n,"");
     }
  
+void /*anachronism*/
  longwthr()
     {
     long a;
@@ -98,6 +100,7 @@ extern char wordbuf[];
     }
  
  
+void /*anachronism*/
  wthrrcv(type)
     {
     if(!outdoors()) return;
@@ -121,6 +124,7 @@ extern char wordbuf[];
           }
     }
  
+void /*anachronism*/
  showwthr()
     {
     extern long curch;
@@ -178,6 +182,7 @@ extern char wordbuf[];
     sendsys(globme,globme,-10000,curch,bk);
     }
  
+void /*anachronism*/
  laughcom()
     {
     if(chkdumb()) return;
@@ -185,6 +190,7 @@ extern char wordbuf[];
     bprintf("You start to laugh\n");
     }
  
+void /*anachronism*/
  purrcom()
     {
     if(chkdumb()) return;
@@ -192,6 +198,7 @@ extern char wordbuf[];
     bprintf("MMMMEMEEEEEEEOOOOOOOWWWWWWW!!\n");
     }
   
+void /*anachronism*/
  crycom()
     {
     if(chkdumb()) return;
@@ -205,6 +212,7 @@ extern char wordbuf[];
     bprintf("You sulk....\n");
     }
  
+void /*anachronism*/
  burpcom()
     {
     if(chkdumb()) return;
@@ -212,6 +220,7 @@ extern char wordbuf[];
     bprintf("You burp rudely\n");
     }
  
+void /*anachronism*/
  hiccupcom()
     {
     if(chkdumb()) return;
@@ -247,6 +256,7 @@ fartcom()
     bprintf("You wink\n");
     }
  
+void /*anachronism*/
  sniggercom()
     {
     if(chkdumb()) return;
@@ -254,6 +264,7 @@ fartcom()
     bprintf("You snigger\n");
     }
  
+void /*anachronism*/
  posecom()
     {
     long a;
@@ -348,6 +359,7 @@ starts sizzling with magical energy\n\001");
     }
  
  
+void /*anachronism*/
  setcom()
     {
     long a,b,c;
@@ -492,6 +504,7 @@ return(n);
 }
 }
 
+void /*anachronism*/
 setpflags()
 {
 	long a,b,c,d;

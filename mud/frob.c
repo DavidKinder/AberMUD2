@@ -1,4 +1,5 @@
 #include "anachronisms.h"
+void /*anachronism*/
 frobnicate()
 {
 	extern char wordbuf[];

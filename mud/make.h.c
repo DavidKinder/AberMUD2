@@ -42,6 +42,7 @@ main()
 }
 
 
+void /*anachronism*/
 packitems(ary)
 char *ary;
 {

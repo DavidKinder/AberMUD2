@@ -37,6 +37,7 @@ talker(globme);
  
 char privs[4];
 
+void /*anachronism*/
 crapup(str)
 char *str;
 {

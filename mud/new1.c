@@ -30,6 +30,7 @@ extern char wordbuf[];
     bprintf("B O I N G !!!!\n");
     }
  
+void /*anachronism*/
  sighcom()
     {
     if(chkdumb()) return;
@@ -37,6 +38,7 @@ extern char wordbuf[];
     bprintf("You sigh\n");
     }
  
+void /*anachronism*/
  screamcom()
     {
     if(chkdumb()) return;
@@ -74,6 +76,7 @@ extern char wordbuf[];
     }
  
  
+void /*anachronism*/
  opencom()
     {
     extern long mynum,curch;
@@ -127,6 +130,7 @@ break;
  
     }
  
+void /*anachronism*/
  closecom()
     {
     long a,b;
@@ -158,6 +162,7 @@ break;
           }
     }
  
+void /*anachronism*/
  lockcom()
     {
     long a,b;
@@ -187,6 +192,7 @@ break;
           }
     }
  
+void /*anachronism*/
  unlockcom()
     {
     long a,b;
@@ -218,6 +224,7 @@ break;
     }
  
  
+void /*anachronism*/
  wavecom()
     {
     extern long curch;
@@ -242,6 +249,7 @@ break ;
     bprintf("Nothing happens\n");
     }
  
+void /*anachronism*/
  blowcom()
     {
     extern long my_sco;
@@ -252,6 +260,7 @@ break ;
     }
  
  
+void /*anachronism*/
  putcom()
     {
     long a,b;
@@ -389,6 +398,7 @@ break ;
     }    
 }
  
+void /*anachronism*/
  lightcom()
     {
     extern long mynum,curch;
@@ -419,6 +429,7 @@ break ;
           }
     }
  
+void /*anachronism*/
  extinguishcom()
     {
     long a,b;
@@ -443,6 +454,7 @@ break ;
           }
     }
  
+void /*anachronism*/
  pushcom()
     {
     extern long curch;
@@ -568,6 +580,7 @@ break ;
           }
     }
  
+void /*anachronism*/
  cripplecom()
     {
     long a,b;
@@ -578,6 +591,7 @@ break ;
     sendsys(pname(a),globme,-10101,curch,"");
     }
  
+void /*anachronism*/
  curecom()
     {
     long a,b;
@@ -588,6 +602,7 @@ break ;
     sendsys(pname(a),globme,-10100,curch,"");
     }
  
+void /*anachronism*/
  dumbcom()
     {
     long a,b;
@@ -598,6 +613,7 @@ break ;
     sendsys(pname(a),globme,-10102,curch,"");
     }
  
+void /*anachronism*/
  forcecom()
     {
     long a,b;
@@ -610,6 +626,7 @@ break ;
     sendsys(pname(a),globme,-10103,curch,z);
     }
  
+void /*anachronism*/
  missilecom()
     {
     long a,b;
@@ -639,6 +656,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
 }
  
+void /*anachronism*/
  changecom()
     {
     long a,b;
@@ -662,6 +680,7 @@ break ;
     setpsex(a,1-psex(a));
     }
  
+void /*anachronism*/
  fireballcom()
     {
     long a,b;
@@ -697,6 +716,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
     }
  
+void /*anachronism*/
  shockcom()
     {
     long a,b;
@@ -731,6 +751,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
     }
  
+void /*anachronism*/
  starecom()
     {
     extern long mynum;
@@ -746,6 +767,7 @@ break ;
     bprintf("You stare at \001p%s\001\n",pname(a));
     }
  
+void /*anachronism*/
  gropecom()
     {
     extern long mynum;
@@ -764,6 +786,7 @@ break ;
     bprintf("<Well what sort of noise do you want here ?>\n");
     }
 
+void /*anachronism*/
  squeezecom()
     {
     extern long mynum;
@@ -781,6 +804,7 @@ break ;
     return;
     }
 
+void /*anachronism*/
  kisscom()
     {
     extern long mynum;
@@ -796,6 +820,7 @@ break ;
     bprintf("Slurp!\n");
     }
  
+void /*anachronism*/
  cuddlecom()
     {
     extern long mynum;
@@ -810,6 +835,7 @@ break ;
     sillytp(a,"cuddles you");
     }
 
+void /*anachronism*/
  hugcom()
     {
     extern long mynum;
@@ -824,6 +850,7 @@ break ;
     sillytp(a,"hugs you");
     }
  
+void /*anachronism*/
  slapcom()
     {
     extern long mynum;
@@ -838,6 +865,7 @@ break ;
     sillytp(a,"slaps you");
     }
  
+void /*anachronism*/
  ticklecom()
     {
     extern long mynum;
@@ -1186,6 +1214,7 @@ long  ail_deaf=0;
     return(1);
     }
  
+void /*anachronism*/
  wounded(n)
     {
     extern long my_str,my_lev,curch;
@@ -1235,6 +1264,7 @@ long  ail_deaf=0;
     }
  
  
+void /*anachronism*/
  mhitplayer(mon,mn)
     {
     extern long curch,my_lev,mynum;
@@ -1308,6 +1338,7 @@ PLAYER pinit[48]=
  
  
  
+void /*anachronism*/
  wearcom()
     {
     long a,b;
@@ -1339,6 +1370,7 @@ PLAYER pinit[48]=
     bprintf("OK\n");
     }
  
+void /*anachronism*/
  removecom()
     {
     long a,b;
@@ -1439,6 +1471,7 @@ case 33:return(10);
        }
     return(0);
     }
+void /*anachronism*/
  deafcom()
     {
     long a,b;
@@ -1449,6 +1482,7 @@ case 33:return(10);
     sendsys(pname(a),globme,-10120,curch,"");
     }
  
+void /*anachronism*/
 blindcom()
     {
     long a,b;

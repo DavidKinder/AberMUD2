@@ -219,6 +219,7 @@ int verbnum[]={1,1,2,3,4,5,6,7,2,3,4,5,6,7,8,9,9,10,11,12,12,12,13,14
 char *exittxt[]={"north","east","south","west","up","down","n","e","s","w","u","d",0};
 long exitnum[]={1,2,3,4,5,6,1,2,3,4,5,6};
  
+void /*anachronism*/
  doaction(n)
     {
     char xx[128];
@@ -719,6 +720,7 @@ dogocom(n)
     return(dodirn(a+1));
     }
  
+void /*anachronism*/
  dodirn(n)
     {
     extern long curch;
@@ -799,6 +801,7 @@ long rdes=0;
 long ades=0;
 long zapped;
 
+void /*anachronism*/
  gamrcv(blok)
  long *blok;
     {
@@ -1037,6 +1040,7 @@ FILE *openroom(n,mod)
     
 long me_cal=0;
 
+void /*anachronism*/
  rescom()
     {
     extern long my_lev;
@@ -1064,6 +1068,7 @@ long me_cal=0;
     resetplayers();
     }
  
+void /*anachronism*/
  lightning()
     {
     extern long my_lev;
@@ -1093,6 +1098,7 @@ long me_cal=0;
     broad("\001dYou hear an ominous clap of thunder in the distance\n\001");
     }
 
+void /*anachronism*/
  eatcom()
     {
     long b;
@@ -1157,6 +1163,7 @@ long me_cal=0;
        }
     }
  
+void /*anachronism*/
  calibme()
     {
     /* Routine to correct me in user file */
@@ -1202,6 +1209,7 @@ long me_cal=0;
     return(10);
     }
  
+void /*anachronism*/
  playcom()
     {
     extern char wordbuf[];
@@ -1235,6 +1243,7 @@ long me_cal=0;
     while(strbuf[stp]) addchar(blob,strbuf[stp++]);
     }
 
+void /*anachronism*/
  shoutcom()
     {
     extern long curch,my_lev;
@@ -1249,6 +1258,7 @@ long me_cal=0;
     bprintf("Ok\n");
     }
  
+void /*anachronism*/
  saycom()
     {
     extern long curch;
@@ -1260,6 +1270,7 @@ long me_cal=0;
     bprintf("You say '%s'\n",blob);
     }
 
+void /*anachronism*/
  tellcom()
     {
     extern long curch;
@@ -1282,6 +1293,7 @@ long me_cal=0;
     sendsys(pname(b),globme,-10004,curch,blob);
     }
  
+void /*anachronism*/
  scorecom()
     {
     extern long my_str,my_lev,my_sco;
@@ -1298,6 +1310,7 @@ long me_cal=0;
     disle3(my_lev,my_sex);
     }
 
+void /*anachronism*/
  exorcom()
     {
     long  x,a;
@@ -1332,6 +1345,7 @@ long me_cal=0;
     pname(x)[0]=0;
     }
  
+void /*anachronism*/
  givecom()
     {
     auto long  a,b;
@@ -1392,6 +1406,7 @@ long me_cal=0;
     dogive(c,a);
     }
  
+void /*anachronism*/
  dogive(ob,pl)
     {
     long  x;
@@ -1424,6 +1439,7 @@ long me_cal=0;
     return;
     }
 
+void /*anachronism*/
  stealcom()
     {
     extern long mynum;
@@ -1522,6 +1538,7 @@ long me_cal=0;
     trapch(curch);
     }
  
+void /*anachronism*/
  tsscom()
     {
     char s[128];
@@ -1539,6 +1556,7 @@ long me_cal=0;
     keysetup();
     }
  
+void /*anachronism*/
  rmeditcom()
     {
     extern long my_lev;
@@ -1573,6 +1591,7 @@ long me_cal=0;
     rte();
     }
  
+void /*anachronism*/
  u_system()
     {
     extern long my_lev;
@@ -1603,6 +1622,7 @@ long me_cal=0;
     sendsys(globme,globme,-10113,0,x);
     }
  
+void /*anachronism*/
  inumcom()
     {
     extern long my_lev;
@@ -1620,6 +1640,7 @@ long me_cal=0;
     bprintf("Item Number is %d\n",fobn(wordbuf));
     }
  
+void /*anachronism*/
  updcom()
     {
     extern long my_lev;
@@ -1640,6 +1661,7 @@ long me_cal=0;
     bprintf("Eeek! someones pinched the executable!\n");
     }
  
+void /*anachronism*/
  becom()
     {
     extern char globme[];
@@ -1667,6 +1689,7 @@ long me_cal=0;
     bprintf("Eek! someone's just run off with mud!!!!\n");
     }
  
+void /*anachronism*/
  systat()
     {
     extern long my_lev;
@@ -1684,6 +1707,7 @@ long me_cal=0;
     bprintf("Type '**' on a line of its own to exit converse mode\n");
     }
  
+void /*anachronism*/
  shellcom()
     {
     extern long convflg,my_lev;
@@ -1696,6 +1720,7 @@ long me_cal=0;
     bprintf("Type ** on its own on a new line to exit shell\n");
     }
  
+void /*anachronism*/
  rawcom()
     {
     extern long my_lev;
@@ -1718,6 +1743,7 @@ long me_cal=0;
        }
     }
  
+void /*anachronism*/
  rollcom()
     {
     auto long  a,b;
@@ -1736,6 +1762,7 @@ long me_cal=0;
  
 long brmode=0;
  
+void /*anachronism*/
  debugcom()
     {
     extern long my_lev;
@@ -1765,6 +1792,7 @@ typocom()
 	syslog("Typo by %s : %s",y,x);
 }
 
+void /*anachronism*/
 look_cmd()
 {
 	int a;
@@ -1814,6 +1842,7 @@ look_cmd()
 	aobjsat(a,3);
 }
 	
+void /*anachronism*/
 set_ms(x)
 char *x;
 {
@@ -1857,6 +1886,7 @@ setherecom()
 	set_ms(here_ms);
 }
 
+void /*anachronism*/
 digcom()
 {
         extern long curch;
@@ -1880,6 +1910,7 @@ digcom()
 	bprintf("You rapidly dig through to another passage.\n");
 }
 
+void /*anachronism*/
 emptycom()
 {
 	long a,b;

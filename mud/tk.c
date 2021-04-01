@@ -286,6 +286,7 @@ long findend(unit)
     }
  
  
+void /*anachronism*/
  talker(name)
  char *name;
     {
@@ -455,6 +456,7 @@ extern long curch;
  
 long mynum=0;
  
+void /*anachronism*/
  putmeon(name)
  char *name;
     {
@@ -558,6 +560,7 @@ long lasup=0;
        }
     }
  
+void /*anachronism*/
  lookin(room)
  long room; /* Lords ???? */
     {
@@ -638,6 +641,7 @@ extern long iamon;
 if(fpbns(globme)!= -1) {loseme();syslog("System Wrapup exorcised %s",globme);}
 }
 
+void /*anachronism*/
 fcloselock(file)
 FILE *file;
 {

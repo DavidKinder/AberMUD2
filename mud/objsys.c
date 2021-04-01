@@ -191,6 +191,7 @@ if(x!=-1) return(x);
     return(fobnsys(word,4,0));
     }
     
+void /*anachronism*/
  getobj()
     {
     extern long mynum;
@@ -288,6 +289,7 @@ extern long my_lev;
     return(1);
     }
 
+void /*anachronism*/
  dropitem()
     {
     extern long mynum,curch;
@@ -399,6 +401,7 @@ long ublock[16*49];
    bprintf("\n");
     }
 
+void /*anachronism*/
  dispuser(ubase)
     {
 extern long my_lev;
@@ -586,6 +589,7 @@ whocom();
 my_lev=a;
 }
  
+void /*anachronism*/
 oplong(x)
 {
 extern long debug_mode;

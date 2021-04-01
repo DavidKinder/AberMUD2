@@ -22,6 +22,7 @@ randperc()
     return(x%100);
 }
 
+void /*anachronism*/
 sumcom()
     {
     long a,b;
@@ -107,6 +108,7 @@ willwork:bprintf("You cast the summoning......\n");
     setoloc(a,mynum,1);
     }
 
+void /*anachronism*/
  delcom()
     {
     extern long my_lev;
@@ -130,6 +132,7 @@ willwork:bprintf("You cast the summoning......\n");
     chpwd(globme);
     }
 
+void /*anachronism*/
  goloccom()
     {
     extern long curch,my_lev;
@@ -170,6 +173,7 @@ willwork:bprintf("You cast the summoning......\n");
 
 
 
+void /*anachronism*/
  wizcom()
     {
     extern long my_lev;
@@ -188,6 +192,7 @@ willwork:bprintf("You cast the summoning......\n");
     rd_qd=1;
     }
 
+void /*anachronism*/
  viscom()
     {
     long f;
@@ -213,6 +218,7 @@ willwork:bprintf("You cast the summoning......\n");
     sillycom("\001s%s\001%s suddenely appears in a puff of smoke\n\001");
     }
 
+void /*anachronism*/
  inviscom()
     {
     extern long mynum,my_lev;
@@ -241,6 +247,7 @@ willwork:bprintf("You cast the summoning......\n");
     sillycom("\001c%s vanishes!\n\001");
     }
 
+void /*anachronism*/
  ressurcom()
     {
     extern long my_lev;

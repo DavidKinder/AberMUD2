@@ -134,6 +134,7 @@ void hitplayer(victim,wpn)
        }
     }
 
+void /*anachronism*/
  killcom()
     {
     long vic,a;

@@ -61,6 +61,7 @@ PERSONA *x;
 	return(personactl(name,x,PCTL_GET));
 }
 
+void /*anachronism*/
 delpers(name)
 char *name;
 {
@@ -81,6 +82,7 @@ l1:	i=(FILE *)personactl(name,&x,PCTL_FIND);
 
 
 
+void /*anachronism*/
 putpers(name,pers)
 char *name;
 PERSONA *pers;
@@ -139,6 +141,7 @@ long my_lev;
 long my_str;
 long my_sex;
 
+void /*anachronism*/
 initme()
 {
 	PERSONA x;
@@ -179,6 +182,7 @@ initme()
 	putpers(globme,&x);
 }
 
+void /*anachronism*/
 saveme()
 {
 	extern char globme[];

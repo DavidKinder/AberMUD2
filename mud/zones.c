@@ -132,6 +132,7 @@ char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
     sprintf(wd_there,"%s %d",a,b);
     bprintf( "\n" ) ;
     }
+void /*anachronism*/
  loccom(  )
     {
     extern long my_lev ;

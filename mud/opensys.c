@@ -5,6 +5,7 @@
 FILE *filrf=NULL;  /* - = not open */
 
 extern FILE *openlock(); 
+void /*anachronism*/
 closeworld()
 {
 	extern FILE *filrf;
