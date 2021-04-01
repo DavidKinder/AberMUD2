@@ -36,7 +36,7 @@ long debug_mode=0;
 void sendsys(to,from,codeword,chan,text)
 char *to,*from;
 long codeword,chan;
-char *text;
+/*char anachronism*/void *text;
     {
     long  block[128];
     long *i;
@@ -44,7 +44,7 @@ char *text;
     block[1]=codeword;
     block[0]=chan;
     sprintf((char *)(block+2),"%s%s%s%s",to,".",from,".");
-    if((codeword!= -9900)&&(codeword!= -10021)) strcpy((char *)(block+64),text);
+    if((codeword!= -9900)&&(codeword!= -10021)) strcpy((char *)(block+64),(char *)/*anachronism*/text);
     else
        {
        block[64]=i[0];
