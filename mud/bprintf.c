@@ -5,12 +5,14 @@
 
 long pr_due=0;
 
-void bprintf(args,arg1,arg2,arg3,arg4,arg5,arg6,arg7)
-char *args,*arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7;
+/*void bprintf(args,arg1,arg2,arg3,arg4,arg5,arg6,arg7) anachronism*/
+/*   char *args,*arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7; anachronism*/
+void bprintf(char* fmt, ...) /*anachronism*/
     {
     char x[256],a[40];  /* Max 240 chars/msg */
     long ct;
-    sprintf(x,args,arg1,arg2,arg3,arg4,arg5,arg6);
+    va_list ap; va_start(ap, fmt); snprintf(x, sizeof(x), fmt, ap); va_end(ap); /*anachronism*/
+    /*sprintf(x,args,arg1,arg2,arg3,arg4,arg5,arg6); anachronism*/
 if(strlen(x)>235)
 {
 syslog("Bprintf Short Buffer overflow");

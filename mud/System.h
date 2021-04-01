@@ -74,7 +74,7 @@ extern void bloodrcv();
 extern long me_cal;
 extern void breakitem();
 extern long pr_due;
-extern void bprintf();
+/*extern void bprintf(); anachronism*/
 extern void dcnprnt();
 extern int pfile();
 extern int pndeaf();

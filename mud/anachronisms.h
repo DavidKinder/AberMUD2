@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdarg.h>
 
 // blib.c
 char* cuserid(char* str);
@@ -186,6 +187,7 @@ void snoopcom();
 void chksnp();
 void makebfr();
 int seeplayer(int x);
+void bprintf(char* fmt, ...);
 
 // bbc.c
 void btmscr();

@@ -517,7 +517,7 @@ void crapup(ptr)
  *		called.
  */ 
  
-void bprintf()
+void /*anachronism*/unused_bprintf()
 {
 	printf("EEK - A function has trapped via the bprintf call\n");
 	exit(0);
