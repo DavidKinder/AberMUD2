@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.16)
 # Having better control over the compilation flags was kind of the
 # primary purpose of having a CMakeLists.txt in the first place.
 set(CMAKE_C_FLAGS
-  "-w"
+  "-Wno-implicit-int"
   )
 
 link_libraries(crypt)
