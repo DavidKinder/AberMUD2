@@ -137,6 +137,7 @@ int ptstflg(long ch, long x);
 int omaxstate(int ob);
 int phelping(int x); // truncated from long
 int setphelping(int x, int y); // really returns void
+long ppos(int chr);
 int setppos(int chr, int v);
 
 // objsys.c

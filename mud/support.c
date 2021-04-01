@@ -180,6 +180,7 @@ char * olongt(ob,st)
     return(otstbit(ob,0)?-1:0);
     }
 
+long /*anachronism*/
  ppos(chr)
     {
     extern long ublock[];
