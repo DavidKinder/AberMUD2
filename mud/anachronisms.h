@@ -214,7 +214,7 @@ void packitems(char *ary);
 // newuaf.c
 void saveme();
 void initme();
-//int resword(char* name); // also in gmainstubs.c
+int resword(char* name); // also in gmainstubs.c
 void delpers(char* name);
 
 // new1.c

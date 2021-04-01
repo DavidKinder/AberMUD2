@@ -227,6 +227,7 @@ saveme()
     }
  
 resword(name)
+char *name; /*anachronism*/
 {
 if(!strcmp(name,"The")) return(1);
 if(!strcmp(name,"Me")) return(1);
