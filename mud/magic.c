@@ -251,7 +251,7 @@ void /*anachronism*/
  ressurcom()
     {
     extern long my_lev;
-    long bf[32];
+    char/*long anachronism*/ bf[32*sizeof(long)/*anachronism*/];
     extern long curch;
     long a,b;
     extern char wordbuf[];

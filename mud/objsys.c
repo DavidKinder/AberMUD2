@@ -107,7 +107,7 @@ long ctrl,ct_inf;
     extern char wd_it[];
     extern long mynum;
     long a;
-    long l1[32],l2[32];
+    char l1[32*sizeof(long)],l2[32*sizeof(long)]/*long l1[32],l2[32] anachronism*/;
     extern char wordbuf[];
     strcpy(l1,nam);lowercase(l1);
     a=0;
@@ -295,7 +295,7 @@ void /*anachronism*/
     extern long mynum,curch;
     extern char wordbuf[],globme[];
     extern long my_sco;
-    long a,b,bf[32];
+    long a,b;/*, anachronism*/ char bf[32*sizeof(long)/*anachronism*/];
     extern long my_lev;
     if(brkword()==-1)
        {

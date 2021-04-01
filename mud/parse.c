@@ -808,7 +808,7 @@ void /*anachronism*/
     extern long zapped;
     extern long vdes,tdes,rdes,ades;
     extern char globme[];
-    auto long  zb[32];
+    auto char/*long anachronism*/  zb[32*sizeof(long)/*anachronism*/];
     long *i;
     extern long curch;
     extern long my_lev;
@@ -1031,7 +1031,7 @@ long me_drunk=0;
  
 FILE *openroom(n,mod)
     {
-    long  blob[64];
+    char/*long anachronism*/  blob[64*sizeof(long)/*anachronism*/];
     FILE *x;
     sprintf(blob,"%s%d",ROOMS,-n);
     x=fopen(blob,mod);
@@ -1410,7 +1410,7 @@ void /*anachronism*/
  dogive(ob,pl)
     {
     long  x;
-    auto z[32];
+    auto char/*anachronism*/ z[32*sizeof(int)/*anachronism*/];
     extern char globme[];
     extern long my_lev,curch;
     extern long mynum;

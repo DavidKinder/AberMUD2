@@ -101,7 +101,7 @@ sendmsg(name)
     long a;
 extern long tty;
     char work[200];
-    long w2[35];
+    char/*long anachronism*/ w2[35*sizeof(long)/*anachronism*/];
     extern char key_buff[];
     extern long convflg;
     extern long my_lev;

@@ -635,7 +635,7 @@ void /*anachronism*/
     extern long my_lev;
     extern long fighting,in_fight;
     extern long my_sco;
-    long ar[8];
+    char/*long anachronism*/ ar[8*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
     sprintf(ar,"%ld"/*anachronism*/,my_lev*2);
@@ -689,7 +689,7 @@ void /*anachronism*/
     extern char globme[];
     extern long my_lev;
     extern long my_sco;
-    long ar[2];
+    char/*long anachronism*/ ar[2*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
     if(mynum==a)
@@ -725,7 +725,7 @@ void /*anachronism*/
     extern long my_lev;
     extern long fighting,in_fight;    
     extern long my_sco;
-    long ar[2];
+    char/*long anachronism*/ ar[2*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
     if(a==mynum)

@@ -434,7 +434,7 @@ void /*anachronism*/
  FILE *a;
  FILE *unit;
  long b;
- long x[32];
+ char/*long anachronism*/ x[32*sizeof(long)/*anachronism*/];
  if((my_lev<10)&&(cf==0)&&(loc>-5))
  {
  bprintf("Somewhere.....\n");
