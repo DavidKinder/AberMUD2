@@ -230,7 +230,7 @@ oclrbit(107,0);
     break;
     }
  
- sprintf(r,"%s%d",EXAMINES,a);
+ sprintf(r,"%s%ld"/*anachronism*/,EXAMINES,a);
  x=fopen(r,"r");
  if(x==NULL)
  {

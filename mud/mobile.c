@@ -136,7 +136,7 @@ void /*anachronism*/
     while( a<numobs )
        {
        c=findzone( oloc( a ), b ) ;
-       sprintf( d, "%s%d", b, c ) ;
+       sprintf( d, "%s%ld"/*anachronism*/, b, c ) ;
        if( ocarrf( a ) ) strcpy( d, "CARRIED" ) ;
        if( ocarrf( a )==3 ) strcpy( d, "IN ITEM" ) ;
        bprintf( "%-13s%-13s", oname( a ), d ) ;

@@ -845,7 +845,7 @@ void /*anachronism*/
        case -599:
           if(isme)
              {
-             sscanf(text,"%d.%d.%d.",&my_lev,&my_sco,&my_str);
+             sscanf(text,"%ld.%ld.%ld."/*anachronism*/,&my_lev,&my_sco,&my_str);
              calibme();
              }
           break;
@@ -1181,7 +1181,7 @@ void /*anachronism*/
        bprintf("You are now %s ",globme);
        syslog("%s to level %d",globme,b);
        disle3(b,my_sex);
-       sprintf(sp,"\001p%s\001 is now level %d\n",globme,my_lev);
+       sprintf(sp,"\001p%s\001 is now level %ld\n"/*anachronism*/,globme,my_lev);
        sendsys(globme,globme,-10113,ploc(mynum),sp);
        if(b==10) bprintf("\001f%s\001",GWIZ);
        }
@@ -1787,7 +1787,7 @@ typocom()
 	char x[120],y[32];
 	extern char globme[];
 	extern long curch;
-	sprintf(y,"%s in %d",globme,curch);
+	sprintf(y,"%s in %ld"/*anachronism*/,globme,curch);
 	getreinput(x);
 	syslog("Typo by %s : %s",y,x);
 }

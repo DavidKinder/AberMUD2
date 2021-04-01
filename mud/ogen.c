@@ -49,11 +49,11 @@ i=(char *)&res; /* Arggghh urk throw up barf etc - such is B->C conversion */
 ps=scan(s2,str,0,"",":");
 ps=scan(s3,str,ps,":",":");
 ps=scan(s4,str,ps,":","");
-printf("Input line is %d\n",str);
+printf("Input line is %s\n"/*anachronism*/,str);
 res=binproc(s4)<<16; /* highest bits */
 res|=numarg(s2)<<8; /* Chars in lowest 16 bits */
 res|=numarg(s3);
-printf("Result=%d\n",res);
+printf("Result=%ld\n"/*anachronism*/,res);
 return(res);
 }
  
@@ -68,6 +68,6 @@ while((str[a])&&(str[a]!='\n'))
 b=b*2+(str[a]-'0');
 a++;
 }
-printf("Binproc of %s is %d\n",str,b);
+printf("Binproc of %s is %ld\n"/*anachronism*/,str,b);
 return(b);
 }
