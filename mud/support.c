@@ -281,7 +281,7 @@ a++;
 return(0);
 }
 
-phelping(x,y)
+phelping(x/*,y anachronism*/)
 {
 extern long ublock[];
 return(ublock[16*x+13]);

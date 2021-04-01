@@ -135,6 +135,7 @@ int psetflg(long ch, long x); // really returns void
 int pclrflg(long ch, long x); // really returns void
 int ptstflg(long ch, long x);
 int omaxstate(int ob);
+int phelping(int x); // truncated from long
 int setphelping(int x, int y); // really returns void
 int setppos(int chr, int v);
 
