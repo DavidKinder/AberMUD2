@@ -216,8 +216,9 @@ ocreate(ob)
 oclrbit(ob,0);
 }
 
-syslog(args,arg1,arg2)
-char *args,*arg1,*arg2;
+/*syslog(args,arg1,arg2) anachronism*/
+/*char *args,*arg1,*arg2; anachronism*/
+void syslog(char* fmt, ...) /*anachronism*/
 {
 extern char *strchr();	
 extern char *ctime();
@@ -230,7 +231,8 @@ z=ctime(&tm);
 x=openlock(LOG_FILE,"a");
 if(x==NULL) {loseme();crapup("Log fault : Access Failure"); }
 fprintf(x,"%s:  ",z);
-fprintf(x,args,arg1,arg2);
+va_list ap; va_start(ap, fmt); fprintf(x, fmt, ap); va_end(ap); /*anachronism*/
+/*fprintf(x,args,arg1,arg2); anachronism*/
 fprintf(x,"\n");
 fclose(x);
 }

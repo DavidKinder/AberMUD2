@@ -11,7 +11,7 @@ extern char * lowercase();
 extern void getty();
 extern void cls();
 extern void login();
-extern void syslog();
+/*extern void syslog(); anachronism*/
 extern void listfl();
 extern void talker();
 extern void crapup(); 
