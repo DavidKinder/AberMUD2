@@ -1235,6 +1235,7 @@ void /*anachronism*/
     }
 
  getreinput(blob)
+    char* blob; /*anachronism*/
     {
     extern long stp;
     extern char strbuf[];

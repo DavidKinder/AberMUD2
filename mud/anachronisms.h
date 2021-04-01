@@ -50,6 +50,7 @@ int send2(long* block);
 // parse.c
 int Match(char* x, char* y);
 void sendsys(char* to, char* from, long codeword, long chan, void* text);
+int getreinput(char* blob);
 void systat();
 void u_system();
 void calibme();
