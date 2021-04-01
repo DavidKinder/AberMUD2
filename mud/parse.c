@@ -1171,7 +1171,7 @@ void /*anachronism*/
     extern long mynum,my_sco,my_lev,my_str,my_sex,wpnheld;
     extern char globme[];
     long  b;
-    char *sp[128];
+    char /* * anachronism*/sp[128];
     extern long i_setup;
     if(!i_setup) return;
     b=levelof(my_sco);
