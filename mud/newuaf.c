@@ -20,6 +20,7 @@ struct uaf_being
 };
 
 typedef struct uaf_being PERSONA;
+int getpersona(FILE* file, PERSONA* pers); /*anachronism*/
 
 long personactl(name,d,act)
 char *name;
