@@ -275,7 +275,7 @@ a=0;
 mask=mask<<16;
 while(a<numobs)
 {
-if(((iscarrby(a,mynum))||(ishere(a,mynum)))&&(objinfo[4*a+2]&mask))return(1);
+  if(((iscarrby(a,mynum))||(ishere(a/*,mynum anachronism*/)))&&(objinfo[4*a+2]&mask))return(1);
 a++;
 }
 return(0);

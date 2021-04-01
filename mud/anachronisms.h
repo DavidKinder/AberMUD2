@@ -156,6 +156,7 @@ int disle3(int n, int s); // really returns void
 int lobjsat(int loc); // really returns void
 int aobjsat(int loc, int mode); // really returns void
 int iscontin(int o1, int o2);
+int ishere(int item);
 int iscarrby(int item, int user);
 void oplong(int x);
 void dispuser(int ubase);
