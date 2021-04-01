@@ -38,6 +38,7 @@ void putmeon(char* name);
 void talker(char* name);
 void lookin(long room);
 int update(char* name); // really returns void
+int rte(char* name); // really returns void
 int broad(char* message); // really returns void
 int trapch(long chan); // really returns void
 int split(long* block, char* nam1, char* nam2, char* work, char* luser);

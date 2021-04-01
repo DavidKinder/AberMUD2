@@ -1589,7 +1589,7 @@ void /*anachronism*/
        }
     sprintf(ms,"\001s%s\001%s re-enters the normal universe\n\001",globme,globme);
     sendsys(globme,globme,-10113,0,ms);
-    rte();
+    rte(globme/*anachronism*/);
     }
  
 void /*anachronism*/
@@ -1617,7 +1617,7 @@ void /*anachronism*/
        loseme();
        crapup("You have been kicked off");
        }
-    rte();
+    rte(globme/*anachronism*/);
     openworld();
     sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has returned to AberMud\n\001");
     sendsys(globme,globme,-10113,0,x);
