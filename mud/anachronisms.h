@@ -191,6 +191,9 @@ void topscr();
 int sig_init(); // really returns void
 int sig_alon(); // really returns void
 int sig_aloff(); // really returns void
+void sig_oops(int x);
+void sig_ctrlc(int x);
+void sig_occur(int x);
 int unblock_alarm(); // really returns void
 int block_alarm(); // really returns void
 int set_progname(int n, char *text); // really returns void

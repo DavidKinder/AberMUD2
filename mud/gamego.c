@@ -86,7 +86,7 @@ long sig_active=0;
 
 sig_alon()
 {
-	extern int sig_occur();
+	/*extern int sig_occur(); anachronism*/
 	sig_active=1;	
 	signal(SIGALRM,sig_occur);
 	alarm(2);
@@ -96,7 +96,7 @@ sig_alon()
 
 unblock_alarm()
 {
-	extern int sig_occur();
+	/*extern int sig_occur(); anachronism*/
 	signal(SIGALRM,sig_occur);
 	if(sig_active) alarm(2);
 }
@@ -116,7 +116,8 @@ sig_aloff()
 
 long interrupt=0;
 
-sig_occur()
+void /*anachronism*/
+sig_occur(int x/*anachronism*/)
 {
 	extern char globme[];
 	if(sig_active==0) return;
@@ -134,8 +135,8 @@ sig_occur()
 	
 sig_init()
 {
-	extern int sig_oops();
-	extern int sig_ctrlc();
+	/*extern int sig_oops(); anachronism*/
+	/*extern int sig_ctrlc(); anachronism*/
 	signal(SIGHUP,sig_oops);
 	signal(SIGINT,sig_ctrlc);
 	signal(SIGTERM,sig_ctrlc);
@@ -144,7 +145,8 @@ sig_init()
         signal(SIGCONT,sig_oops);
 }
 
-sig_oops()
+void /*anachronism*/
+sig_oops(int x/*anachronism*/)
 {
 	sig_aloff();
 	loseme();
@@ -152,7 +154,8 @@ sig_oops()
 	exit(255);
 }
 
-sig_ctrlc()
+void /*anachronism*/
+sig_ctrlc(int x/*anachronism*/)
 {
 	extern in_fight;
 	printf("^C\n");
