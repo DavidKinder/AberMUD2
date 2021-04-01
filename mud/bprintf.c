@@ -1,3 +1,4 @@
+#include "anachronisms.h"
 #include "files.h"
 #include <stdio.h>
 #include "System.h"
@@ -196,7 +197,7 @@ char *sysbuf=NULL;
 void makebfr()
     {
     extern char *sysbuf;
-    extern char *malloc();
+    /*extern char *malloc(); anachronism*/
     sysbuf=malloc(4096); /* 4K of chars should be enough for worst case */
     if(sysbuf==NULL) crapup("Out Of Memory");
     sysbuf[0]=0;

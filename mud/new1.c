@@ -1,3 +1,4 @@
+#include "anachronisms.h"
 struct player_res
 {
 	char *p_name;

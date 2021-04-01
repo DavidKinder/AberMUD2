@@ -1,3 +1,4 @@
+#include "anachronisms.h"
 #include <stdio.h>
 #include "files.h"
 extern FILE * openlock();
