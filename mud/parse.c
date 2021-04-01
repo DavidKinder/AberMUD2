@@ -717,7 +717,7 @@ dogocom(n)
        bprintf("Thats not a valid direction\n");
        return(-1);
        }
-    return(dodirn(a+1));
+    dodirn(a+1); return(0); /*anachronism*/
     }
  
 void /*anachronism*/

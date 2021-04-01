@@ -57,6 +57,7 @@ void doaction(int n);
 int dosumm(int loc);
 int levelof(int score);
 void dogive(int ob, int pl);
+void dodirn(int n);
 int eorte();
 void gamrcv(long* blok);
 int gamecom(char* str);
