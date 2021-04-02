@@ -66,7 +66,7 @@ aobjsat(loc,mode)  /* Carried Loc ! */
           {
           e=1;
               f+=1+strlen(oname(c));
-if(debug_mode){ f+=5;sprintf(x,"%d",c);sprintf(y,"{%-3s}",x);}
+if(debug_mode){ f+=5;sprintf(x,"%ld"/*anachronism*/,c);sprintf(y,"{%-3s}",x);}
 if(isdest(c)) f+=2;
 if(iswornby(c,loc)) f+=strlen("<worn> ");
           if(f>79)

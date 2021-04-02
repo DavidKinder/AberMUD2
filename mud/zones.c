@@ -129,7 +129,7 @@ char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
     b=findzone( loc, a ) ;
     bprintf( "%s%d", a, b ) ;
     if( my_lev>9999 )bprintf( "[ %d ]", loc ) ;
-    sprintf(wd_there,"%s %d",a,b);
+    sprintf(wd_there,"%s %ld"/*anachronism*/,a,b);
     bprintf( "\n" ) ;
     }
 void /*anachronism*/
