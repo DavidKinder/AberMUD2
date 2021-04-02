@@ -33,7 +33,7 @@ main()
 	char ary[2048];
 	if(getwd(ary)==0) 
 	{
-		fprintf(stderr,"Ermmm eek!:%s\n");
+		fprintf(stderr,"Ermmm eek!:\n"/*anachronism*/);
 		exit(0);
 	}
 	packitems(ary);
