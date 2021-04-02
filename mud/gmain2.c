@@ -26,7 +26,7 @@ void main(argc,argv)     /* The initial routine */
 int argc;
 char *argv[];
     {
-    int/*long anachronism*/ r;
+    long r;
     FILE *a;
     char user[80],b[40],space[400];
     int num;
@@ -118,17 +118,17 @@ char *argv[];
        if(r==60) {printf("1 minute\n");goto skip;};
        if(r<120){printf("1 minute and ");goto ski2;}
        if(r/60==60){printf("1 hour\n");goto skip;}
-       if(r<3600) {printf("%d minutes and ",r/60);goto ski2;}
+       if(r<3600) {printf("%ld minutes and "/*anachronism*/,r/60);goto ski2;}
        if(r<7200) printf("1 hour and ");
        else
-          printf("%d hours and ",r/3600);
-       if((r/60)%60!=1) printf("%d minutes.\n",(r/60)%60);
+          printf("%ld hours and "/*anachronism*/,r/3600);
+       if((r/60)%60!=1) printf("%ld minutes.\n"/*anachronism*/,(r/60)%60);
        else
           printf("1 minute\n");
        goto skip;
        ski2:if(r%60==1) printf("1 second\n");
        else
-          printf("%d seconds.\n",r%60);
+          printf("%ld seconds.\n"/*anachronism*/,r%60);
        }
     skip:login(user);                  /* Does all the login stuff */
     if(!qnmrq)
