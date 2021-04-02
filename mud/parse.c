@@ -1030,6 +1030,7 @@ eorte()
 long me_drunk=0;
  
 FILE *openroom(n,mod)
+char *mod; /*anachronism*/
     {
     char/*long anachronism*/  blob[64*sizeof(long)/*anachronism*/];
     FILE *x;
