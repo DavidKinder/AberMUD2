@@ -219,6 +219,9 @@ int chkbnid(char *user);
 
 // make.h.c
 void packitems(char *ary);
+// A safer version of getwd() that doesn't cause linker complaints.
+// Only called from make.h.c with a 2048 byte buffer.
+#define getwd(buf) getcwd(buf, 2048)
 
 // newuaf.c
 void saveme();
