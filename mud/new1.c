@@ -885,7 +885,7 @@ void /*anachronism*/
  vicbase(x)
  long *x;
     {
-    long a,b;
+    long a/*, anachronism*/; FILE *b;
     extern char wordbuf[];
     a0:if(brkword()== -1)
        {
