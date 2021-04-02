@@ -8,6 +8,8 @@ set(CMAKE_C_FLAGS
   )
 
 link_libraries(crypt)
+set(WORLDFILE "${CMAKE_CURRENT_BINARY_DIR}/worldfile")
+add_definitions(-DWORLD="${WORLDFILE}")
 
 add_executable(hmk make.h.c)
 
@@ -47,7 +49,7 @@ add_custom_target(
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/EXAMINES EXAMINES
   COMMAND ${CMAKE_COMMAND} -E remove mud_syslog reset_t reset_n user_file
   COMMAND ${CMAKE_COMMAND} -E touch mud_syslog reset_t reset_n user_file
-  #COMMAND ${CMAKE_COMMAND} -E remove /usr/tmp/-iy7AM
+  COMMAND ${CMAKE_COMMAND} -E remove ${WORLDFILE}
   # Originally from install2.sh
   COMMAND makeworld.util
   COMMAND ${CMAKE_COMMAND} -E echo "Game universe intialised"

@@ -13,7 +13,7 @@ void main()
         long x[64];
         long b;
         memset(x,0,64*sizeof(long));
-        a=fopen("/usr/tmp/-iy7AM","w");
+        a=fopen(/*"/usr/tmp/-iy7AM" anachronism*/WORLD,"w");
         x[0]=1;
         x[1]=1;
         sec_write(a,x,0,64);

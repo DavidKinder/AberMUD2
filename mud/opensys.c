@@ -22,7 +22,7 @@ FILE *openworld()
 	extern FILE *filrf;
         extern long objinfo[],numobs,ublock[];
 	if(filrf!=NULL) return(filrf);
-	filrf=openlock("/usr/tmp/-iy7AM","r+");
+	filrf=openlock(/*"/usr/tmp/-iy7AM" anachronism*/WORLD,"r+");
 	if(filrf==NULL)
 	   crapup("Cannot find World file");
 	sec_read(filrf,objinfo,400,4*numobs);
