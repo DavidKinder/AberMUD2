@@ -123,7 +123,7 @@ void /*anachronism*/
        bprintf("Who ?\n");
        return;
        }
-    if(delu2(wordbuf)== -1)bprintf("failed\n");
+    extern delu2(); delu2()/*if(delu2(wordbuf)== -1)bprintf("failed\n") anachronism*/;
     }
 
  passcom()

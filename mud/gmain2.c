@@ -5,6 +5,7 @@
 #include <sys/stat.h>
 #include "System.h"
 
+void delu2(char *name); /*anachronism*/
 
 char lump[256];
 int namegiv=0;
