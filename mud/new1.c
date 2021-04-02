@@ -1344,7 +1344,7 @@ void /*anachronism*/
     long a,b;
     extern long mynum;
     b=ohereandget(&a);
-    if(b== -1) return(-1);
+    if(b== -1) return/*(-1) anachronism*/;
     if(!iscarrby(a,mynum))
        {
        bprintf("You are not carrying this\n");
