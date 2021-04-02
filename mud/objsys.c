@@ -52,7 +52,7 @@ aobjsat(loc,1);
 aobjsat(loc,mode)  /* Carried Loc ! */
     {
     long a,b,c,d,e,f;
-    char x[6],y[6];
+    char x[6],y[8/*6 anachronism*/];
     extern long debug_mode;
     b=0;
     c=0;

@@ -349,7 +349,7 @@ void edituser()
     {
     long a;
     FILE *fl;
-    char name[80],block[256],bk2[256];
+    char name[80],block[256],bk2[261/*256 anachronism*/];
     char nam2[128],pas2[128],per2[128],pr2[128];
     cls();
     getunm(name);
@@ -487,7 +487,7 @@ void listfl(name)
  char *name;
     {
     FILE * unit;
-    char string[82];
+    char string[128/*82 anachronism*/];
     printf("\n");
     unit=openlock(name,"r+");
     if (unit==NULL) 

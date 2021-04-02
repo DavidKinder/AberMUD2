@@ -100,7 +100,7 @@ sendmsg(name)
     char prmpt[32];
     long a;
 extern long tty;
-    char work[200];
+    char work[284/*200 anachronism*/];
     char/*long anachronism*/ w2[35*sizeof(long)/*anachronism*/];
     extern char key_buff[];
     extern long convflg;
