@@ -204,7 +204,7 @@ if(in_fight) in_fight-=1;
     }
  
  readmsg(channel,block,num)
- long channel;
+ FILE*/*long anachronism*/ channel;
  long *block;
  int num;
     {
