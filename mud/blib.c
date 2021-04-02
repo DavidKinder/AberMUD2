@@ -58,6 +58,7 @@ char *str;
 }
 
 void gepass(str)
+char *str;/*anachronism*/
 {
 	char key[33],pw[16];
 
