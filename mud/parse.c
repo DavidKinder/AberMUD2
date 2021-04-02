@@ -1658,7 +1658,7 @@ void /*anachronism*/
     closeworld();
     sprintf(x,"%s",globme);
     execl(EXE,
-    "   --{----- ABERMUD -----}--   ",x,0);  /* GOTOSS eek! */
+    "   --{----- ABERMUD -----}--   ",x,NULL/*0 anachronism*/);  /* GOTOSS eek! */
     bprintf("Eeek! someones pinched the executable!\n");
     }
  
@@ -1686,7 +1686,7 @@ void /*anachronism*/
     loseme();
     closeworld();
     sprintf(x,"-n%s",x2);
-    execl(EXE2,"   --}----- ABERMUD ------   ",x,0);	/* GOTOSS eek! */
+    execl(EXE2,"   --}----- ABERMUD ------   ",x,NULL/*0 anachronism*/);	/* GOTOSS eek! */
     bprintf("Eek! someone's just run off with mud!!!!\n");
     }
  
