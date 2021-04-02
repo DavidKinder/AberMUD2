@@ -6,6 +6,7 @@
 #include "System.h"
 
 void delu2(char *name); /*anachronism*/
+void chpwd(char *user); /*anachronism*/
 
 char lump[256];
 int namegiv=0;

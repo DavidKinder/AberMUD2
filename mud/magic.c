@@ -129,6 +129,7 @@ void /*anachronism*/
  passcom()
     {
     extern char globme[];
+    void chpwd(char *user); /*anachronism*/
     chpwd(globme);
     }
 

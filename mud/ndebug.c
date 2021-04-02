@@ -7,7 +7,6 @@ delu2()
 }
 
 
-void /*anachronism*/
 chpwd()
 {
 	bprintf("To change your password select option 2 from the main menu\n");
