@@ -26,7 +26,7 @@ void main(argc,argv)     /* The initial routine */
 int argc;
 char *argv[];
     {
-    long r;
+    int/*long anachronism*/ r;
     FILE *a;
     char user[80],b[40],space[400];
     int num;
