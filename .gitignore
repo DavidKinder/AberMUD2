@@ -1,4 +1,4 @@
 *.exe
 *.1
 mud_syslog
-
+**/*~
