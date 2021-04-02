@@ -534,7 +534,7 @@ return(s);
  fpbns(name)
  char *name;
     {
-    char *n1[40],n2[40];
+    char /* * anachronism*/n1[40],n2[40];
     long a;
     a=0;
     while(a<48)
