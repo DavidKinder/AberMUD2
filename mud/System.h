@@ -42,7 +42,7 @@ extern int any();
 extern void gepass();
 extern int scan();
 extern char *getstr();
-extern void addchar();
+/*extern void addchar(); anachronism*/
 extern long numarg();
 extern void sec_read();
 extern void sec_write();

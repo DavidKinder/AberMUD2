@@ -23,6 +23,7 @@ int scan(char* out, char* in, int start, char* skips, char* stops);
 char* getstr(FILE* file, char* st);
 long numarg(char* str);
 char* lowercase(char* str);
+void addchar(char* str, char ch);
 
 // key.c
 int keysetup(); // really returns void
