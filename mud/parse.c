@@ -1363,7 +1363,7 @@ void /*anachronism*/
     if(a== -1)
        {
        bprintf("You aren't carrying that\n");
-       return(0);
+       return/*(0) anachronism*/;
        }
     /* a = item giving */
     if(brkword()== -1)

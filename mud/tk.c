@@ -300,7 +300,7 @@ void /*anachronism*/
     makebfr();
     	cms= -1;putmeon(name);
     if(openworld()==NULL) crapup("Sorry AberMUD is currently unavailable");
-    if (mynum>=maxu) {printf("\nSorry AberMUD is full at the moment\n");return(0);}
+    if (mynum>=maxu) {printf("\nSorry AberMUD is full at the moment\n");return/*(0) anachronism*/;}
     strcpy(globme,name);
     rte(name);
     	closeworld();
