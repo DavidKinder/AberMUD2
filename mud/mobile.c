@@ -83,7 +83,7 @@ void /*anachronism*/
     long a, b ;
     long c ;
     char bk[ 128 ] ;
-    extern long wordbuf[  ] ;
+    extern char/*long anachronism*/ wordbuf[  ] ;
     extern long mynum ;
     extern long curch ;
     b=vichere( &a ) ;
