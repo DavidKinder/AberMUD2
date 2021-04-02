@@ -158,13 +158,10 @@ long len;
 char *cuserid(str)
 char *str;
 {
-/*
 	extern char *strchr();
+	static char ary[128];
 	getpw(getuid(),ary);
 	*strchr(ary,':')=0;
-*/
-	static char ary[128];
-	strcpy(ary,getpwuid(getuid())->pw_name);
 	if(str!=NULL) strcpy(str,ary);
 	return(ary);
 }
