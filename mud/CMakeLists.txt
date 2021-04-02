@@ -58,7 +58,8 @@ add_custom_target(
   COMMAND ogenerate >ob.log
   COMMAND ${CMAKE_COMMAND} -E copy ob.out reset_data
   COMMAND ${CMAKE_COMMAND} -E echo "Reset data generated"
-  COMMAND ./makeuaf >uaf.rand
+  COMMAND makeuaf >uaf.rand
+  DEPENDS makeworld.util ogenerate makeuaf
   )
 
 set_property(
@@ -66,6 +67,7 @@ set_property(
   APPEND
   PROPERTY ADDITIONAL_CLEAN_FILES
   ${CMAKE_CURRENT_BINARY_DIR}/files.h
+  ${WORLDFILE}
   TEXT SNOOP EXAMINES
-  mud_syslog reset_t reset_n user_file reset_data ob.out uaf.rand
+  mud_syslog reset_t reset_n user_file reset_data ob.in ob.log ob.out uaf.rand
   )
