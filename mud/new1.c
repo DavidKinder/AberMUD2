@@ -882,6 +882,7 @@ void /*anachronism*/
  
  /* This one isnt for magic */
  
+long /*anachronism*/
  vicbase(x)
  long *x;
     {
@@ -901,7 +902,7 @@ void /*anachronism*/
        return(-1);
        }
     *x=a;
-    return(b);
+    return((long)/*anachronism*/b);
     }
  
  vichere(x)
