@@ -11,7 +11,8 @@ void bprintf(char* fmt, ...) /*anachronism*/
     {
     char x[256],a[40];  /* Max 240 chars/msg */
     long ct;
-    va_list ap; va_start(ap, fmt); snprintf(x, sizeof(x), fmt, ap); va_end(ap); /*anachronism*/
+
+    va_list ap; va_start(ap, fmt); vsnprintf(x, sizeof(x), fmt, ap); va_end(ap); /*anachronism*/
     /*sprintf(x,args,arg1,arg2,arg3,arg4,arg5,arg6); anachronism*/
 if(strlen(x)>235)
 {

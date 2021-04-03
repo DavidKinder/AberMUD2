@@ -231,7 +231,7 @@ z=ctime(&tm);
 x=openlock(LOG_FILE,"a");
 if(x==NULL) {loseme();crapup("Log fault : Access Failure"); }
 fprintf(x,"%s:  ",z);
-va_list ap; va_start(ap, fmt); fprintf(x, fmt, ap); va_end(ap); /*anachronism*/
+va_list ap; va_start(ap, fmt); vfprintf(x, fmt, ap); va_end(ap); /*anachronism*/
 /*fprintf(x,args,arg1,arg2); anachronism*/
 fprintf(x,"\n");
 fclose(x);
