@@ -45,7 +45,7 @@ add_custom_target(
   # Originally from install.sh
   COMMAND ${CMAKE_COMMAND} -E remove TEXT SNOOP EXAMINES
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/TEXT TEXT
-  COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/SNOOP SNOOP
+  COMMAND ${CMAKE_COMMAND} -E make_directory SNOOP
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/EXAMINES EXAMINES
   COMMAND ${CMAKE_COMMAND} -E remove mud_syslog reset_t reset_n user_file
   COMMAND ${CMAKE_COMMAND} -E touch mud_syslog reset_t reset_n user_file
