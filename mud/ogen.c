@@ -55,7 +55,7 @@ i=(char *)&res; /* Arggghh urk throw up barf etc - such is B->C conversion */
 ps=scan(s2,str,0,"",":");
 ps=scan(s3,str,ps,":",":");
 ps=scan(s4,str,ps,":","");
-printf("Input line is %d\n",str);
+printf("Input line is %s\n",str);
 res=binproc(s4)<<16; /* highest bits */
 res|=numarg(s2)<<8; /* Chars in lowest 16 bits */
 res|=numarg(s3);
