@@ -51,7 +51,7 @@ aobjsat(loc,1);
 void aobjsat(int loc,int mode)  /* Carried Loc ! */
     {
     long a,b,c,d,e,f;
-    char x[6],y[6];
+    char x[8],y[8];
     extern long debug_mode;
     b=0;
     c=0;

@@ -344,7 +344,7 @@ void edituser(void)
     {
     long a;
     FILE *fl;
-    char name[80],block[256],bk2[256];
+    char name[80],block[256],bk2[262/*256*/];
     char nam2[128],pas2[128],per2[128],pr2[128];
     cls();
     getunm(name);
@@ -480,7 +480,7 @@ char *getkbd(s,l)   /* Getstr() with length limit and filter ctrl */
 void listfl(char *name)
     {
     FILE * unit;
-    char string[82];
+    char string[128/*82*/];
     printf("\n");
     unit=openlock(name,"r+");
     if (unit==NULL) 

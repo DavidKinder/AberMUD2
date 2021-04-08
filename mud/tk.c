@@ -84,7 +84,7 @@ int sendmsg(char *name)
     long a;
 extern long tty;
     char work[200];
-    char w2[35*4];
+    char w2[284/*35*4*/];
     extern char key_buff[];
     extern long convflg;
     extern long my_lev;

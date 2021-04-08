@@ -1636,7 +1636,7 @@ void tellcom(void)
     {
     extern char globme[];
     extern long my_lev;
-    char x[128];
+    char x[130/*128*/];
     char x2[128];
     if(my_lev<10)
        {
@@ -1691,7 +1691,7 @@ void tellcom(void)
  void rawcom(void)
     {
     extern long my_lev;
-    char x[100],y[100];
+    char x[100],y[116/*100*/];
     if(my_lev<10000)
        {
        bprintf("I don't know that verb\n");
