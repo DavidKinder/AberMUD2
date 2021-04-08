@@ -1,3 +1,7 @@
+#include <stdio.h>
+
+#include "functions.h"
+
 struct player_res
 {
 	char *p_name;
@@ -13,30 +17,23 @@ typedef struct player_res PLAYER;
  Extensions section 1
  */
 
-#include <stdio.h>
-
-extern FILE * openuaf();
-extern FILE * openlock();
-extern char * oname();
-extern char * pname();
-extern FILE * openroom();
 extern char globme[];
 extern char wordbuf[];
  
- bouncecom()
+ void bouncecom(void)
     {
     sillycom("\001s%s\001%s bounces around\n\001");
     bprintf("B O I N G !!!!\n");
     }
  
- sighcom()
+ void sighcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d sighs loudly\n\001");
     bprintf("You sigh\n");
     }
  
- screamcom()
+ void screamcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d screams loudly\n\001");
@@ -46,8 +43,7 @@ extern char wordbuf[];
  /* Door is 6 panel 49
  */
  
- ohereandget(onm)
- long *onm;
+ int ohereandget(long *onm)
     {
     long b;
     extern char wordbuf[];
@@ -66,14 +62,14 @@ extern char wordbuf[];
     return(1);
     }
  
- state(ob)
+ int state(int ob)
     {
     extern long objinfo[];
     return(objinfo[4*ob+1]);
     }
  
  
- opencom()
+ void opencom(void)
     {
     extern long mynum,curch;
     long a,b;
@@ -91,7 +87,7 @@ break;
              }
           else
              {
-             setstate(1,1);
+             set_state(1,1);
              bprintf("The Umbrella Opens\n");
              }
           break;
@@ -113,12 +109,12 @@ break;
              bprintf("It's locked!\n");
              return;
              }
-          setstate(a,0);bprintf("Ok\n");
+          set_state(a,0);bprintf("Ok\n");
  
           }
     }
  
- setstate(o,v)
+ void set_state(int o,int v)
     {
     extern long objinfo[];
     objinfo[4*o+1]=v;
@@ -126,7 +122,7 @@ break;
  
     }
  
- closecom()
+ void closecom(void)
     {
     long a,b;
     b=ohereandget(&a);
@@ -138,7 +134,7 @@ break;
           else
              {
              bprintf("Ok\n");
-             setstate(1,0);
+             set_state(1,0);
              }
              break;
        default:
@@ -152,12 +148,12 @@ break;
              bprintf("It is open already\n");
              return;
              }
-          setstate(a,1);
+          set_state(a,1);
           bprintf("Ok\n");
           }
     }
  
- lockcom()
+ void lockcom(void)
     {
     long a,b;
     extern long mynum;
@@ -181,12 +177,12 @@ break;
              bprintf("It's already locked\n");
              return;
              }
-          setstate(a,2);
+          set_state(a,2);
           bprintf("Ok\n");
           }
     }
  
- unlockcom()
+ void unlockcom(void)
     {
     long a,b;
     extern long mynum;
@@ -211,13 +207,13 @@ break;
              return;
              }
           printf("Ok...\n");
-          setstate(a,1);
+          set_state(a,1);
           return;
           }
     }
  
  
- wavecom()
+ void wavecom(void)
     {
     extern long curch;
     long a,b;
@@ -228,7 +224,7 @@ break;
        case 136:
           if((state(151)==1)&&(oloc(151)==curch))
              {
-             setstate(150,0);
+             set_state(150,0);
              bprintf("The drawbridge is lowered!\n");
              return;
              }
@@ -241,7 +237,7 @@ break ;
     bprintf("Nothing happens\n");
     }
  
- blowcom()
+ void blowcom(void)
     {
     extern long my_sco;
     long a,b;
@@ -251,7 +247,7 @@ break ;
     }
  
  
- putcom()
+ void putcom(void)
     {
     long a,b;
     extern long my_sco;
@@ -301,12 +297,12 @@ break ;
        if(otstbit(a,13))
           {
           osetbit(10,13);
-          setstate(10,0);
+          set_state(10,0);
           return;
           }
        else
           {
-          setstate(10,1);
+          set_state(10,1);
           oclearbit(10,13);
           }
        return;
@@ -324,7 +320,7 @@ break ;
        if(a==108)
           {
           bprintf("The soap dissolves the slime away!\n");
-          setstate(137,0);
+          set_state(137,0);
           }
        return;
        }
@@ -352,7 +348,7 @@ break ;
        if((a==19)&&(state(21)==1))
           {
           bprintf("The door clicks open!\n");
-          setstate(20,0);
+          set_state(20,0);
           return;
           }
        bprintf("Nothing happens\n");
@@ -380,15 +376,15 @@ break ;
     bprintf("Ok.\n");
     sprintf(ar,"\001D%s\001\001c puts the %s in the %s.\n\001",globme,oname(a),oname(c));
     sendsys(globme,globme,-10000,curch,ar);
-    if(otstbit(a,12)) setstate(a,0);
+    if(otstbit(a,12)) set_state(a,0);
     if(curch==-1081) 
     {
-	setstate(20,1);
+	set_state(20,1);
 	bprintf("The door clicks shut....\n");
     }    
 }
  
- lightcom()
+ void lightcom(void)
     {
     extern long mynum,curch;
     long a,b;
@@ -412,13 +408,13 @@ break ;
              bprintf("It is lit\n");
              return;
              }
-          setstate(a,0);
+          set_state(a,0);
           osetbit(a,13);
           bprintf("Ok\n");
           }
     }
  
- extinguishcom()
+ void extinguishcom(void)
     {
     long a,b;
     b=ohereandget(&a);
@@ -436,13 +432,13 @@ break ;
              bprintf("You can't extinguish that!\n");
              return;
              }
-          setstate(a,1);
+          set_state(a,1);
           oclearbit(a,13);
           bprintf("Ok\n");
           }
     }
  
- pushcom()
+ void pushcom(void)
     {
     extern long curch;
     extern char wordbuf[];
@@ -474,7 +470,7 @@ break ;
        case 130:
           if(state(132)==1)
              {
-             setstate(132,0);
+             set_state(132,0);
              bprintf("A secret panel opens in the east wall!\n");
              break;
              }
@@ -484,7 +480,7 @@ break ;
           if(state(134)==1)
              {
              bprintf("Uncovering a hole behind it.\n");
-             setstate(134,0);
+             set_state(134,0);
              }
           break;
        case 138:
@@ -496,17 +492,17 @@ break ;
           else
              {
              bprintf("You hear a gurgling noise and then silence.\n");
-             setstate(137,0);
+             set_state(137,0);
              }
           break;
        case 146:
           ;
        case 147:
-          setstate(146,1-state(146));
+          set_state(146,1-state(146));
           bprintf("Ok...\n");
           break;
        case 30:
-          setstate(28,1-state(28));
+          set_state(28,1-state(28));
           if(state(28))
              {
              sendsys("","",-10000,oloc(28),"\001cThe portcullis falls\n\001");
@@ -519,7 +515,7 @@ break ;
              }
           break;
        case 149:
-          setstate(150,1-state(150));
+          set_state(150,1-state(150));
           if(state(150))
              {
              sendsys("","",-10000,oloc(150),"\001cThe drawbridge rises\n\001");
@@ -534,7 +530,7 @@ break ;
        case 24:
           if(state(26)==1)
              {
-             setstate(26,0);
+             set_state(26,0);
              bprintf("A secret door slides quietly open in the south wall!!!\n");
              }
           else
@@ -553,13 +549,13 @@ break ;
        	  def2:
           if(otstbit(x,4))
              {
-             setstate(x,0);
+             set_state(x,0);
              oplong(x);
              return;
              }
           if(otstbit(x,5))
              {
-             setstate(x,1-state(x));
+             set_state(x,1-state(x));
              oplong(x);
              return;
              }
@@ -567,7 +563,7 @@ break ;
           }
     }
  
- cripplecom()
+ void cripplecom(void)
     {
     long a,b;
     extern char globme[];
@@ -577,7 +573,7 @@ break ;
     sendsys(pname(a),globme,-10101,curch,"");
     }
  
- curecom()
+ void curecom(void)
     {
     long a,b;
     extern char globme[];
@@ -587,7 +583,7 @@ break ;
     sendsys(pname(a),globme,-10100,curch,"");
     }
  
- dumbcom()
+ void dumbcom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -597,7 +593,7 @@ break ;
     sendsys(pname(a),globme,-10102,curch,"");
     }
  
- forcecom()
+ void forcecom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -609,7 +605,7 @@ break ;
     sendsys(pname(a),globme,-10103,curch,z);
     }
  
- missilecom()
+ void missilecom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -617,7 +613,7 @@ break ;
     extern long my_lev;
     extern long fighting,in_fight;
     extern long my_sco;
-    long ar[8];
+    char/*long*/ ar[8*4];
     b=vichfb(&a);
     if(b== -1) return;
     sprintf(ar,"%d",my_lev*2);
@@ -638,7 +634,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
 }
  
- changecom()
+ void changecom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -661,7 +657,7 @@ break ;
     setpsex(a,1-psex(a));
     }
  
- fireballcom()
+ void fireballcom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -669,7 +665,7 @@ break ;
     extern char globme[];
     extern long my_lev;
     extern long my_sco;
-    long ar[2];
+    char/*long*/ ar[2*4];
     b=vichfb(&a);
     if(b== -1) return;
     if(mynum==a)
@@ -696,7 +692,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
     }
  
- shockcom()
+ void shockcom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -704,7 +700,7 @@ break ;
     extern long my_lev;
     extern long fighting,in_fight;    
     extern long my_sco;
-    long ar[2];
+    char/*long*/ ar[2*4];
     b=vichfb(&a);
     if(b== -1) return;
     if(a==mynum)
@@ -730,7 +726,7 @@ break ;
     if(a>15) woundmn(a,2*my_lev);
     }
  
- starecom()
+ void starecom(void)
     {
     extern long mynum;
     long a,b;
@@ -745,7 +741,7 @@ break ;
     bprintf("You stare at \001p%s\001\n",pname(a));
     }
  
- gropecom()
+ void gropecom(void)
     {
     extern long mynum;
     long a,b;
@@ -763,7 +759,7 @@ break ;
     bprintf("<Well what sort of noise do you want here ?>\n");
     }
 
- squeezecom()
+ void squeezecom(void)
     {
     extern long mynum;
     long a,b;
@@ -780,7 +776,7 @@ break ;
     return;
     }
 
- kisscom()
+ void kisscom(void)
     {
     extern long mynum;
     long a,b;
@@ -795,7 +791,7 @@ break ;
     bprintf("Slurp!\n");
     }
  
- cuddlecom()
+ void cuddlecom(void)
     {
     extern long mynum;
     long a,b;
@@ -809,7 +805,7 @@ break ;
     sillytp(a,"cuddles you");
     }
 
- hugcom()
+ void hugcom(void)
     {
     extern long mynum;
     long a,b;
@@ -823,7 +819,7 @@ break ;
     sillytp(a,"hugs you");
     }
  
- slapcom()
+ void slapcom(void)
     {
     extern long mynum;
     long a,b;
@@ -837,7 +833,7 @@ break ;
     sillytp(a,"slaps you");
     }
  
- ticklecom()
+ void ticklecom(void)
     {
     extern long mynum;
     long a,b;
@@ -853,8 +849,7 @@ break ;
  
  /* This one isnt for magic */
  
- vicbase(x)
- long *x;
+ long vicbase(long *x)
     {
     long a,b;
     extern char wordbuf[];
@@ -863,7 +858,7 @@ break ;
        bprintf("Who ?\n");
        return(-1);
        }
-    b=openworld();
+    b=(long)openworld();
     if(!strcmp(wordbuf,"at")) goto a0; /* STARE AT etc */
     a=fpbn(wordbuf);
     if(a== -1)
@@ -875,8 +870,7 @@ break ;
     return(b);
     }
  
- vichere(x)
-long *x;
+ long vichere(long *x)
     {
     extern long curch;
     long a;
@@ -891,8 +885,7 @@ long *x;
     }
  
  
- vicf2(x,f1)
-long *x;
+ long vicf2(long *x,int f1)
     {
     extern long mynum;
     long a;
@@ -929,13 +922,11 @@ if(iscarrby(163,mynum)) i++;
        }
     }
  
- vicfb(x)
- long *x;
+ long vicfb(long *x)
     {
     return(vicf2(x,0));
     }
- vichfb(x)
- long *x;
+ long vichfb(long *x)
     {
     long a;
     extern long curch;
@@ -949,14 +940,12 @@ if(iscarrby(163,mynum)) i++;
     return(a);
     }
  
- victim(x)
-    	long *x;
+ long victim(long *x)
     {
     return(vicf2(x,1));
     }
  
- sillytp(per,msg)
- char *msg;
+ void sillytp(int per,char *msg)
     {
     extern long curch;
     extern char globme[];
@@ -974,8 +963,7 @@ long  ail_blind=0;
 long  ail_deaf=0;
  
  
- new1rcv(isme,chan,to,from,code,text)
- char *to,*from,*text;
+ void new1rcv(int isme,int chan,char *to,char *from,int code,char *text)
     {
     extern long mynum,my_lev,ail_dumb,ail_crip;
     extern long ail_deaf,ail_blind;
@@ -1118,12 +1106,12 @@ long  ail_deaf=0;
           }
     }
  
- destroy(ob)
+ void destroy(int ob)
     {
     osetbit(ob,0);
     }
  
- tscale()
+ int tscale(void)
     {
     long a,b;
     a=0;
@@ -1154,7 +1142,7 @@ long  ail_deaf=0;
           }
     }
  
- chkdumb()
+ int chkdumb(void)
     {
     extern long ail_dumb;
     if(!ail_dumb) return(0);
@@ -1162,7 +1150,7 @@ long  ail_deaf=0;
     return(1);
     }
  
- chkcrip()
+ int chkcrip(void)
     {
     extern long ail_crip;
     if(!ail_crip) return(0);
@@ -1170,7 +1158,7 @@ long  ail_deaf=0;
     return(1);
     }
 
- chkblind()
+ int chkblind(void)
     {
     extern long ail_blind;
     if(!ail_blind) return(0);
@@ -1178,14 +1166,14 @@ long  ail_deaf=0;
     return(1);
     }
  
- chkdeaf()
+ int chkdeaf(void)
     {
     extern long ail_deaf;
     if(!ail_deaf) return(0);
     return(1);
     }
  
- wounded(n)
+ void wounded(int n)
     {
     extern long my_str,my_lev,curch;
     extern long me_cal;
@@ -1210,7 +1198,7 @@ long  ail_deaf=0;
     crapup("Oh dear you just died\n");
     }
  
- woundmn(mon,am)
+ void woundmn(int mon,int am)
     {
     extern long mynum;
     extern char globme[];
@@ -1234,7 +1222,7 @@ long  ail_deaf=0;
     }
  
  
- mhitplayer(mon,mn)
+ void mhitplayer(int mon,int mn)
     {
     extern long curch,my_lev,mynum;
     long a,b,x[4];
@@ -1259,11 +1247,11 @@ if((iswornby(89,mynum))||(iswornby(113,mynum))||(iswornby(114,mynum)))
        x[0]=mon;
        x[2]= -1;
        x[1]= -1;
-       sendsys(globme,pname(mon),-10021,ploc(mon),x) ;
+       sendsys(globme,pname(mon),-10021,ploc(mon),(char *)x) ;
        }
     }
  
- resetplayers()
+ void resetplayers(void)
     {
     extern PLAYER pinit[];
     long a,b,c;
@@ -1307,12 +1295,12 @@ PLAYER pinit[48]=
  
  
  
- wearcom()
+ void wearcom(void)
     {
     long a,b;
     extern long mynum;
     b=ohereandget(&a);
-    if(b== -1) return(-1);
+    if(b== -1) return/*(-1)*/;
     if(!iscarrby(a,mynum))
        {
        bprintf("You are not carrying this\n");
@@ -1338,7 +1326,7 @@ PLAYER pinit[48]=
     bprintf("OK\n");
     }
  
- removecom()
+ void removecom(void)
     {
     long a,b;
     extern long mynum;
@@ -1351,21 +1339,20 @@ PLAYER pinit[48]=
     setcarrf(a,1);
     }
  
- setcarrf(o,n)
+ void setcarrf(int o,int n)
     {
     extern long objinfo[];
     objinfo[4*o+3]=n;
     }
  
- iswornby(item,chr)
+ int iswornby(int item, int chr)
     {
     if(!iscarrby(item,chr)) return(0);
     if(ocarrf(item)!=2) return(0);
     return(1);
     }
 
- addforce(x)
- char *x;
+ void addforce(char *x)
     {
     extern char acfor[];
     extern long forf;
@@ -1377,7 +1364,7 @@ PLAYER pinit[48]=
 long forf=0;
 char acfor[128];
  
- forchk()
+ void forchk(void)
     {
     extern long forf;
     extern char acfor[];
@@ -1389,7 +1376,7 @@ char acfor[128];
     }
  
 long isforce=0;
- damof(n)
+ int damof(int n)
     {
     switch(n)
        {
@@ -1413,7 +1400,7 @@ case 33:return(10);
           return(10);
           }
     }
- canwear(a)
+ int canwear(int a)
     {
     switch(a)
        {
@@ -1422,8 +1409,7 @@ case 33:return(10);
           return(0);
           }
     }
- iam(x)
- char *x;
+ int iam(char *x)
     {
     char a[64],b[64];
     extern char globme[];
@@ -1438,7 +1424,7 @@ case 33:return(10);
        }
     return(0);
     }
- deafcom()
+ void deafcom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -1448,7 +1434,7 @@ case 33:return(10);
     sendsys(pname(a),globme,-10120,curch,"");
     }
  
-blindcom()
+void blindcom(void)
     {
     long a,b;
     extern long mynum,curch;
@@ -1458,8 +1444,7 @@ blindcom()
     sendsys(pname(a),globme,-10105,curch,"");
     }
 
-teletrap(newch)
-long newch;
+void teletrap(long newch)
 {
        extern long curch;
        char block[200];
@@ -1471,7 +1456,7 @@ long newch;
        trapch(curch);
 }
 
-on_flee_event()
+void on_flee_event(void)
 {
 	extern long  numobs;
 	extern long mynum;

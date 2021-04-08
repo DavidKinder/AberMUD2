@@ -1,7 +1,7 @@
 #
 #
 #
-OBJ =	blib.o gmain2.o gmainstubs.o gmlnk.o obdat.o flock.o
+OBJ =	blib.o gmain2.o gmainstubs.o gmlnk.o obdat.o
 INCL=	object.h files.h System.h
 
 mud.1:	${OBJ}
@@ -10,6 +10,6 @@ mud.1:	${OBJ}
 #	chmod 4711 mud.1
 
 .c.o:
-	gcc $*.c -c -w
+	gcc $*.c -c
 
 ${OBJ}:	${INCL}

@@ -1,6 +1,9 @@
-#include "files.h"
 #include <stdio.h>
+#include <unistd.h>
+
+#include "files.h"
 #include "System.h"
+#include "functions.h"
 
 void talker(nam)
 char *nam;

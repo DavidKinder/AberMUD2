@@ -1,4 +1,6 @@
-frobnicate()
+#include "functions.h"
+
+void frobnicate(void)
 {
 	extern char wordbuf[];
 	extern long my_lev;

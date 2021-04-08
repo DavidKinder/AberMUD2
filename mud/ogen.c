@@ -1,13 +1,21 @@
 #include <stdio.h>
 
-main()
+#include "functions.h"
+
+void saveout(int n);
+int loadup(void);
+long flags(char *str);
+long binproc(char *str);
+
+int main()
 {
 saveout(loadup());
+return 0;
 }
  
 long blob[10000];
  
-saveout(n)
+void saveout(int n)
 {
 FILE *a;
 extern long blob[];
@@ -16,11 +24,11 @@ sec_write(a,blob,0,n);
 fclose(a);
 }
  
-loadup()
+int loadup(void)
 {
 FILE *a;
-auto b;
-auto ctt;
+int/*auto*/ b;
+int/*auto*/ ctt;
 extern long blob[];
 char c[128];
 b=0;
@@ -37,8 +45,7 @@ fclose(a);
 return(b);
 }
  
-flags(str)
-char *str;
+long flags(char *str)
 {
 char s2[16],s3[16],s4[128];
 long ps;
@@ -56,8 +63,7 @@ printf("Result=%d\n",res);
 return(res);
 }
  
-binproc(str)
-char *str;
+long binproc(char *str)
 {
 long a,b,c;
 a=0;

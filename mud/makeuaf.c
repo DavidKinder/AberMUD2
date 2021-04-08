@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 struct uaf_being
 {
@@ -9,7 +10,7 @@ struct uaf_being
 	long p_level;
 };
 
-main()
+int main()
 {
 	struct uaf_being x;
 	x.p_sex=0;
@@ -18,5 +19,6 @@ main()
 	x.p_strength=100;
 	strcpy(x.p_name,"Debugger");
 	fwrite(&x,1,sizeof(struct uaf_being),stdout);
+  return 0;
 }
 	

@@ -1,32 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+
+#include "functions.h"
+
 /*
 
- Object structure
+Object structure
 
- Name,
- Long Text 1
- Long Text 2
- Long Text 3
- Long Text 4
- statusmax
- Value
- flags (0=Normal 1+flannel)
+Name,
+Long Text 1
+Long Text 2
+Long Text 3
+Long Text 4
+statusmax
+Value
+flags (0=Normal 1+flannel)
 
- */
+*/
 
 #define NOBS 194
 #define OBMUL 8
-#include <stdio.h>
 
 long numobs=NOBS;
-extern FILE *openlock();
-extern FILE *openworld();
-extern char * oname();
-extern char * pname();
 
 long objinfo[NOBS*4];
 
 
- inventory()
+ void inventory(void)
     {
     extern long mynum;
    bprintf("You are carrying\n");
@@ -42,13 +42,13 @@ long objinfo[NOBS*4];
  Flag 1=carr 0=here
  */
 
-lobjsat(loc)
+void lobjsat(int loc)
 {
 aobjsat(loc,1);
 }
 
 
-aobjsat(loc,mode)  /* Carried Loc ! */
+void aobjsat(int loc,int mode)  /* Carried Loc ! */
     {
     long a,b,c,d,e,f;
     char x[6],y[6];
@@ -89,7 +89,7 @@ bprintf(" ");
     }
 
 
-iscontin(o1,o2)
+int iscontin(int o1,int o2)
 {
 extern long my_lev;
 if(ocarrf(o1)!=3) return(0)
@@ -99,14 +99,12 @@ if((my_lev<10)&&(isdest(o1)))return(0);
 return(1);
 }
 
-fobnsys(nam,ctrl,ct_inf)
-char *nam;
-long ctrl,ct_inf;
+long fobnsys(char *nam,long ctrl,long ct_inf)
 {
     extern char wd_it[];
     extern long mynum;
     long a;
-    long l1[32],l2[32];
+    char/*long*/ l1[32*4],l2[32*4];
     extern char wordbuf[];
     strcpy(l1,nam);lowercase(l1);
     a=0;
@@ -150,8 +148,7 @@ if(!strcmp(l1,"green")) {brkword();return(6);}
     return(-1);
     }
 
- fobn(word)
- char *word;
+ long fobn(char *word)
     {
 long x;
 x=fobna(word);
@@ -159,38 +156,32 @@ if(x!=-1) return(x);
     return(fobnsys(word,0,0));
     }
 
- fobna(word)
- char *word;
+ long fobna(char *word)
     {
     return(fobnsys(word,1,0));
     }
 
- fobnin(word,ct)
- char *word;
- long ct;
+ long fobnin(char *word,long ct)
  {
  	return(fobnsys(word,5,ct));	
  }
 
- fobnc(word)
- char *word;
+ long fobnc(char *word)
     {
     return(fobnsys(word,2,0));
     }
 
- fobncb(word,by)
- char *word;
+ long fobncb(char *word,int by)
     {
     return(fobnsys(word,3,by));
     }
 
- fobnh(word)
- char *word;
+ long fobnh(char *word)
     {
     return(fobnsys(word,4,0));
     }
     
- getobj()
+ void getobj(void)
     {
     extern long mynum;
     extern char globme[];
@@ -258,15 +249,15 @@ if((a==32)&&(state(a)==1)&&(ptothlp(mynum)==-1))
     sprintf(bf,"\001D%s\001\001c takes the %s\n\001",globme,oname(a));
    bprintf("Ok...\n");
     sendsys(globme,globme,-10000,curch,bf);
-if(otstbit(a,12)) setstate(a,0);
+if(otstbit(a,12)) set_state(a,0);
 if(curch==-1081) 
 {
-	setstate(20,1);
+	set_state(20,1);
 	bprintf("The door clicks shut....\n");
 }
     }
 
- ishere(item)
+ int ishere(int item)
     {
     extern long curch;
     long a;
@@ -277,7 +268,7 @@ extern long my_lev;
     return(1);
     }
 
- iscarrby(item,user)
+ int iscarrby(int item,int user)
     {
     extern long curch;
 extern long my_lev;
@@ -287,12 +278,13 @@ extern long my_lev;
     return(1);
     }
 
- dropitem()
+ void dropitem(void)
     {
     extern long mynum,curch;
     extern char wordbuf[],globme[];
     extern long my_sco;
-    long a,b,bf[32];
+    long a,b/*,bf[32]*/;
+    char bf[32*4];
     extern long my_lev;
     if(brkword()==-1)
        {
@@ -323,14 +315,14 @@ return;
     calibme();
 setoloc(a,-6,0);
     }
- lisobs()
+ void lisobs(void)
     {
     lojal2(1);
     showwthr();
     lojal2(0);
     }
 
- lojal2(n)
+ void lojal2(int n)
     {
     extern char wd_it[];
     long a;
@@ -351,14 +343,14 @@ setoloc(a,-6,0);
        a++;
        }
     }
- dumpitems()
+ void dumpitems(void)
     {
     extern long mynum;
     extern long curch;
     dumpstuff(mynum,curch);
     }
 
- dumpstuff(n,loc)
+ void dumpstuff(int n, int loc)
     {
     long b;
     b=0;
@@ -376,7 +368,7 @@ setoloc(a,-6,0);
 long ublock[16*49];
 
 
- whocom()
+ void whocom(void)
     {
     long a;
     extern long my_lev;
@@ -398,7 +390,7 @@ long ublock[16*49];
    bprintf("\n");
     }
 
- dispuser(ubase)
+ void dispuser(int ubase)
     {
 extern long my_lev;
     if(pstr(ubase)<0) return; /* On  Non game mode */
@@ -411,12 +403,12 @@ if(ppos(ubase)==-2) bprintf(" [Absent From Reality]");
 bprintf("\n");
     }
 
- disle3(n,s)
+ void disle3(int n,int s)
     {
     disl4(n,s);
    bprintf("\n");
     }
- disl4(n,s)
+ void disl4(int n,int s)
     {
     extern long hasfarted;
     switch(n)
@@ -516,8 +508,7 @@ case -31:bprintf("the Acolyte");break;
           break;
           }
     }
-fpbn(name)
-char *name;
+long fpbn(char *name)
 {
 long s;
 extern char wd_them[],wd_him[],wd_her[],wd_it[];
@@ -527,10 +518,9 @@ if(!seeplayer(s)) return(-1);
 return(s);
 }
 
- fpbns(name)
- char *name;
+ long fpbns(char *name)
     {
-    char *n1[40],n2[40];
+    char/*char **/n1[40*4],n2[40*4];
     long a;
     a=0;
     while(a<48)
@@ -544,7 +534,7 @@ if((!!strlen(n2))&&(!strcmp(n1,n2))) return(a);
        }
     return(-1);
     }
- lispeople()
+ void lispeople(void)
     {
     extern long debug_mode;
     extern long curch;
@@ -575,7 +565,7 @@ if((!!strlen(n2))&&(!strcmp(n1,n2))) return(a);
        }
     }
  
-usercom()
+void usercom(void)
 {
 extern long my_lev;
 long a;
@@ -585,7 +575,7 @@ whocom();
 my_lev=a;
 }
  
-oplong(x)
+void oplong(int x)
 {
 extern long debug_mode;
 if(debug_mode) 

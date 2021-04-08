@@ -1,8 +1,11 @@
-#include "files.h"
 #include <stdio.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+#include "files.h"
 #include "System.h"
+#include "functions.h"
 
 
 char lump[256];
@@ -145,8 +148,7 @@ char *argv[];
 char usrnam[44];
  
  
-void login(user)     /* The whole login system is called from this */
- char *user;
+void login(char *user)     /* The whole login system is called from this */
     {
     long un1;
     char usermc[80],a[80],tim[80],dat[80],c;
@@ -191,12 +193,10 @@ void login(user)     /* The whole login system is called from this */
     logpass(user);        /* Password checking */
     }
  
-int chkbnid(user)   /* Check to see if UID in banned list */
- char *user;
+int chkbnid(char *user)   /* Check to see if UID in banned list */
     {
     FILE *a;
     char b[80],c[40];
-    extern char *strchr();
     strcpy(c,user);
     lowercase(c);
     a=openlock(BAN_FILE,"r+");
@@ -215,9 +215,7 @@ int chkbnid(user)   /* Check to see if UID in banned list */
 
  
  
-long  logscan(uid,block)     /* Return block data for user or -1 if not exist */
- char *uid;
- char *block;
+long  logscan(char *uid,char *block)     /* Return block data for user or -1 if not exist */
     {
     FILE *unit;
     long f;
@@ -238,8 +236,7 @@ long  logscan(uid,block)     /* Return block data for user or -1 if not exist */
     return(1);
 }
  
-void logpass(uid)  /* Main login code */
- char *uid;
+void logpass(char *uid)  /* Main login code */
  {
     long a,tries,b;
     char pwd[32],sigf[128],pvs[32],block[128];
@@ -302,7 +299,7 @@ void getunm(name)
     fgets(name,79,stdin);
     }
  
-void showuser()
+void showuser(void)
     {
     long a;
     char name[80],block[256];
@@ -313,8 +310,7 @@ void showuser()
     while(getchar()!='\n');
     }
  
-long shu(name,block)  /* for show user and edit user */
- char *name,*block;
+long shu(char *name,char *block)  /* for show user and edit user */
     {
     long a;
     long x;
@@ -331,7 +327,7 @@ long shu(name,block)  /* for show user and edit user */
     return(a);
     }
  
-void deluser()
+void deluser(void)
 {
     long a;
     char name[80],block[256];
@@ -344,7 +340,7 @@ void deluser()
     }
 }
  
-void edituser()
+void edituser(void)
     {
     long a;
     FILE *fl;
@@ -369,8 +365,7 @@ void edituser()
     fclose(fl);
     }
  
-void ed_fld(name,string)
- char *name,*string;
+void ed_fld(char *name,char *string)
     {
     char bk[128];
     bafld:printf("%s(Currently %s ):",name,string);
@@ -379,8 +374,7 @@ void ed_fld(name,string)
     if(strchr(bk,'.')){printf("\nInvalid Data Field\n");goto bafld;}
     if (strlen(bk)) strcpy(string,bk);
     }
-void delu2(name)   /* For delete and edit */
- char *name;
+int delu2(char *name)   /* For delete and edit */
     {
     char b2[128],buff[128];
     FILE *a;
@@ -388,8 +382,8 @@ void delu2(name)   /* For delete and edit */
     char b3[128];
     a=openlock(PFL,"r+");
     b=openlock(PFT,"w");
-    if(a==NULL) return;
-    if(b==NULL) return;
+    if(a==NULL) return -1;
+    if(b==NULL) return -1;
     while(fgets(buff,128,a)!=0)
        {
        dcrypt(buff,lump,strlen(buff)-1);
@@ -401,14 +395,15 @@ void delu2(name)   /* For delete and edit */
     fclose(b);
     a=openlock(PFL,"w");
     b=openlock(PFT,"r+");
-    if(a==NULL) return;
-    if(b==NULL) return;
+    if(a==NULL) return -1;
+    if(b==NULL) return -1;
     while(fgets(buff,128,b)!=0)
        {
        fprintf(a,"%s",buff);
        }
     fclose(a);
     fclose(b);
+    return 1;
     }
  
   
@@ -482,8 +477,7 @@ char *getkbd(s,l)   /* Getstr() with length limit and filter ctrl */
     
 
 
-void listfl(name)
- char *name;
+void listfl(char *name)
     {
     FILE * unit;
     char string[82];
@@ -516,14 +510,13 @@ void crapup(ptr)
  *		called.
  */ 
  
-void bprintf()
+void bprintf(char* args, ...)
 {
 	printf("EEK - A function has trapped via the bprintf call\n");
 	exit(0);
 }
 
-int chkname(user)
-char *user;
+int chkname(char *user)
 {
 long a;
 a=0;
@@ -537,7 +530,7 @@ a++;
 user[0]-=32;
 return(0);
 }
-void chknolog()
+void chknolog(void)
 {
 FILE *a;
 char b[128];

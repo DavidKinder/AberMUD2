@@ -1,10 +1,11 @@
 /* Fast File Controller v0.1 */
 #include <stdio.h>
- 
+
+#include "functions.h"
+
 FILE *filrf=NULL;  /* - = not open */
 
-extern FILE *openlock(); 
-closeworld()
+void closeworld(void)
 {
 	extern FILE *filrf;
         extern long objinfo[],numobs,ublock[];
@@ -15,7 +16,7 @@ closeworld()
 	filrf= NULL;
 }
  
-FILE *openworld()
+FILE *openworld(void)
 {
 	extern FILE *filrf;
         extern long objinfo[],numobs,ublock[];

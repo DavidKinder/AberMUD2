@@ -1,16 +1,17 @@
 #include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+
+#include "functions.h"
 
 /*
  
      Two Phase Game System
  
 */
-extern FILE *openlock();
-
 char **argv_p;
  
-main(argc,argv)
-char *argv[];
+int main(int argc,char *argv[])
 {
 char x[32];
 extern char globme[];
@@ -36,8 +37,7 @@ talker(globme);
  
 char privs[4];
 
-crapup(str)
-char *str;
+void crapup(char *str)
 {
 extern long pr_due;
 static char *dashes =
@@ -49,8 +49,7 @@ printf("\n%s\n\n%s\n\n%s\n", dashes, str, dashes);
 exit(0);
 }
  
-listfl(name)
-char *name;
+void listfl(char *name)
 {
 FILE *a;
 char b[128];
@@ -59,9 +58,7 @@ while(fgets(b,128,a)) printf("%s\n",b);
 fcloselock(a);
 }
  
-char *getkbd(s,l)   /* Getstr() with length limit and filter ctrl */
- char *s;
- int l;
+char *getkbd(char *s,int l)   /* Getstr() with length limit and filter ctrl */
     {
     char c,f,n;
     f=0;c=0;
@@ -82,9 +79,8 @@ char *getkbd(s,l)   /* Getstr() with length limit and filter ctrl */
 
 long sig_active=0;
 
-sig_alon()
+void sig_alon(void)
 {
-	extern int sig_occur();
 	sig_active=1;	
 	signal(SIGALRM,sig_occur);
 	alarm(2);
@@ -92,20 +88,19 @@ sig_alon()
 
 
 
-unblock_alarm()
+void unblock_alarm(void)
 {
-	extern int sig_occur();
 	signal(SIGALRM,sig_occur);
 	if(sig_active) alarm(2);
 }
 
-block_alarm()
+void block_alarm(void)
 {
 	signal(SIGALRM,SIG_IGN);
 }
 
 
-sig_aloff()
+void sig_aloff(void)
 {
 	sig_active=0;	
 	signal(SIGALRM,SIG_IGN);
@@ -114,7 +109,7 @@ sig_aloff()
 
 long interrupt=0;
 
-sig_occur()
+void sig_occur(int sig)
 {
 	extern char globme[];
 	if(sig_active==0) return;
@@ -130,10 +125,8 @@ sig_occur()
 }
 
 	
-sig_init()
+void sig_init(void)
 {
-	extern int sig_oops();
-	extern int sig_ctrlc();
 	signal(SIGHUP,sig_oops);
 	signal(SIGINT,sig_ctrlc);
 	signal(SIGTERM,sig_ctrlc);
@@ -142,7 +135,7 @@ sig_init()
         signal(SIGCONT,sig_oops);
 }
 
-sig_oops()
+void sig_oops(int sig)
 {
 	sig_aloff();
 	loseme();
@@ -150,9 +143,9 @@ sig_oops()
 	exit(255);
 }
 
-sig_ctrlc()
+void sig_ctrlc(int sig)
 {
-	extern in_fight;
+	extern long in_fight;
 	printf("^C\n");
 	if(in_fight) return;
 	sig_aloff();
@@ -161,8 +154,7 @@ sig_ctrlc()
 }
 
 
-set_progname(n,text)
-char *text;
+void set_progname(int n, char *text)
 {
 	/*
 	int x=0;

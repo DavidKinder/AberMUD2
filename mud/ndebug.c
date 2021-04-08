@@ -1,17 +1,20 @@
+#include "functions.h"
+
 long maxu=16;
 
-delu2()
+int delu2(char *name)
 {
 	bprintf("Selection from main menu only\n");
+  return 0;
 }
 
 
-chpwd()
+void chpwd(char *user)
 {
 	bprintf("To change your password select option 2 from the main menu\n");
 }
 
-debug2()
+void debug2(void)
 {
 	bprintf("No debugger available\n");
 }

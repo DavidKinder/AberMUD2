@@ -1,16 +1,15 @@
 #include <stdio.h>
+#include <string.h>
+
 #include "files.h"
+#include "functions.h"
 
-extern FILE *openlock();
-extern char *pname(  ) ;
-extern char *oname(  ) ;
-
-on_timing()
+void on_timing(void)
 {
 	if(randperc()>80) onlook();
 }
 
-onlook(  )
+void onlook(void)
     {
 long a ;
 extern long mynum ;
@@ -32,7 +31,7 @@ if( iscarrby( 32, mynum ) ) dorune(  ) ;
 if(phelping(mynum)!=-1) helpchkr();
     }
  
- chkfight( x )
+ void chkfight( int x )
     {
     extern long curch ;
     extern long mynum ;
@@ -49,10 +48,10 @@ return ;
     mhitplayer( x, mynum ) ;
     }
  
- consid_move(x)
+ void consid_move(int x)
  {;}
  
- crashcom(  )
+ void crashcom(void)
     {
     extern long my_lev ;
     if( my_lev<10 )
@@ -66,19 +65,19 @@ return ;
     rescom(  ) ;
     }
  
- singcom(  )
+ void singcom(void)
     {
     if( chkdumb(  ) ) return ;
     sillycom( "\001P%s\001\001d sings in Gaelic\n\001" ) ;
     bprintf( "You sing\n" ) ;
     }
  
- spraycom(  )
+ void spraycom(void)
     {
     long a, b ;
     long c ;
     char bk[ 128 ] ;
-    extern long wordbuf[  ] ;
+    extern char/*long*/ wordbuf[  ] ;
     extern long mynum ;
     extern long curch ;
     b=vichere( &a ) ;
@@ -113,7 +112,7 @@ return ;
  
  /* More new stuff */
  
- dircom(  )
+ void dircom(void)
     {
     long a ;
     char b[ 40 ] ;
@@ -141,7 +140,7 @@ return ;
     bprintf( "\n" ) ;
     }
  
- sys_reset(  )
+ void sys_reset(void)
     {
     extern long my_lev ;
     char xx[ 128 ] ;
@@ -169,7 +168,7 @@ errk:t=my_lev ;
     }
  
  
- dorune(  )
+ void dorune(void)
     {
     char bf[ 128 ] ;
     long ct ;
@@ -193,7 +192,7 @@ errk:t=my_lev ;
     }
  
 
- pepdrop(  )
+ void pepdrop(void)
     {
     extern long my_sco ;
     long a, b ;
@@ -222,7 +221,7 @@ errk:t=my_lev ;
        }
     }
  
- dragget(  )
+ int dragget(void)
     {
     extern long curch, my_lev ;
     long a, b ;
@@ -234,7 +233,7 @@ if( l== -1 ) return( 0 ) ;
     return( 1 ) ;
     }
 
-helpchkr()
+void helpchkr(void)
 {
 	extern long mynum;
 	extern long curch;

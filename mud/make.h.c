@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/unistd.h>
+
+void packitems(char *ary);
 
 char *fseg[]=
 {
@@ -27,7 +31,7 @@ char *fseg[]=
 	NULL
 };
 
-main()
+int main()
 {
 	char ary[2048];
 	if(getwd(ary)==0) 
@@ -41,8 +45,7 @@ main()
 }
 
 
-packitems(ary)
-char *ary;
+void packitems(char *ary)
 {
 	int i=0;
 l1:	if(fseg[i]==NULL) return;

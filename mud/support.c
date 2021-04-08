@@ -1,9 +1,12 @@
-#include "object.h"
+#include <stdarg.h>
 #include <stdio.h>
-#include "files.h"
+#include <sys/time.h>
 
-extern FILE* openlock();
- /*
+#include "object.h"
+#include "files.h"
+#include "functions.h"
+
+/*
 
  Some more basic functions
 
@@ -11,7 +14,7 @@ extern FILE* openlock();
  Note
 
  state(obj)
- setstate(obj,val)
+ set_state(obj,val)
  destroy(obj)
 
  are elsewhere
@@ -19,25 +22,25 @@ extern FILE* openlock();
  */
 extern OBJECT objects[];
 
- ocarrf(ob)
+ long ocarrf(int ob)
     {
     extern long objinfo[];
     return(objinfo[4*ob+3]);
     }
 
- setocarrf(ob,v)
+ void setocarrf(int ob, long v)
     {
     extern long objinfo[];
     objinfo[4*ob+3]=v;
     }
 
- oloc(ob)
+ int oloc(int ob)
     {
     extern long objinfo[];
     return(objinfo[4*ob]);
     }
 
- setoloc(ob,l,c)
+ void setoloc(int ob,int l,int c)
     {
     extern long objinfo[];
     objinfo[4*ob]=l;
@@ -46,179 +49,174 @@ extern OBJECT objects[];
 
 
 
- ploc(chr)
+ int ploc(int chr)
     {
     extern long ublock[];
     return((ublock[16*chr+4]));
     }
 
-char * pname(chr)
+char * pname(int chr)
     {
     extern long ublock[];
     return((char *)(ublock+16*chr));
     }
 
- plev(chr)
+ long plev(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+10]);
     }
 
- setplev(chr,v)
+ void setplev(int chr, long v)
     {
     extern long ublock[];
     ublock[16*chr+10]=v;
     }
 
- pchan(chr)
+ long pchan(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+4]);
     }
 
- pstr(chr)
+ long pstr(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+7]);
     }
 
- setpstr(chr,v)
+ void setpstr(int chr, long v)
     {
     extern long ublock[];
     ublock[16*chr+7]=v;
     }
 
- pvis(chr)
+ long pvis(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+8]);
     }
 
- setpvis(chr,v)
+ void setpvis(int chr, long v)
     {
     extern long ublock[];
     ublock[16*chr+8]=v;
     }
 
- psex(chr)
+ long psex(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+9]%2);
     }
 
- setpsex(chr,v)
+ void setpsex(int chr, long v)
     {
     extern long ublock[];
     ublock[16*chr+9]&=~1;
     ublock[16*chr+9]|=v;
     }
-setpsexall(chr,v)
-long v;
+void setpsexall(int chr, long v)
 {
 	extern long ublock[];
 	ublock[16*chr+9]=v;
 }
 
-psexall(chr)
-long chr;
+long psexall(long chr)
 {
 	extern long ublock[];
 	return(ublock[16*chr+9]);
 }
 
-char * oname(ob)
+char * oname(int ob)
     {
     extern OBJECT objects[];
     return(objects[ob].o_name);
     }
  
-char * olongt(ob,st)
+char * olongt(int ob, int st)
 {
 	extern OBJECT objects[];
 	return(objects[ob].o_desc[st]);
 }
 
 
- omaxstate(ob)
+ long omaxstate(int ob)
     {
     extern OBJECT objects[];
     return(objects[ob].o_maxstate);
     }
 
- obflannel(ob)  /* Old version */
+ long obflannel(int ob)  /* Old version */
     {
     return(oflannel(ob));
     }
- oflannel(ob)
+ long oflannel(int ob)
     {
     extern OBJECT objects[];
     return(objects[ob].o_flannel);
     }
 
- obaseval(ob)
+ long obaseval(int ob)
     {
     extern OBJECT objects[];
     return(objects[ob].o_value);
     }
 
- isdest(ob)
+ int isdest(int ob)
     {
     if(otstbit(ob,0))return(1);
     return(0);
     }
 
- isavl(ob)
+ int isavl(int ob)
     {
     extern long mynum;
     if(ishere(ob)) return(1);
     return(iscarrby(ob,mynum));
     }
 
- ospare(ob)
+ int ospare(int ob)
     {
     return(otstbit(ob,0)?-1:0);
     }
 
- ppos(chr)
+ long ppos(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+5]);
     }
 
- setppos(chr,v)
+ void setppos(int chr,long v)
     {
     extern long ublock[];
     ublock[16*chr+5]=v;
     }
 
- setploc(chr,n)
+ void setploc(int chr,long n)
     {
     extern long ublock[];
     ublock[16*chr+4]=n;
     }
 
- pwpn(chr)
+ long pwpn(int chr)
     {
     extern long ublock[];
     return(ublock[16*chr+11]);
     }
 
- setpwpn(chr,n)
+ void setpwpn(int chr, long n)
     {
     extern long ublock[];
     ublock[16*chr+11]=n;
     }
 
-ocreate(ob)
+void ocreate(int ob)
 {
 oclrbit(ob,0);
 }
 
-syslog(args,arg1,arg2)
-char *args,*arg1,*arg2;
+void syslog(char *args, ...)
 {
-extern char *strchr();	
-extern char *ctime();
 long tm;
 FILE *x;
 char *z;
@@ -228,72 +226,77 @@ z=ctime(&tm);
 x=openlock(LOG_FILE,"a");
 if(x==NULL) {loseme();crapup("Log fault : Access Failure"); }
 fprintf(x,"%s:  ",z);
-fprintf(x,args,arg1,arg2);
+{
+  va_list varargs;
+  va_start(varargs,args);
+  vfprintf(x,args,varargs);
+  va_end(varargs);
+  }
+/* fprintf(x,args,arg1,arg2); */
 fprintf(x,"\n");
 fclose(x);
 }
  
-osetbit(ob,x)
+void osetbit(int ob,int x)
 {
 extern long objinfo[];
 bit_set(&(objinfo[4*ob+2]),x);
 }
-oclearbit(ob,x)
+void oclearbit(int ob,int x)
 {
 extern long objinfo[];
 bit_clear(&(objinfo[4*ob+2]),x);
 }
-oclrbit(ob,x)
+void oclrbit(int ob,int x)
 {
 oclearbit(ob,x)
 ;
 }
-otstbit(ob,x)
+long otstbit(int ob,int x)
 {
 extern long objinfo[];
 return(bit_fetch(objinfo[4*ob+2],x));
 }
-osetbyte(o,x,y)
+void osetbyte(int o,int x,int y)
 {
 extern long objinfo[];
 byte_put(&(objinfo[4*o+2]),x,y);
 }
-obyte(o,x)
+int obyte(int o,int x)
 {
 extern long objinfo[];
 return(byte_fetch(objinfo[4*o+2],x));
 }
-ohany(mask)
-long mask;
+int ohany(long mask)
 {
 extern long numobs;
-auto a;
+int/*auto*/ a;
 extern long mynum;
 extern long objinfo[];
 a=0;
 mask=mask<<16;
 while(a<numobs)
 {
-if(((iscarrby(a,mynum))||(ishere(a,mynum)))&&(objinfo[4*a+2]&mask))return(1);
+if(((iscarrby(a,mynum))||(ishere(a/*,mynum*/)))&&(objinfo[4*a+2]&mask))return(1);
 a++;
 }
 return(0);
 }
 
-phelping(x,y)
+long phelping(int x/*,int y*/)
 {
 extern long ublock[];
 return(ublock[16*x+13]);
 }
 
-setphelping(x,y)
+void setphelping(int x, long y)
 {
 extern long ublock[];
 ublock[16*x+13]=y;
 }
 
 
-ptothlp(pl)
+int ptothlp(int pl)
 {
 int tot;
 extern long maxu;
@@ -308,17 +311,13 @@ return(-1);
 }
  
 
-psetflg(ch,x)
-long ch;
-long x;
+void psetflg(long ch,long x)
 {
 	extern long ublock[];
 	ublock[16*ch+9]|=(1<<x);
 }
 
-pclrflg(ch,x)
-long ch;
-long x;
+void pclrflg(long ch,long x)
 {
 	extern long ublock[];
 	ublock[16*ch+9]&=~(1<<x);
@@ -342,17 +341,13 @@ long x;
 
 */
 
-ptstbit(ch,x)
-long ch;
-long x;
+long ptstbit(long ch, long x)
 {
 	return(ptstflg(ch,x));
 }
 
 
-ptstflg(ch,x)
-long ch;
-long x;
+long ptstflg(long ch, long x)
 {
 	extern long ublock[];
 	extern char globme[];
