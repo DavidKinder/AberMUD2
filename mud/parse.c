@@ -806,7 +806,7 @@ long zapped;
     extern long snoopd;
     extern long fl_com;
     char ms[128];
-    char nam1[40],nam2[40],text[256],nameme[40];
+    char nam1[40],nam2[40],text[512],nameme[40];
     long isme;
     extern long fighting,in_fight;
     strcpy(nameme,globme);
