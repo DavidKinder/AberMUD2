@@ -34,7 +34,11 @@ void killcom(void);
 void weapcom(void);
 
 /* bprintf.c */
+#ifdef __GNUC__
+void bprintf(char* args, ...) __attribute__((format(printf,1,2)));
+#else
 void bprintf(char* args, ...);
+#endif
 void chksnp(void);
 void logcom(void);
 void makebfr(void);
@@ -357,7 +361,11 @@ void setpsexall(int chr, long v);
 void setpstr(int chr, long v);
 void setpvis(int chr, long v);
 void setpwpn(int chr, long n);
+#ifdef __GNUC__
+void syslog(char* args, ...) __attribute__((format(printf,1,2)));
+#else
 void syslog(char *args, ...);
+#endif
 
 /* tk.c */
 void broad(char *mesg);

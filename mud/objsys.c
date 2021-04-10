@@ -51,7 +51,7 @@ aobjsat(loc,1);
 void aobjsat(int loc,int mode)  /* Carried Loc ! */
     {
     long a,b,c,d,e,f;
-    char x[8],y[8];
+    char x[8],y[16];
     extern long debug_mode;
     b=0;
     c=0;
@@ -65,7 +65,7 @@ void aobjsat(int loc,int mode)  /* Carried Loc ! */
           {
           e=1;
               f+=1+strlen(oname(c));
-if(debug_mode){ f+=5;sprintf(x,"%d",c);sprintf(y,"{%-3s}",x);}
+if(debug_mode){ f+=5;sprintf(x,"%ld",c);sprintf(y,"{%-3s}",x);}
 if(isdest(c)) f+=2;
 if(iswornby(c,loc)) f+=strlen("<worn> ");
           if(f>79)
@@ -554,7 +554,7 @@ if((!!strlen(n2))&&(!strcmp(n1,n2))) return(a);
           {
           b=1;
          bprintf("%s ",pname(a));
-         if(debug_mode) bprintf("{%d}",a);
+         if(debug_mode) bprintf("{%ld}",a);
           disl4(plev(a),psex(a));
           if(psex(a)) strcpy(wd_her,pname(a));
           else strcpy(wd_him,pname(a));

@@ -71,7 +71,7 @@ long ex_dat[ 7 ] ;
        else
           {
           v=findzone( ex_dat[ a ], st ) ;
-          bprintf( "%s : %s%d\n", dirns[ a ], st, v ) ;
+          bprintf( "%s : %s%ld\n", dirns[ a ], st, v ) ;
           }
        b=1 ;
        a++ ;
@@ -125,9 +125,9 @@ char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
     extern char wd_there[];
     long b ;
     b=findzone( loc, a ) ;
-    bprintf( "%s%d", a, b ) ;
+    bprintf( "%s%ld", a, b ) ;
     if( my_lev>9999 )bprintf( "[ %d ]", loc ) ;
-    sprintf(wd_there,"%s %d",a,b);
+    sprintf(wd_there,"%s %ld",a,b);
     bprintf( "\n" ) ;
     }
  void loccom(void)

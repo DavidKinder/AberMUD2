@@ -66,7 +66,7 @@ void vcpy(long *dest,long offd,long *source,long offs,long len)
     x=(char *)block;
     /* Print appropriate stuff from data block */
     strcpy(luser,name);lowercase(luser);
-if(debug_mode)    bprintf("\n<%d>",block[1]);
+if(debug_mode)    bprintf("\n<%ld>",block[1]);
     if (block[1]<-3) sysctrl(block,luser);
     else
        bprintf("%s", (x+2*sizeof(long)));
@@ -83,8 +83,8 @@ int sendmsg(char *name)
     char prmpt[32];
     long a;
 extern long tty;
-    char work[200];
-    char w2[284/*35*4*/];
+    char work[400];
+    char w2[300/*35*4*/];
     extern char key_buff[];
     extern long convflg;
     extern long my_lev;
@@ -566,7 +566,7 @@ else
           }
        }
     else
-       bprintf("\nYou are on channel %d\n",room);
+       bprintf("\nYou are on channel %ld\n",room);
     fclose(un1);
     openworld();
     if(!ail_blind)

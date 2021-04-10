@@ -11,7 +11,7 @@ char *nam;
 long isawiz;
 char z[60];
 x1:
-if(qnmrq) if(execl(EXE,"   --}----- ABERMUD -----{--    Playing as ",nam,0)==-1)
+if(qnmrq) if(execl(EXE,"   --}----- ABERMUD -----{--    Playing as ",nam,(char *)0)==-1)
 {
 	crapup("mud.exe : Not found\n");
 }
@@ -44,7 +44,7 @@ printf("The Hallway\n");
 printf("You stand in a long dark hallway, which echoes to the tread of your\n");
 printf("booted feet. You stride on down the hall, choose your masque and enter the\n");
 printf("worlds beyond the known......\n\n");
-execl(EXE,"   --{----- ABERMUD -----}--      Playing as ",nam,0);
+execl(EXE,"   --{----- ABERMUD -----}--      Playing as ",nam,(char *)0);
 crapup("mud.exe: Not Found\n");
 case '2':chpwd(nam);break;
 case '0':exit(0);

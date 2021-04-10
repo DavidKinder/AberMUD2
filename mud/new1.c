@@ -616,7 +616,7 @@ break ;
     char/*long*/ ar[8*4];
     b=vichfb(&a);
     if(b== -1) return;
-    sprintf(ar,"%d",my_lev*2);
+    sprintf(ar,"%ld",my_lev*2);
     sendsys(pname(a),globme,-10106,curch,ar);
     if(pstr(a)-2*my_lev<0)    
 	{
@@ -673,7 +673,7 @@ break ;
        bprintf("Seems rather dangerous to me....\n");
        return;
        }
-    sprintf(ar,"%d",2*my_lev);
+    sprintf(ar,"%ld",2*my_lev);
     if(pstr(a)-(a==fpbns("yeti")?6:2)*my_lev<0)
 	{
 	bprintf("Your last spell did the trick\n");
@@ -721,7 +721,7 @@ break ;
 	in_fight=0;
 	fighting= -1;
     }       
-    sprintf(ar,"%d",my_lev*2);
+    sprintf(ar,"%ld",my_lev*2);
     sendsys(pname(a),globme,-10110,curch,ar);
     if(a>15) woundmn(a,2*my_lev);
     }

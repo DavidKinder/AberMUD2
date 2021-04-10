@@ -92,7 +92,7 @@ if(brkword()!= -1)
        bprintf("There isn't one of those here.\n");
        return;
        }
-    bprintf("%s : %d points\n",wordbuf,(tscale()*(obaseval(b)))/5);
+    bprintf("%s : %ld points\n",wordbuf,(tscale()*(obaseval(b)))/5);
     return;
     }
  void stacom(void)
@@ -126,10 +126,10 @@ else
 }
        }
     bprintf("\nState       :%d",state(a));
-    bprintf("\nCarr_Flag   :%d",ocarrf(a));
+    bprintf("\nCarr_Flag   :%ld",ocarrf(a));
     bprintf("\nSpare       :%d",ospare(a));
-    bprintf("\nMax State   :%d",omaxstate(a));
-    bprintf("\nBase Value  :%d",obaseval(a));
+    bprintf("\nMax State   :%ld",omaxstate(a));
+    bprintf("\nBase Value  :%ld",obaseval(a));
     bprintf("\n");
     }
  void examcom(void)
@@ -223,7 +223,7 @@ oclrbit(107,0);
     break;
     }
  
- sprintf(r,"%s%d",EXAMINES,a);
+ sprintf(r,"%s%ld",EXAMINES,a);
  x=fopen(r,"r");
  if(x==NULL)
  {
@@ -250,8 +250,8 @@ oclrbit(107,0);
  return;
  }
  bprintf("Name      : %s\n",pname(b));
- bprintf("Level     : %d\n",plev(b));
- bprintf("Strength  : %d\n",pstr(b));
+ bprintf("Level     : %ld\n",plev(b));
+ bprintf("Strength  : %ld\n",pstr(b));
  bprintf("Sex       : %s\n",(psex(b)==0)?"MALE":"FEMALE");
  bprintf("Location  : ");
  showname(ploc(b));
@@ -396,7 +396,7 @@ if((iscarrby(111,mynum))||(iscarrby(121,mynum))||(iscarrby(163,mynum)))
  if(!strcmp(oname(cha),wordbuf))
     {
     rnd=1;
-if(my_lev>9999) bprintf("[%3d]",cha);
+if(my_lev>9999) bprintf("[%3ld]",cha);
     bprintf("%16s - ",oname(cha));
     if((my_lev<10)&&(ospare(cha)== -1)) bprintf("Nowhere\n");
     else

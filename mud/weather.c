@@ -262,7 +262,7 @@ void fartcom(void)
     srand(a);
     a=randperc();
     a=a%5;
-    bprintf("POSE :%d\n",a);
+    bprintf("POSE :%ld\n",a);
     switch(a)
        {
        case 0:
@@ -373,7 +373,7 @@ starts sizzling with magical energy\n\001");
     b=numarg(wordbuf);
     if(b>omaxstate(a))
        {
-       bprintf("Sorry max state for that is %d\n",omaxstate(a));
+       bprintf("Sorry max state for that is %ld\n",omaxstate(a));
        return;
        }
     if(b<0)

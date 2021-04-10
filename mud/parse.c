@@ -834,7 +834,7 @@ long zapped;
        case -599:
           if(isme)
              {
-             sscanf(text,"%d.%d.%d.",&my_lev,&my_sco,&my_str);
+             sscanf(text,"%ld.%ld.%ld.",&my_lev,&my_sco,&my_str);
              calibme();
              }
           break;
@@ -1164,9 +1164,9 @@ long me_cal=0;
        {
        my_lev=b;
        bprintf("You are now %s ",globme);
-       syslog("%s to level %d",globme,b);
+       syslog("%s to level %ld",globme,b);
        disle3(b,my_sex);
-       sprintf(sp,"\001p%s\001 is now level %d\n",globme,my_lev);
+       sprintf(sp,"\001p%s\001 is now level %ld\n",globme,my_lev);
        sendsys(globme,globme,-10113,ploc(mynum),sp);
        if(b==10) bprintf("\001f%s\001",GWIZ);
        }
@@ -1281,11 +1281,11 @@ void tellcom(void)
     extern char globme[];
     if(my_lev==1)
        {
-       bprintf("Your strength is %d\n",my_str);
+       bprintf("Your strength is %ld\n",my_str);
        return;
        }
     else
-       bprintf("Your strength is %d(from %d),Your score is %d\nThis ranks you as %s ",
+       bprintf("Your strength is %ld(from %ld),Your score is %ld\nThis ranks you as %s ",
           my_str,50+8*my_lev,my_sco,globme);
     disle3(my_lev,my_sex);
     }
@@ -1609,7 +1609,7 @@ void tellcom(void)
        bprintf("What...\n");
        return;
        }
-    bprintf("Item Number is %d\n",fobn(wordbuf));
+    bprintf("Item Number is %ld\n",fobn(wordbuf));
     }
  
  void updcom(void)
@@ -1628,7 +1628,7 @@ void tellcom(void)
     closeworld();
     sprintf(x,"%s",globme);
     execl(EXE,
-    "   --{----- ABERMUD -----}--   ",x,0);  /* GOTOSS eek! */
+    "   --{----- ABERMUD -----}--   ",x,(char *)0);  /* GOTOSS eek! */
     bprintf("Eeek! someones pinched the executable!\n");
     }
  
@@ -1655,7 +1655,7 @@ void tellcom(void)
     loseme();
     closeworld();
     sprintf(x,"-n%s",x2);
-    execl(EXE2,"   --}----- ABERMUD ------   ",x,0);	/* GOTOSS eek! */
+    execl(EXE2,"   --}----- ABERMUD ------   ",x,(char *)0);	/* GOTOSS eek! */
     bprintf("Eek! someone's just run off with mud!!!!\n");
     }
  
@@ -1752,7 +1752,7 @@ void typocom(void)
 	char x[120],y[32];
 	extern char globme[];
 	extern long curch;
-	sprintf(y,"%s in %d",globme,curch);
+	sprintf(y,"%s in %ld",globme,curch);
 	getreinput(x);
 	syslog("Typo by %s : %s",y,x);
 }
