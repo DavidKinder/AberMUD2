@@ -395,7 +395,7 @@ int binproc(char* str);
 // anachronisms.c (redefinitions of system functions)
 int flock(int fd, int operation);
 
-#define getpass(x) fgets(key, 32, stdin)
+#define getpass(x) fgets(pw, 16, stdin)
 #define getpw(uid, ary) ary[0]=0;if (getlogin_r(ary, 127) != 0) { \
   fprintf(stderr, "getlogin_r() failed %s.", strerror(errno)); \
   ary[0] = 0; } strcat(ary, ":");
