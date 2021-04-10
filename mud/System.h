@@ -1,3 +1,5 @@
+#define WORLD_FILE "/var/tmp/-iy7AM"
+
 extern char lump[];
 extern int namegiv;
 extern char namegt[];
