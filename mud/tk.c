@@ -272,7 +272,8 @@ long findend(FILE *unit)
     	cms= -1;putmeon(name);
     if(openworld()==NULL) crapup("Sorry AberMUD is currently unavailable");
     if (mynum>=maxu) {printf("\nSorry AberMUD is full at the moment\n");return/*(0)*/;}
-    strcpy(globme,name);
+    if (name != globme)
+      strcpy(globme,name);
     rte(name);
     	closeworld();
     cms= -1;
