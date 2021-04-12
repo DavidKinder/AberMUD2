@@ -1,6 +1,6 @@
 #include <stdarg.h>
 #include <stdio.h>
-#include <sys/time.h>
+#include <time.h>
 
 #include "object.h"
 #include "files.h"

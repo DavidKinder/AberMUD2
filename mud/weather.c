@@ -2,6 +2,7 @@
 #include "functions.h"
 
 #include <stdio.h>
+#include <time.h>
 
 extern char globme[];
 extern char wordbuf[];

@@ -34,7 +34,7 @@ char *fseg[]=
 int main()
 {
 	char ary[2048];
-	if(getwd(ary)==0) 
+	if(getcwd(ary,sizeof ary)==0) 
 	{
 		fprintf(stderr,"Ermmm eek!\n");
 		exit(0);

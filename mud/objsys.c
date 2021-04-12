@@ -75,7 +75,7 @@ if(iswornby(c,loc)) f+=strlen("<worn> ");
              }
 if(isdest(c)) bprintf("(");
          bprintf("%s",oname(c));
-         if(debug_mode) bprintf(y);
+         if(debug_mode) bprintf("%s",y);
 if(iswornby(c,loc)) bprintf(" <worn>");
 if(isdest(c)) bprintf(")");
 bprintf(" ");
