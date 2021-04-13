@@ -397,7 +397,7 @@ long moni=0;
  char *mesg;
     {
 extern long rd_qd;
-char bk2[256];
+char bk2[1024/*256 anachronism*/];
 long block[128];
 rd_qd=1;
 block[1]= -1;
