@@ -366,7 +366,7 @@ long moni=0;
  void broad(char *mesg)
     {
 extern long rd_qd;
-char bk2[256];
+char bk2[256*4];
 long block[128];
 rd_qd=1;
 block[1]= -1;
