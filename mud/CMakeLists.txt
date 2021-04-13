@@ -41,13 +41,13 @@ add_executable(makeuaf makeuaf.c)
 add_custom_target(
   reset
   # Originally from install.sh
-  COMMAND ${CMAKE_COMMAND} -E remove TEXT SNOOP EXAMINES
+  COMMAND ${CMAKE_COMMAND} -E remove -f TEXT SNOOP EXAMINES
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/TEXT TEXT
   COMMAND ${CMAKE_COMMAND} -E make_directory SNOOP
   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_SOURCE_DIR}/EXAMINES EXAMINES
   COMMAND ${CMAKE_COMMAND} -E remove mud_syslog reset_t reset_n user_file
   COMMAND ${CMAKE_COMMAND} -E touch mud_syslog reset_t reset_n user_file
-  COMMAND ${CMAKE_COMMAND} -E remove ${WORLDFILE}
+  COMMAND ${CMAKE_COMMAND} -E remove -f ${WORLDFILE}
   # Originally from install2.sh
   COMMAND makeworld.util
   COMMAND ${CMAKE_COMMAND} -E echo "Game universe intialised"
