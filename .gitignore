@@ -1,4 +1,8 @@
 *.exe
 *.1
+makeworld.util
+ob.out
 mud_syslog
-
+reset*
+uaf.rand
+user_file
