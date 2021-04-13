@@ -1,3 +1,4 @@
+#include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
@@ -515,6 +516,27 @@ void bprintf(char* args, ...)
 {
 	printf("EEK - A function has trapped via the bprintf call\n");
 	exit(0);
+}
+
+void syslog(char *args, ...)
+{
+  long tm;
+  FILE *x;
+  char *z;
+  time(&tm);
+  z=ctime(&tm);
+  *strchr(z,'\n')=0;
+  x=openlock(LOG_FILE,"a");
+  if(x==NULL) return;
+  fprintf(x,"%s:  ",z);
+  {
+    va_list varargs;
+    va_start(varargs,args);
+    vfprintf(x,args,varargs);
+    va_end(varargs);
+  }
+  fprintf(x,"\n");
+  fclose(x);
 }
 
 int chkname(char *user)
