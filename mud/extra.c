@@ -1,20 +1,18 @@
 #include <stdio.h>
+#include <string.h>
+
 #include "files.h"
-extern FILE * openlock();
-extern FILE * openuaf();
-extern FILE * openroom();
-extern char *oname();
-extern char *pname();
+#include "functions.h"
+
 extern char globme[];
 extern char wordbuf[];
 extern long mynum;
 extern long curch;
 extern long my_lev;
-long getnarg();
 
 
 
-helpcom()
+void helpcom(void)
     {
 extern char wordbuf[];
 extern long curch,mynum;
@@ -72,13 +70,13 @@ if(brkword()!= -1)
     bprintf("\n");
     }
  
- levcom()
+ void levcom(void)
     {
     closeworld();
     bprintf("\001f%s\001",LEVELS);
     }
  
- valuecom()
+ void valuecom(void)
     {
     long a,b;
     extern char wordbuf[];
@@ -94,10 +92,10 @@ if(brkword()!= -1)
        bprintf("There isn't one of those here.\n");
        return;
        }
-    bprintf("%s : %d points\n",wordbuf,(tscale()*(obaseval(b)))/5);
+    bprintf("%s : %ld points\n",wordbuf,(tscale()*(obaseval(b)))/5);
     return;
     }
- stacom()
+ void stacom(void)
     {
     long a,b;
     extern long my_lev;    	
@@ -128,13 +126,13 @@ else
 }
        }
     bprintf("\nState       :%d",state(a));
-    bprintf("\nCarr_Flag   :%d",ocarrf(a));
+    bprintf("\nCarr_Flag   :%ld",ocarrf(a));
     bprintf("\nSpare       :%d",ospare(a));
-    bprintf("\nMax State   :%d",omaxstate(a));
-    bprintf("\nBase Value  :%d",obaseval(a));
+    bprintf("\nMax State   :%ld",omaxstate(a));
+    bprintf("\nBase Value  :%ld",obaseval(a));
     bprintf("\n");
     }
- examcom()
+ void examcom(void)
     {
     long a,b;
     FILE *x;
@@ -182,7 +180,7 @@ oclrbit(107,0);
              }
           break;
        case 7:
-          setstate(7,randperc()%3+1);
+          set_state(7,randperc()%3+1);
           switch(state(7))
              {
              case 1:
@@ -225,7 +223,7 @@ oclrbit(107,0);
     break;
     }
  
- sprintf(r,"%s%d",EXAMINES,a);
+ sprintf(r,"%s%ld",EXAMINES,a);
  x=fopen(r,"r");
  if(x==NULL)
  {
@@ -241,7 +239,7 @@ oclrbit(107,0);
  }
  }
  
- statplyr()
+ void statplyr(void)
  {
  extern char wordbuf[];
  long a,b;
@@ -252,13 +250,13 @@ oclrbit(107,0);
  return;
  }
  bprintf("Name      : %s\n",pname(b));
- bprintf("Level     : %d\n",plev(b));
- bprintf("Strength  : %d\n",pstr(b));
+ bprintf("Level     : %ld\n",plev(b));
+ bprintf("Strength  : %ld\n",pstr(b));
  bprintf("Sex       : %s\n",(psex(b)==0)?"MALE":"FEMALE");
  bprintf("Location  : ");
  showname(ploc(b));
  }
- wizlist()
+ void wizlist(void)
  {
  extern long my_lev;
  if(my_lev<10)
@@ -270,7 +268,7 @@ oclrbit(107,0);
  bprintf("\001f%s\001",WIZLIST);
  }
  
- incom()
+ void incom(void)
  {
  extern long my_lev,curch;
  extern char wordbuf[];
@@ -324,12 +322,12 @@ if(unit==NULL){curch=y;bprintf("No such room\n");return;}
  }
  curch=y;
  }
- smokecom()
+ void smokecom(void)
  {
  lightcom();
  }
  
- jumpcom()
+ void jumpcom(void)
  {
  long a,b;
  extern long jumtb[],mynum,curch;
@@ -363,7 +361,7 @@ if(unit==NULL){curch=y;bprintf("No such room\n");return;}
  
 long jumtb[]={-643,-633,-1050,-662,-1082,-1053,0,0};
 
-wherecom()
+void wherecom(void)
  {
  extern long mynum,curch,my_lev,my_str;
  extern char wordbuf[];
@@ -398,7 +396,7 @@ if((iscarrby(111,mynum))||(iscarrby(121,mynum))||(iscarrby(163,mynum)))
  if(!strcmp(oname(cha),wordbuf))
     {
     rnd=1;
-if(my_lev>9999) bprintf("[%3d]",cha);
+if(my_lev>9999) bprintf("[%3ld]",cha);
     bprintf("%16s - ",oname(cha));
     if((my_lev<10)&&(ospare(cha)== -1)) bprintf("Nowhere\n");
     else
@@ -417,13 +415,13 @@ if(my_lev>9999) bprintf("[%3d]",cha);
  bprintf("I dont know what that is\n");
  }
  
- desrm(loc,cf)
+ void desrm(int loc,int cf)
  {
  extern long my_lev;
  FILE *a;
  FILE *unit;
  long b;
- long x[32];
+ char/*long*/ x[32*4];
  if((my_lev<10)&&(cf==0)&&(loc>-5))
  {
  bprintf("Somewhere.....\n");
@@ -454,14 +452,13 @@ else bprintf("\n");
 
 
 
-edit_world()
+void edit_world(void)
 {
 	extern long my_lev,numobs;
 	extern char wordbuf[];	
 	extern long ublock[];
 	extern long objinfo[];
 	char a[80],b,c,d;
-	extern long genarg();
 	extern long mynum;
 	if(!ptstbit(mynum,5))
 	{
@@ -499,8 +496,7 @@ e_player:b=getnarg(0,47);
         return;
 }
         
-long getnarg(bt,to)
-long bt,to;
+long getnarg(long bt,long to)
 {
 	extern char wordbuf[];
 	long x;

@@ -1,17 +1,19 @@
-#include "files.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 
- /*
+#include "files.h"
+#include "functions.h"
+
+/*
  
  globme holds global me data
  
  */
 #define  OBMUL 8
-#include <stdio.h>
 
-extern char * oname();
-extern char * pname();
-extern FILE *openlock(); 
- 
  /*
  
  Objects held in format
@@ -32,10 +34,7 @@ extern FILE *openlock();
  
 long debug_mode=0;
  
-void sendsys(to,from,codeword,chan,text)
-char *to,*from;
-long codeword,chan;
-char *text;
+void sendsys(char *to,char *from,long codeword,long chan,char *text)
     {
     long  block[128];
     long *i;
@@ -79,8 +78,7 @@ void pncom()
 	}
 }
 
-int gamecom(str)
-char *str;
+int gamecom(char *str)
     {
     long  a;
     extern long in_fight;
@@ -105,7 +103,7 @@ char *str;
     return(0);
     }
  
-int brkword()
+int brkword(void)
     {
     extern char wd_it[],wd_them[],wd_her[],wd_him[],globme[];
     extern long stp;
@@ -132,10 +130,7 @@ int brkword()
     }
  
 
-chklist(word,lista,listb)
-char *word;
-char *lista[];
-int listb[];
+int chklist(char *word,char *lista[],int listb[])
     {
     long  a,b,c,d;
     a=0;
@@ -153,8 +148,7 @@ int listb[];
     return(d);
     }
  
-int Match(x,y)
-char *x,*y;
+int Match(char *x,char *y)
     {
     long  c,n;
     c=0; n=0;
@@ -174,7 +168,7 @@ char *x,*y;
     return(c);
     }
     
- chkverb()
+ int chkverb(void)
     {
     extern char wordbuf[],*verbtxt[];
     extern int verbnum[];
@@ -216,9 +210,9 @@ int verbnum[]={1,1,2,3,4,5,6,7,2,3,4,5,6,7,8,9,9,10,11,12,12,12,13,14
     ,171,172,34,173,174,175,176,177,178,179,180,181,182,35,183,184,185,186,187,188,189};
  
 char *exittxt[]={"north","east","south","west","up","down","n","e","s","w","u","d",0};
-long exitnum[]={1,2,3,4,5,6,1,2,3,4,5,6};
+int/*long*/ exitnum[]={1,2,3,4,5,6,1,2,3,4,5,6};
  
- doaction(n)
+ void doaction(int n)
     {
     char xx[128];
     extern long my_sco;
@@ -697,28 +691,28 @@ char mout_ms[81]="vanishes in a puff of smoke.";
 char min_ms[81]="appears with an ear-splitting bang.";
 char here_ms[81]="is here";
 
-dogocom(n)
+void dogocom(void/*n*/)
     {
     extern char *exittxt[];
-    extern long exitnum[];
+    extern int/*long*/ exitnum[];
     extern char wordbuf[];
     long  a;
     if(brkword()== -1)
        {
        bprintf("GO where ?\n");
-       return(-1);
+       return/*(-1)*/;
        }
     if(!strcmp(wordbuf,"rope")) strcpy(wordbuf,"up");
     a=chklist(wordbuf,exittxt,exitnum);
     if(a== -1)
        {
        bprintf("Thats not a valid direction\n");
-       return(-1);
+       return/*(-1)*/;
        }
-    return(dodirn(a+1));
+    /*return*/(dodirn(a+1));
     }
  
- dodirn(n)
+ void dodirn(int n)
     {
     extern long curch;
     extern long mynum;
@@ -798,13 +792,12 @@ long rdes=0;
 long ades=0;
 long zapped;
 
- gamrcv(blok)
- long *blok;
+ void gamrcv(long *blok)
     {
     extern long zapped;
     extern long vdes,tdes,rdes,ades;
     extern char globme[];
-    auto long  zb[32];
+    auto char/*long*/  zb[32*4];
     long *i;
     extern long curch;
     extern long my_lev;
@@ -813,7 +806,7 @@ long zapped;
     extern long snoopd;
     extern long fl_com;
     char ms[128];
-    char nam1[40],nam2[40],text[256],nameme[40];
+    char nam1[40],nam2[40],text[512],nameme[40];
     long isme;
     extern long fighting,in_fight;
     strcpy(nameme,globme);
@@ -841,7 +834,7 @@ long zapped;
        case -599:
           if(isme)
              {
-             sscanf(text,"%d.%d.%d.",&my_lev,&my_sco,&my_str);
+             sscanf(text,"%ld.%ld.%ld.",&my_lev,&my_sco,&my_str);
              calibme();
              }
           break;
@@ -964,7 +957,7 @@ long zapped;
 long me_ivct=0;
 long last_io_interrupt=0;
 
-eorte()
+void eorte(void)
 {
     extern long mynum,me_ivct;
     extern long me_drunk;
@@ -1025,9 +1018,9 @@ eorte()
  
 long me_drunk=0;
  
-FILE *openroom(n,mod)
+FILE *openroom(int n,char* mod)
     {
-    long  blob[64];
+    char/*long*/  blob[64*4];
     FILE *x;
     sprintf(blob,"%s%d",ROOMS,-n);
     x=fopen(blob,mod);
@@ -1036,7 +1029,7 @@ FILE *openroom(n,mod)
     
 long me_cal=0;
 
- rescom()
+ void rescom(void)
     {
     extern long my_lev;
     extern long objinfo[],numobs;
@@ -1063,7 +1056,7 @@ long me_cal=0;
     resetplayers();
     }
  
- lightning()
+ void lightning(void)
     {
     extern long my_lev;
     long  vic;
@@ -1092,7 +1085,7 @@ long me_cal=0;
     broad("\001dYou hear an ominous clap of thunder in the distance\n\001");
     }
 
- eatcom()
+ void eatcom(void)
     {
     long b;
     extern char wordbuf[];
@@ -1156,14 +1149,14 @@ long me_cal=0;
        }
     }
  
- calibme()
+ void calibme(void)
     {
     /* Routine to correct me in user file */
     long  a;
     extern long mynum,my_sco,my_lev,my_str,my_sex,wpnheld;
     extern char globme[];
     long  b;
-    char *sp[128];
+    char sp[128*2];
     extern long i_setup;
     if(!i_setup) return;
     b=levelof(my_sco);
@@ -1171,9 +1164,9 @@ long me_cal=0;
        {
        my_lev=b;
        bprintf("You are now %s ",globme);
-       syslog("%s to level %d",globme,b);
+       syslog("%s to level %ld",globme,b);
        disle3(b,my_sex);
-       sprintf(sp,"\001p%s\001 is now level %d\n",globme,my_lev);
+       sprintf(sp,"\001p%s\001 is now level %ld\n",globme,my_lev);
        sendsys(globme,globme,-10113,ploc(mynum),sp);
        if(b==10) bprintf("\001f%s\001",GWIZ);
        }
@@ -1184,7 +1177,7 @@ long me_cal=0;
     setpwpn(mynum,wpnheld);
     }
  
- levelof(score)
+ long levelof(int score)
     {
     extern long my_lev;
     score=score/2;  /* Scaling factor */
@@ -1201,7 +1194,7 @@ long me_cal=0;
     return(10);
     }
  
- playcom()
+ void playcom(void)
     {
     extern char wordbuf[];
     extern long curch;
@@ -1225,7 +1218,7 @@ long me_cal=0;
        }
     }
 
- getreinput(blob)
+ void getreinput(char *blob)
     {
     extern long stp;
     extern char strbuf[];
@@ -1234,7 +1227,7 @@ long me_cal=0;
     while(strbuf[stp]) addchar(blob,strbuf[stp++]);
     }
 
- shoutcom()
+ void shoutcom(void)
     {
     extern long curch,my_lev;
     extern char globme[];
@@ -1248,7 +1241,7 @@ long me_cal=0;
     bprintf("Ok\n");
     }
  
- saycom()
+ void saycom(void)
     {
     extern long curch;
     extern char globme[];
@@ -1259,7 +1252,7 @@ long me_cal=0;
     bprintf("You say '%s'\n",blob);
     }
 
- tellcom()
+void tellcom(void)
     {
     extern long curch;
     extern char wordbuf[],globme[];
@@ -1281,23 +1274,23 @@ long me_cal=0;
     sendsys(pname(b),globme,-10004,curch,blob);
     }
  
- scorecom()
+ void scorecom(void)
     {
     extern long my_str,my_lev,my_sco;
     extern long my_sex;
     extern char globme[];
     if(my_lev==1)
        {
-       bprintf("Your strength is %d\n",my_str);
+       bprintf("Your strength is %ld\n",my_str);
        return;
        }
     else
-       bprintf("Your strength is %d(from %d),Your score is %d\nThis ranks you as %s ",
+       bprintf("Your strength is %ld(from %ld),Your score is %ld\nThis ranks you as %s ",
           my_str,50+8*my_lev,my_sco,globme);
     disle3(my_lev,my_sex);
     }
 
- exorcom()
+ void exorcom(void)
     {
     long  x,a;
     extern long curch;
@@ -1331,7 +1324,7 @@ long me_cal=0;
     pname(x)[0]=0;
     }
  
- givecom()
+ void givecom(void)
     {
     auto long  a,b;
     auto long  c,d;
@@ -1346,7 +1339,7 @@ long me_cal=0;
     if(a== -1)
        {
        bprintf("You aren't carrying that\n");
-       return(0);
+       return/*(0)*/;
        }
     /* a = item giving */
     if(brkword()== -1)
@@ -1391,10 +1384,10 @@ long me_cal=0;
     dogive(c,a);
     }
  
- dogive(ob,pl)
+ void dogive(int ob,int pl)
     {
     long  x;
-    auto z[32];
+    char/*auto*/ z[32*4];
     extern char globme[];
     extern long my_lev,curch;
     extern long mynum;
@@ -1423,7 +1416,7 @@ long me_cal=0;
     return;
     }
 
- stealcom()
+ void stealcom(void)
     {
     extern long mynum;
     extern long curch,my_lev;
@@ -1507,7 +1500,7 @@ long me_cal=0;
        }
     }
  
- dosumm(loc)
+ void dosumm(int loc)
     {
     char ms[128];
     extern long curch;
@@ -1521,7 +1514,7 @@ long me_cal=0;
     trapch(curch);
     }
  
- tsscom()
+ void tsscom(void)
     {
     char s[128];
     extern long my_lev;
@@ -1538,7 +1531,7 @@ long me_cal=0;
     keysetup();
     }
  
- rmeditcom()
+ void rmeditcom(void)
     {
     extern long my_lev;
     extern long cms;
@@ -1569,10 +1562,10 @@ long me_cal=0;
        }
     sprintf(ms,"\001s%s\001%s re-enters the normal universe\n\001",globme,globme);
     sendsys(globme,globme,-10113,0,ms);
-    rte();
+    rte(globme);/*rte();*/
     }
  
- u_system()
+ void u_system(void)
     {
     extern long my_lev;
     extern char globme[];
@@ -1596,13 +1589,13 @@ long me_cal=0;
        loseme();
        crapup("You have been kicked off");
        }
-    rte();
+    rte(globme);/*rte();*/
     openworld();
     sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has returned to AberMud\n\001");
     sendsys(globme,globme,-10113,0,x);
     }
  
- inumcom()
+ void inumcom(void)
     {
     extern long my_lev;
     extern char wordbuf[];
@@ -1616,10 +1609,10 @@ long me_cal=0;
        bprintf("What...\n");
        return;
        }
-    bprintf("Item Number is %d\n",fobn(wordbuf));
+    bprintf("Item Number is %ld\n",fobn(wordbuf));
     }
  
- updcom()
+ void updcom(void)
     {
     extern long my_lev;
     char x[128];
@@ -1635,15 +1628,15 @@ long me_cal=0;
     closeworld();
     sprintf(x,"%s",globme);
     execl(EXE,
-    "   --{----- ABERMUD -----}--   ",x,0);  /* GOTOSS eek! */
+    "   --{----- ABERMUD -----}--   ",x,(char *)0);  /* GOTOSS eek! */
     bprintf("Eeek! someones pinched the executable!\n");
     }
  
- becom()
+ void becom(void)
     {
     extern char globme[];
     extern long my_lev;
-    char x[128];
+    char x[130/*128*/];
     char x2[128];
     if(my_lev<10)
        {
@@ -1662,11 +1655,11 @@ long me_cal=0;
     loseme();
     closeworld();
     sprintf(x,"-n%s",x2);
-    execl(EXE2,"   --}----- ABERMUD ------   ",x,0);	/* GOTOSS eek! */
+    execl(EXE2,"   --}----- ABERMUD ------   ",x,(char *)0);	/* GOTOSS eek! */
     bprintf("Eek! someone's just run off with mud!!!!\n");
     }
  
- systat()
+ void systat(void)
     {
     extern long my_lev;
     if(my_lev<10000000)
@@ -1676,14 +1669,14 @@ long me_cal=0;
        }
     }
  
- convcom()
+ void convcom(void)
     {
     extern long convflg;
     convflg=1;
     bprintf("Type '**' on a line of its own to exit converse mode\n");
     }
  
- shellcom()
+ void shellcom(void)
     {
     extern long convflg,my_lev;
     if(my_lev<10000)
@@ -1695,10 +1688,10 @@ long me_cal=0;
     bprintf("Type ** on its own on a new line to exit shell\n");
     }
  
- rawcom()
+ void rawcom(void)
     {
     extern long my_lev;
-    char x[100],y[100];
+    char x[100],y[116/*100*/];
     if(my_lev<10000)
        {
        bprintf("I don't know that verb\n");
@@ -1717,7 +1710,7 @@ long me_cal=0;
        }
     }
  
- rollcom()
+ void rollcom(void)
     {
     auto long  a,b;
     b=ohereandget(&a);
@@ -1735,7 +1728,7 @@ long me_cal=0;
  
 long brmode=0;
  
- debugcom()
+ void debugcom(void)
     {
     extern long my_lev;
     if(my_lev<10000)
@@ -1746,7 +1739,7 @@ long brmode=0;
     debug2();
     }
 
-bugcom()
+void bugcom(void)
 {
 	char x[120];
 	extern char globme[];
@@ -1754,17 +1747,17 @@ bugcom()
 	syslog("Bug by %s : %s",globme,x);
 }
 
-typocom()
+void typocom(void)
 {
 	char x[120],y[32];
 	extern char globme[];
 	extern long curch;
-	sprintf(y,"%s in %d",globme,curch);
+	sprintf(y,"%s in %ld",globme,curch);
 	getreinput(x);
 	syslog("Typo by %s : %s",y,x);
 }
 
-look_cmd()
+void look_cmd(void)
 {
 	int a;
 	long brhold;
@@ -1813,8 +1806,7 @@ look_cmd()
 	aobjsat(a,3);
 }
 	
-set_ms(x)
-char *x;
+void set_ms(char *x)
 {
 	extern long my_lev;
 	extern char globme[];
@@ -1829,34 +1821,34 @@ char *x;
 	return;
 }
 
-setmincom()
+void setmincom(void)
 {
 	extern char min_ms[];
 	set_ms(min_ms);
 }
-setincom()
+void setincom(void)
 {
 	extern char min_ms[];
 	set_ms(in_ms);
 }
-setoutcom()
+void setoutcom(void)
 {
 	extern char out_ms[];
 	set_ms(out_ms);
 }
-setmoutcom()
+void setmoutcom(void)
 {
 	extern char mout_ms[];
 	set_ms(mout_ms);
 }
 
-setherecom()
+void setherecom(void)
 {
 	extern char here_ms[];
 	set_ms(here_ms);
 }
 
-digcom()
+void digcom(void)
 {
         extern long curch;
 	if((oloc(186)==curch)&&(isdest(186)))
@@ -1875,11 +1867,11 @@ digcom()
 		bprintf("You widen the hole, but with little effect.\n");
 		return;
 	}
-	setstate(176,0);
+	set_state(176,0);
 	bprintf("You rapidly dig through to another passage.\n");
 }
 
-emptycom()
+void emptycom(void)
 {
 	long a,b;
 	extern long numobs;

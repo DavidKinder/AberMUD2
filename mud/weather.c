@@ -1,11 +1,9 @@
-#include <stdio.h>
 #include "files.h"
-extern FILE *openlock();
-extern FILE *openuaf();
-extern FILE *openroom();
-extern FILE *openworld();
-extern char *oname();
-extern char *pname();
+#include "functions.h"
+
+#include <stdio.h>
+#include <time.h>
+
 extern char globme[];
 extern char wordbuf[];
 
@@ -33,7 +31,7 @@ extern char wordbuf[];
  */
  
  
- setwthr(n)
+ void setwthr(int n)
     {
     extern long my_lev;
     if(my_lev<10)
@@ -44,41 +42,41 @@ extern char wordbuf[];
     adjwthr(n);
     }
  
- suncom()
+ void suncom(void)
     {
     setwthr(0);
     }
  
- raincom()
+ void raincom(void)
     {
     setwthr(1);
     }
  
- stormcom()
+ void stormcom(void)
     {
     setwthr(2);
     }
  
- snowcom()
+ void snowcom(void)
     {
     setwthr(3);
     }
  
- blizzardcom()
+ void blizzardcom(void)
     {
     	setwthr(4);
     }
- adjwthr(n)
+ void adjwthr(int n)
     {
     long x;
     extern char globme[];
     extern long curch;
     x=state(0);
-    setstate(0,n);
+    set_state(0,n);
     if(x!=n) sendsys(globme,globme,-10030,n,"");
     }
  
- longwthr()
+ void longwthr(void)
     {
     long a;
     a=randperc();
@@ -97,7 +95,7 @@ extern char wordbuf[];
     }
  
  
- wthrrcv(type)
+ void wthrrcv(int type)
     {
     if(!outdoors()) return;
     type=modifwthr(type);
@@ -120,7 +118,7 @@ extern char wordbuf[];
           }
     }
  
- showwthr()
+ void showwthr(void)
     {
     extern long curch;
     if(!outdoors()) return;
@@ -147,7 +145,7 @@ extern char wordbuf[];
        }
     }
  
- outdoors()
+ int outdoors(void)
     {
     extern long curch;
     switch(curch)
@@ -167,8 +165,7 @@ extern char wordbuf[];
  
  /* Silly Section */
  
- sillycom(txt)
- char *txt;
+ void sillycom(char *txt)
     {
     extern char globme[];
     extern long curch;
@@ -177,41 +174,41 @@ extern char wordbuf[];
     sendsys(globme,globme,-10000,curch,bk);
     }
  
- laughcom()
+ void laughcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d falls over laughing\n\001");
     bprintf("You start to laugh\n");
     }
  
- purrcom()
+ void purrcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d starts purring\n\001");
     bprintf("MMMMEMEEEEEEEOOOOOOOWWWWWWW!!\n");
     }
   
- crycom()
+ void crycom(void)
     {
     if(chkdumb()) return;
     sillycom("\001s%s\001%s bursts into tears\n\001");
     bprintf("You burst into tears\n");
     }
  
- sulkcom()
+ void sulkcom(void)
     {
     sillycom("\001s%s\001%s sulks\n\001");
     bprintf("You sulk....\n");
     }
  
- burpcom()
+ void burpcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d burps loudly\n\001");
     bprintf("You burp rudely\n");
     }
  
- hiccupcom()
+ void hiccupcom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d hiccups\n\001");
@@ -220,7 +217,7 @@ extern char wordbuf[];
  
 long hasfarted=0;
 
-fartcom()
+void fartcom(void)
     {
     extern long hasfarted;
     hasfarted=1;
@@ -228,32 +225,32 @@ fartcom()
     bprintf("Fine...\n");
     }
  
- grincom()
+ void grincom(void)
     {
     sillycom("\001s%s\001%s grins evilly\n\001");
     bprintf("You grin evilly\n");
     }
  
- smilecom()
+ void smilecom(void)
     {
     sillycom("\001s%s\001%s smiles happily\n\001");
     bprintf("You smile happily\n");
     }
  
- winkcom()
+ void winkcom(void)
     {					/* At person later maybe ? */
     sillycom("\001s%s\001%s winks suggestively\n\001");
     bprintf("You wink\n");
     }
  
- sniggercom()
+ void sniggercom(void)
     {
     if(chkdumb()) return;
     sillycom("\001P%s\001\001d sniggers\n\001");
     bprintf("You snigger\n");
     }
  
- posecom()
+ void posecom(void)
     {
     long a;
     extern long my_lev;
@@ -266,7 +263,7 @@ fartcom()
     srand(a);
     a=randperc();
     a=a%5;
-    bprintf("POSE :%d\n",a);
+    bprintf("POSE :%ld\n",a);
     switch(a)
        {
        case 0:
@@ -289,7 +286,7 @@ starts sizzling with magical energy\n\001");
           }
     }
 
- emotecom()
+ void emotecom(void)
  /*
   (C) Jim Finnis
  */
@@ -305,31 +302,31 @@ starts sizzling with magical energy\n\001");
 		sillycom(buf);
 }
 		
- praycom()
+ void praycom(void)
     {
     extern long curch;
     sillycom("\001s%s\001%s falls down and grovels in the dirt\n\001");
     bprintf("Ok\n");
     }
 
- yawncom()
+ void yawncom(void)
     {
     sillycom("\001P%s\001\001d yawns\n\001");
     }
  
- groancom()
+ void groancom(void)
     {
     sillycom("\001P%s\001\001d groans loudly\n\001");
     bprintf("You groan\n");
     }
  
- moancom()
+ void moancom(void)
     {
     sillycom("\001P%s\001\001d starts making moaning noises\n\001");
     bprintf("You start to moan\n");
     }
  
- cancarry(plyr)
+ int cancarry(int plyr)
     {
     extern long numobs;
     long a,b;
@@ -347,7 +344,7 @@ starts sizzling with magical energy\n\001");
     }
  
  
- setcom()
+ void setcom(void)
     {
     long a,b,c;
     extern long my_lev;
@@ -377,7 +374,7 @@ starts sizzling with magical energy\n\001");
     b=numarg(wordbuf);
     if(b>omaxstate(a))
        {
-       bprintf("Sorry max state for that is %d\n",omaxstate(a));
+       bprintf("Sorry max state for that is %ld\n",omaxstate(a));
        return;
        }
     if(b<0)
@@ -385,7 +382,7 @@ starts sizzling with magical energy\n\001");
        bprintf("States start at 0\n");
        return;
        }
-    setstate(a,b);
+    set_state(a,b);
     return;
 bitset:if(brkword()==-1)
        {
@@ -448,7 +445,7 @@ setmobile:a=fpbn(wordbuf);
  
  
  
-isdark()
+int isdark(void)
     {
 long c;
 extern long curch,my_lev;
@@ -471,7 +468,7 @@ return(1);
  
  
  
-modifwthr(n)
+int modifwthr(int n)
 {
 extern long curch;
 switch(curch)
@@ -491,7 +488,7 @@ return(n);
 }
 }
 
-setpflags()
+void setpflags(void)
 {
 	long a,b,c,d;
 	extern long mynum;

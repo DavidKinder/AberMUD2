@@ -1,11 +1,9 @@
 #include <errno.h>
 #include <stdio.h>
-#include "files.h"
+#include <unistd.h>
 
-extern FILE *openuaf();
-extern FILE *openlock();
-extern char *oname();
-extern char *pname();
+#include "files.h"
+#include "functions.h"
 
 extern char globme[];
 
@@ -19,6 +17,9 @@ struct uaf_being
 };
 
 typedef struct uaf_being PERSONA;
+
+int getpersona(FILE *file,PERSONA *pers);
+long findpers(char *name,PERSONA *x);
 
 long personactl(name,d,act)
 char *name;
@@ -53,15 +54,12 @@ int act;
 #define PCTL_GET 0
 #define PCTL_FIND 1
 
-findpers(name,x)
-char *name;
-PERSONA *x;
+long findpers(char *name,PERSONA *x)
 {
 	return(personactl(name,x,PCTL_GET));
 }
 
-delpers(name)
-char *name;
+void delpers(char *name)
 {
 	FILE *i;
 	PERSONA x;
@@ -80,9 +78,7 @@ l1:	i=(FILE *)personactl(name,&x,PCTL_FIND);
 
 
 
-putpers(name,pers)
-char *name;
-PERSONA *pers;
+void putpers(char *name,PERSONA *pers)
 {
 	FILE *i;
 	unsigned long flen;
@@ -109,8 +105,7 @@ PERSONA *pers;
 	fcloselock(i);
 }
 
-FILE *openuaf(perm)
-char *perm;
+FILE *openuaf(char *perm)
 {
 	FILE *i;
 	i=openlock(UAF_RAND,perm);
@@ -121,10 +116,7 @@ char *perm;
 	return(i);
 }
 
-decpers(pers,name,str,score,lev,sex)
-PERSONA *pers;
-char *name;
-long *str,*score,*lev,*sex;
+void decpers(PERSONA *pers,char *name,long *str,long *score,long *lev,long *sex)
 {
 	strcpy(name,pers->p_name);
 	*str=pers->p_strength;
@@ -138,7 +130,7 @@ long my_lev;
 long my_str;
 long my_sex;
 
-initme()
+void initme(void)
 {
 	PERSONA x;
 	char s[32];
@@ -178,7 +170,7 @@ initme()
 	putpers(globme,&x);
 }
 
-saveme()
+void saveme(void)
 {
 	extern char globme[];
 	extern long zapped;
@@ -194,8 +186,7 @@ saveme()
 	putpers(globme,&x);
 }
 
- validname(name)
- char *name;
+ int validname(char *name)
     {
     long a;
     if(resword(name)){bprintf("Sorry I cant call you that\n");return(0);  }
@@ -220,7 +211,7 @@ saveme()
     return(1);
     }
  
-resword(name)
+int resword(char *name)
 {
 if(!strcmp(name,"The")) return(1);
 if(!strcmp(name,"Me")) return(1);
@@ -234,9 +225,7 @@ return(0);
 }
 
 
-getpersona(file,pers)
-FILE *file;
-PERSONA *pers;
+int getpersona(FILE *file,PERSONA *pers)
 {
 	if(fread(pers,sizeof(PERSONA),1,file)!=1) return(0);
 	return(1);

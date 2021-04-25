@@ -1,12 +1,13 @@
 #include <stdio.h>
+#include <string.h>
+
 #include "files.h"
 #include "System.h"
-
+#include "functions.h"
 
 
 long in_fight=0;
 long  fighting= -1;
-
 
 
 int dambyitem(it)
@@ -23,7 +24,7 @@ else return(obyte(it,0));
 
 long wpnheld= -1;
 
-void weapcom()
+void weapcom(void)
     {
     long a,b;
     if(brkword()== -1)
@@ -49,8 +50,7 @@ void weapcom()
     bprintf("OK...\n");
     }
 
-void hitplayer(victim,wpn)
- long victim,wpn;
+void hitplayer(long victim,long wpn)
     {
     long a,b,c,d;
     extern long my_lev,my_str;
@@ -133,7 +133,7 @@ void hitplayer(victim,wpn)
        }
     }
 
- killcom()
+ void killcom(void)
     {
     long vic,a;
     long x;
@@ -192,8 +192,7 @@ void hitplayer(victim,wpn)
     }
 
 
-void  bloodrcv(array,isme)
- long *array;
+ void bloodrcv(long *array,int isme)
     {
     long x;
     char ms[128];
@@ -239,7 +238,7 @@ void  bloodrcv(array,isme)
     }
 
 
-void  breakitem(x)
+void  breakitem(int x)
     {
     switch(x)
        {

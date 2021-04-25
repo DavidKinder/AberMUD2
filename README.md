@@ -28,7 +28,6 @@ the code or correct the rather idiosyncratic spelling and grammar.
   with those from Rich Salz's version.
 * Compared code against Rich Salz's version and replaced missing long
   lines in source files.
-* Included an implementation of BSD's flock() call in terms of fcntl().
 * Replaced a call to getpw() with a call to getpwuid().
 * Replaced calls to the unsafe gets() with fgets() in order to avoid
   warning messages from glibc.
@@ -36,7 +35,19 @@ the code or correct the rather idiosyncratic spelling and grammar.
 * Changed the world generator to zero memory before writing it to the
   game's world file.
 
-The source has been tested under [FreeBSD](https://www.freebsd.org/) and [Cygwin](http://www.cygwin.com/) (a Unix-like
+Further work was then done, with the help of Cory Cohen, to get AberMUD2 to
+compile and run on 64-bit systems. This involved further changes:
+
+* Added a new header file "functions.h" containing ANSI C declarations
+  for all functions, and replaced all K&R definitions of functions with
+  the ANSI C equivalent.
+* Increased various buffer sizes to prevent buffer over-run problems.
+* Fixed all mis-matches between printf-style format strings and the
+  arguments passed to such functions.
+* Moved the default location of the world file to be /var/tmp, rather than
+  /usr/tmp.
+
+The source has been tested under [Ubuntu Linux](https://ubuntu.com/) and [Cygwin](https://www.cygwin.com/) (a Unix-like
 environment for Windows) and should work
 under any other modern Unix or related system. If you have any problems
 (or successes, for that matter) let me know.

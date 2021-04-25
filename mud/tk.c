@@ -11,30 +11,18 @@
  *
  */
  
+#include <stdlib.h>
+#include <string.h>
+#include <sys/errno.h>
+#include <sys/file.h>
+
 #include "files.h"
-#include "flock.h"
+#include "functions.h"
 
 long i_setup=0;
 long oddcat=0;
 long  talkfl=0;
 
-#include <stdio.h>
-#include <sys/errno.h>
-#include <sys/file.h>
-
-extern FILE * openlock();
-extern char globme[];
-extern long cms;
-extern long curch;
-extern long my_str;
-extern long my_sex;
-extern long my_lev;
-extern FILE * openroom(); 
-extern FILE * openworld();
-extern char * pname();
-extern char * oname();
-extern long ppos();
-extern char key_buff[];
 long cms= -1;
 long curch=0;
  
@@ -59,9 +47,7 @@ long  meall=0;
  
  */
  
-vcpy(dest,offd,source,offs,len)
-long *dest,*source;
-long offd,offs,len;
+void vcpy(long *dest,long offd,long *source,long offs,long len)
     {
     long c;
     c=0;
@@ -72,8 +58,7 @@ long offd,offs,len;
        }
     }
  
- mstoout(block,name)
- long *block;char *name;
+ void mstoout(long *block,char *name)
     {
     extern long debug_mode;
     char luser[40];
@@ -81,7 +66,7 @@ long offd,offs,len;
     x=(char *)block;
     /* Print appropriate stuff from data block */
     strcpy(luser,name);lowercase(luser);
-if(debug_mode)    bprintf("\n<%d>",block[1]);
+if(debug_mode)    bprintf("\n<%ld>",block[1]);
     if (block[1]<-3) sysctrl(block,luser);
     else
        bprintf("%s", (x+2*sizeof(long)));
@@ -90,8 +75,7 @@ if(debug_mode)    bprintf("\n<%d>",block[1]);
 long gurum=0;
 long convflg=0;
  
-sendmsg(name)
- char *name;
+int sendmsg(char *name)
     {
     extern long debug_mode;
     extern char *sysbuf;
@@ -99,8 +83,8 @@ sendmsg(name)
     char prmpt[32];
     long a;
 extern long tty;
-    char work[200];
-    long w2[35];
+    char work[400];
+    char w2[300/*35*4*/];
     extern char key_buff[];
     extern long convflg;
     extern long my_lev;
@@ -184,8 +168,7 @@ if(in_fight) in_fight-=1;
     return((!strcmp(work,".Q"))||(!strcmp(work,".q")));
     }
  
- send2(block)
- long *block;
+ void send2(long *block)
     {
     FILE * unit;
     long number;
@@ -202,10 +185,7 @@ if(in_fight) in_fight-=1;
     if(number>=199) longwthr();
     }
  
- readmsg(channel,block,num)
- long channel;
- long *block;
- int num;
+ void readmsg(FILE *channel,long *block,int num)
     {
     long buff[64],actnum;
     sec_read(channel,buff,0,64);
@@ -214,11 +194,8 @@ if(in_fight) in_fight-=1;
     }
  
 FILE *fl_com;
-extern long findstart();
-extern long findend();
  
- rte(name)
- char *name;
+ void rte(char *name)
     {
     extern long cms;
     extern long vdes,tdes,rdes;
@@ -244,9 +221,7 @@ extern long findend();
     rdes=0;tdes=0;vdes=0;
     }
     
-FILE *openlock(file,perm)
-char *file;
-char *perm;
+FILE *openlock(char *file,char *perm)
     {
     FILE *unit;
     long ct;
@@ -276,8 +251,7 @@ long findstart(unit)
     return(bk[0]);
     }
  
-long findend(unit)
- FILE *unit;
+long findend(FILE *unit)
     {
     long bk[3];
     sec_read(unit,bk,0,2);
@@ -285,8 +259,7 @@ long findend(unit)
     }
  
  
- talker(name)
- char *name;
+ void talker(char *name)
     {
     extern long curch,cms;
     extern long mynum;
@@ -298,8 +271,9 @@ long findend(unit)
     makebfr();
     	cms= -1;putmeon(name);
     if(openworld()==NULL) crapup("Sorry AberMUD is currently unavailable");
-    if (mynum>=maxu) {printf("\nSorry AberMUD is full at the moment\n");return(0);}
-    strcpy(globme,name);
+    if (mynum>=maxu) {printf("\nSorry AberMUD is full at the moment\n");return/*(0)*/;}
+    if (name != globme)
+      strcpy(globme,name);
     rte(name);
     	closeworld();
     cms= -1;
@@ -318,8 +292,7 @@ long findend(unit)
     
 long rd_qd=0;
  
- cleanup(inpbk)
- long *inpbk;
+ void cleanup(long *inpbk)
     {
     FILE * unit;
     long buff[128],ct,work,*bk;
@@ -338,8 +311,7 @@ long rd_qd=0;
  
  
  
- special(string,name)
- char *string,*name;
+ int special(char *string,char *name)
     {
     extern long curmode;
     char ch,bk[128];
@@ -391,11 +363,10 @@ long dsdb=0;
  
 long moni=0;
  
- broad(mesg)
- char *mesg;
+ void broad(char *mesg)
     {
 extern long rd_qd;
-char bk2[256];
+char bk2[256*4];
 long block[128];
 rd_qd=1;
 block[1]= -1;
@@ -404,15 +375,12 @@ vcpy(block,2,(long *)bk2,0,126);
 send2(block);
 }
 
-tbroad(message)
-char *message;
+void tbroad(char *message)
     {
     broad(message);
     }
     
- sysctrl(block,luser)
- long *block;
- char *luser;
+ void sysctrl(long *block,char *luser)
     {
     gamrcv(block);
     }
@@ -421,12 +389,7 @@ long  tmpimu=0;
 char  *echoback="*e";
 char  *tmpwiz=".";/* Illegal name so natural immunes are ungettable! */
  
- split(block,nam1,nam2,work,luser)
- long *block;
- char *nam1;
- char *nam2;
- char *work;
- char *luser;
+ int split(long *block,char *nam1,char *nam2,char *work,char *luser)
     {
     long wkblock[128],a;
     vcpy(wkblock,0,block,2,126);
@@ -439,8 +402,7 @@ if(!strcmp(lowercase(nam1+4),lowercase(luser))) return(1);
 }
     return(!strcmp(lowercase(nam1),lowercase(luser)));
     }
- trapch(chan)
- long chan;
+ void trapch(long chan)
     {
 extern long curch;
     extern long mynum;
@@ -454,8 +416,7 @@ extern long curch;
  
 long mynum=0;
  
- putmeon(name)
- char *name;
+ void putmeon(char *name)
     {
     extern long mynum,curch;
     extern long maxu;
@@ -493,8 +454,7 @@ long mynum=0;
 iamon=1;
     }
  
- loseme(name)
- char *name;
+ void loseme(void)
     {
 extern long iamon;
 extern long mynum;
@@ -520,8 +480,7 @@ if(!zapped) saveme();
  
 long lasup=0;
 
- update(name)
- char *name;
+ void update(char *name)
     {
     extern long mynum,cms;
     FILE *unit;
@@ -536,8 +495,7 @@ long lasup=0;
     noup:;
     }
  
- revise(cutoff)
- long cutoff;
+ void revise(long cutoff)
     {
     char mess[128];
     long ct;
@@ -557,8 +515,7 @@ long lasup=0;
        }
     }
  
- lookin(room)
- long room; /* Lords ???? */
+ void lookin(long room) /* Lords ???? */
     {
     extern char globme[];
     FILE *un1,un2;
@@ -596,7 +553,7 @@ xx1:   xxx=0;
              if(my_lev>9)bprintf("<DEATH ROOM>\n");
              else
                 {
-                loseme(globme);
+                loseme(/*globme*/);
                 crapup("bye bye.....\n");
                 }
              }
@@ -610,7 +567,7 @@ else
           }
        }
     else
-       bprintf("\nYou are on channel %d\n",room);
+       bprintf("\nYou are on channel %ld\n",room);
     fclose(un1);
     openworld();
     if(!ail_blind)
@@ -621,7 +578,7 @@ else
     bprintf("\n");
     onlook();
     }
- loodrv()
+ void loodrv(void)
     {
     extern long curch;
     lookin(curch);
@@ -630,15 +587,14 @@ else
 
 long iamon=0;
 
-userwrap()
+void userwrap(void)
 {
 extern char globme[];
 extern long iamon;
 if(fpbns(globme)!= -1) {loseme();syslog("System Wrapup exorcised %s",globme);}
 }
 
-fcloselock(file)
-FILE *file;
+void fcloselock(FILE *file)
 {
 	fflush(file);
 	flock(fileno(file),LOCK_UN);

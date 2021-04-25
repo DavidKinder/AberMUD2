@@ -1,23 +1,23 @@
 #include <stdio.h>
+#include <string.h>
 #include <sys/errno.h>
 #include <sys/file.h>
+
 #include "object.h"
 #include "System.h"
-#include "flock.h"
+#include "functions.h"
 
-void qcrypt(in,out,len)
-char *in,*out;
+void qcrypt(char *in,char *out,int len)
 {
 	strncpy(out,in,len);
 }
 
-void dcrypt(in,out,len)
-char *in,*out;
+void dcrypt(char *in,char *out,int len)
 {
 	strncpy(out,in,len);
 }
 
-void cls()
+void cls(void)
 {
 /*
  *	This isnt used on unix
@@ -28,7 +28,7 @@ void cls()
 
 int ttyt=0;
 
-void getty()
+void getty(void)
 {
 /*
  *	We dont use this on the unix version
@@ -55,8 +55,7 @@ intr:if(flock(fileno(unit),LOCK_EX)== -1)
     return(unit);
     }
 
-void fcloselock(file)
-FILE *file;
+void fcloselock(FILE* file)
 {
 	flock(fileno(file),LOCK_UN);
 	fclose(file);
@@ -89,7 +88,7 @@ int validname(name)
     return(1);
     }
  
-int resword(name)
+int resword(char *name)
 {
 if(!strcmp(name,"The")) return(1);
 if(!strcmp(name,"Me")) return(1);
@@ -107,8 +106,7 @@ return(0);
 
 extern OBJECT objects[];
 
-fobn(name)
-char *name;
+long fobn(char *name)
 {
 	int ct=0;
 	char x[32];

@@ -1,8 +1,13 @@
-#include "files.h"
+#include <stdarg.h>
 #include <stdio.h>
+#include <time.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+
+#include "files.h"
 #include "System.h"
+#include "functions.h"
 
 
 char lump[256];
@@ -116,17 +121,17 @@ char *argv[];
        if(r==60) {printf("1 minute\n");goto skip;};
        if(r<120){printf("1 minute and ");goto ski2;}
        if(r/60==60){printf("1 hour\n");goto skip;}
-       if(r<3600) {printf("%d minutes and ",r/60);goto ski2;}
+       if(r<3600) {printf("%ld minutes and ",r/60);goto ski2;}
        if(r<7200) printf("1 hour and ");
        else
-          printf("%d hours and ",r/3600);
-       if((r/60)%60!=1) printf("%d minutes.\n",(r/60)%60);
+          printf("%ld hours and ",r/3600);
+       if((r/60)%60!=1) printf("%ld minutes.\n",(r/60)%60);
        else
           printf("1 minute\n");
        goto skip;
        ski2:if(r%60==1) printf("1 second\n");
        else
-          printf("%d seconds.\n",r%60);
+          printf("%ld seconds.\n",r%60);
        }
     skip:login(user);                  /* Does all the login stuff */
     if(!qnmrq)
@@ -145,8 +150,7 @@ char *argv[];
 char usrnam[44];
  
  
-void login(user)     /* The whole login system is called from this */
- char *user;
+void login(char *user)     /* The whole login system is called from this */
     {
     long un1;
     char usermc[80],a[80],tim[80],dat[80],c;
@@ -191,12 +195,10 @@ void login(user)     /* The whole login system is called from this */
     logpass(user);        /* Password checking */
     }
  
-int chkbnid(user)   /* Check to see if UID in banned list */
- char *user;
+int chkbnid(char *user)   /* Check to see if UID in banned list */
     {
     FILE *a;
     char b[80],c[40];
-    extern char *strchr();
     strcpy(c,user);
     lowercase(c);
     a=openlock(BAN_FILE,"r+");
@@ -215,9 +217,7 @@ int chkbnid(user)   /* Check to see if UID in banned list */
 
  
  
-long  logscan(uid,block)     /* Return block data for user or -1 if not exist */
- char *uid;
- char *block;
+long  logscan(char *uid,char *block)     /* Return block data for user or -1 if not exist */
     {
     FILE *unit;
     long f;
@@ -238,8 +238,7 @@ long  logscan(uid,block)     /* Return block data for user or -1 if not exist */
     return(1);
 }
  
-void logpass(uid)  /* Main login code */
- char *uid;
+void logpass(char *uid)  /* Main login code */
  {
     long a,tries,b;
     char pwd[32],sigf[128],pvs[32],block[128];
@@ -302,7 +301,7 @@ void getunm(name)
     fgets(name,79,stdin);
     }
  
-void showuser()
+void showuser(void)
     {
     long a;
     char name[80],block[256];
@@ -313,8 +312,7 @@ void showuser()
     while(getchar()!='\n');
     }
  
-long shu(name,block)  /* for show user and edit user */
- char *name,*block;
+long shu(char *name,char *block)  /* for show user and edit user */
     {
     long a;
     long x;
@@ -331,7 +329,7 @@ long shu(name,block)  /* for show user and edit user */
     return(a);
     }
  
-void deluser()
+void deluser(void)
 {
     long a;
     char name[80],block[256];
@@ -344,11 +342,11 @@ void deluser()
     }
 }
  
-void edituser()
+void edituser(void)
     {
     long a;
     FILE *fl;
-    char name[80],block[256],bk2[256];
+    char name[80],block[256],bk2[262/*256*/];
     char nam2[128],pas2[128],per2[128],pr2[128];
     cls();
     getunm(name);
@@ -369,8 +367,7 @@ void edituser()
     fclose(fl);
     }
  
-void ed_fld(name,string)
- char *name,*string;
+void ed_fld(char *name,char *string)
     {
     char bk[128];
     bafld:printf("%s(Currently %s ):",name,string);
@@ -379,8 +376,7 @@ void ed_fld(name,string)
     if(strchr(bk,'.')){printf("\nInvalid Data Field\n");goto bafld;}
     if (strlen(bk)) strcpy(string,bk);
     }
-void delu2(name)   /* For delete and edit */
- char *name;
+int delu2(char *name)   /* For delete and edit */
     {
     char b2[128],buff[128];
     FILE *a;
@@ -388,8 +384,8 @@ void delu2(name)   /* For delete and edit */
     char b3[128];
     a=openlock(PFL,"r+");
     b=openlock(PFT,"w");
-    if(a==NULL) return;
-    if(b==NULL) return;
+    if(a==NULL) return -1;
+    if(b==NULL) return -1;
     while(fgets(buff,128,a)!=0)
        {
        dcrypt(buff,lump,strlen(buff)-1);
@@ -401,14 +397,15 @@ void delu2(name)   /* For delete and edit */
     fclose(b);
     a=openlock(PFL,"w");
     b=openlock(PFT,"r+");
-    if(a==NULL) return;
-    if(b==NULL) return;
+    if(a==NULL) return -1;
+    if(b==NULL) return -1;
     while(fgets(buff,128,b)!=0)
        {
        fprintf(a,"%s",buff);
        }
     fclose(a);
     fclose(b);
+    return 1;
     }
  
   
@@ -482,11 +479,10 @@ char *getkbd(s,l)   /* Getstr() with length limit and filter ctrl */
     
 
 
-void listfl(name)
- char *name;
+void listfl(char *name)
     {
     FILE * unit;
-    char string[82];
+    char string[128/*82*/];
     printf("\n");
     unit=openlock(name,"r+");
     if (unit==NULL) 
@@ -516,14 +512,34 @@ void crapup(ptr)
  *		called.
  */ 
  
-void bprintf()
+void bprintf(char* args, ...)
 {
 	printf("EEK - A function has trapped via the bprintf call\n");
 	exit(0);
 }
 
-int chkname(user)
-char *user;
+void syslog(char *args, ...)
+{
+  long tm;
+  FILE *x;
+  char *z;
+  time(&tm);
+  z=ctime(&tm);
+  *strchr(z,'\n')=0;
+  x=openlock(LOG_FILE,"a");
+  if(x==NULL) return;
+  fprintf(x,"%s:  ",z);
+  {
+    va_list varargs;
+    va_start(varargs,args);
+    vfprintf(x,args,varargs);
+    va_end(varargs);
+  }
+  fprintf(x,"\n");
+  fclose(x);
+}
+
+int chkname(char *user)
 {
 long a;
 a=0;
@@ -537,7 +553,7 @@ a++;
 user[0]-=32;
 return(0);
 }
-void chknolog()
+void chknolog(void)
 {
 FILE *a;
 char b[128];

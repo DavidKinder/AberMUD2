@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h>
 
- /*
+#include "functions.h"
+
+/*
  Zone based name generator
  */
 
@@ -19,8 +22,7 @@ ZONE zoname[  ]={
     "TREEHOUSE", 1105, "QUARRY", 2199, "LEDGE", 2299, "INTREE", 2499, "WASTE", 99999
     } ;
 
- findzone( x, str )
- char *str ;
+ int findzone(int x, char *str)
     {
     extern ZONE zoname[] ;
     long a, b ;
@@ -46,7 +48,7 @@ ZONE zoname[  ]={
 
 long ex_dat[ 7 ] ;
 
- exits(  )
+ void exits(void)
     {
     long a ;
     extern long my_lev ;
@@ -69,7 +71,7 @@ long ex_dat[ 7 ] ;
        else
           {
           v=findzone( ex_dat[ a ], st ) ;
-          bprintf( "%s : %s%d\n", dirns[ a ], st, v ) ;
+          bprintf( "%s : %s%ld\n", dirns[ a ], st, v ) ;
           }
        b=1 ;
        a++ ;
@@ -79,8 +81,7 @@ long ex_dat[ 7 ] ;
 
 char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
 
- lodex( file )
- FILE *file;
+ void lodex( FILE *file )
     {
     long a ;
     extern long ex_dat[] ;
@@ -91,9 +92,7 @@ char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
        a++ ;
        }
     }
- roomnum( str, offstr )
- char *str;
- char *offstr;
+ long roomnum(char *str, char *offstr)
     {
     long a, b, c ;
     long d ;
@@ -119,19 +118,19 @@ char *dirns[  ]={"North", "East ", "South", "West ", "Up   ", "Down "} ;
     if( d+b>c ) return( 0 ) ;
     return( -( d+b ) ) ;
     }
- showname( loc )
+ void showname( int loc )
     {
     extern long my_lev ;
     char a[64] ;
     extern char wd_there[];
     long b ;
     b=findzone( loc, a ) ;
-    bprintf( "%s%d", a, b ) ;
+    bprintf( "%s%ld", a, b ) ;
     if( my_lev>9999 )bprintf( "[ %d ]", loc ) ;
-    sprintf(wd_there,"%s %d",a,b);
+    sprintf(wd_there,"%s %ld",a,b);
     bprintf( "\n" ) ;
     }
- loccom(  )
+ void loccom(void)
     {
     extern long my_lev ;
     extern ZONE zoname[] ;

@@ -1,18 +1,18 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
 #include "files.h"
+#include "functions.h"
 
 extern long curch;
 extern long mynum;
 extern long my_lev;
 extern char globme[];
 extern char wordbuf[];
-extern char *pname();
-extern char *oname();
-extern FILE *openroom();
-extern FILE *openuaf();
-extern FILE *openlock();
 
-randperc()
+int randperc(void)
 {
     long x;
     time(&x);
@@ -21,7 +21,7 @@ randperc()
     return(x%100);
 }
 
-sumcom()
+void sumcom(void)
     {
     long a,b;
     extern char wordbuf[];
@@ -106,7 +106,7 @@ willwork:bprintf("You cast the summoning......\n");
     setoloc(a,mynum,1);
     }
 
- delcom()
+ void delcom(void)
     {
     extern long my_lev;
     extern char wordbuf[];
@@ -123,13 +123,13 @@ willwork:bprintf("You cast the summoning......\n");
     if(delu2(wordbuf)== -1)bprintf("failed\n");
     }
 
- passcom()
+ void passcom(void)
     {
     extern char globme[];
     chpwd(globme);
     }
 
- goloccom()
+ void goloccom(void)
     {
     extern long curch,my_lev;
     extern char globme[];
@@ -169,7 +169,7 @@ willwork:bprintf("You cast the summoning......\n");
 
 
 
- wizcom()
+ void wizcom(void)
     {
     extern long my_lev;
     extern char globme[],wordbuf[];
@@ -187,7 +187,7 @@ willwork:bprintf("You cast the summoning......\n");
     rd_qd=1;
     }
 
- viscom()
+ void viscom(void)
     {
     long f;
     extern long my_lev;
@@ -207,12 +207,12 @@ willwork:bprintf("You cast the summoning......\n");
     setpvis(mynum,0);
     ar[0]=mynum;
     ar[1]=pvis(mynum);
-    sendsys("","",-9900,0,ar);
+    sendsys("","",-9900,0,(char *)ar);
     bprintf("Ok\n");
     sillycom("\001s%s\001%s suddenely appears in a puff of smoke\n\001");
     }
 
- inviscom()
+ void inviscom(void)
     {
     extern long mynum,my_lev;
     extern char globme[];
@@ -235,15 +235,15 @@ willwork:bprintf("You cast the summoning......\n");
     setpvis(mynum,x);
     ar[0]=mynum;
     ar[1]=pvis(mynum);
-    sendsys("","",-9900,0,ar);
+    sendsys("","",-9900,0,(char *)ar);
     bprintf("Ok\n");
     sillycom("\001c%s vanishes!\n\001");
     }
 
- ressurcom()
+ void ressurcom(void)
     {
     extern long my_lev;
-    long bf[32];
+    char/*long*/ bf[32*4];
     extern long curch;
     long a,b;
     extern char wordbuf[];

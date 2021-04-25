@@ -1,10 +1,10 @@
+#include "functions.h"
+
 #define CHAR1 255
 #define CHAR2 655300
 
 
-
-byte_put(x,y,z)
-long *x;
+void byte_put(long *x,int y,int z)
 {
 	if(y==1)
 	{
@@ -18,27 +18,23 @@ long *x;
 	}
 }
 
-byte_fetch(x,y)
-long x;
+int byte_fetch(long x, int y)
 {
 	if(y==1) return(x&CHAR1);
 	else return((x>>8)&CHAR1);
 }
 
-bit_fetch(x,y)
-long x;
+int bit_fetch(long x,int y)
 {
 	return((x>>(16+y))&1);
 }
 
-bit_set(x,y)
-long *x;
+void bit_set(long *x, int y)
 {
 	*x|=(1<<(16+y));
 }
 
-bit_clear(x,y)
-long *x;
+void bit_clear(long *x, int y)
 {
 	*x&=~(1<<(16+y));
 }

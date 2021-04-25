@@ -4,9 +4,11 @@
 /*#include <sgtty.h>*/
 #include <termios.h>
 
+#include "functions.h"
+
 long save_flag= -1;
 
-keysetup()
+void keysetup(void)
 {
 /*
 	struct sgttyb x;
@@ -23,7 +25,7 @@ keysetup()
 	tcsetattr(fileno(stdin),TCSANOW,&ios);
 }
 
-keysetback()
+void keysetback(void)
 {
 /*
 	struct sgttyb x;
@@ -42,9 +44,7 @@ char key_buff[256];
 char pr_bf[32];
 long key_mode= -1;
 
-key_input(ppt,len_max)
-char *ppt;
-int len_max;
+void key_input(char *ppt,int len_max)
 {
    char x;
    extern long pr_due;
@@ -81,7 +81,7 @@ int len_max;
      }
 }	
 
-key_reprint()
+void key_reprint(void)
 {
 	extern long pr_due;
 	extern long pr_qcr;

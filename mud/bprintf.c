@@ -1,15 +1,25 @@
-#include "files.h"
+#include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+#include "files.h"
 #include "System.h"
+#include "functions.h"
 
 long pr_due=0;
 
-void bprintf(args,arg1,arg2,arg3,arg4,arg5,arg6,arg7)
-char *args,*arg1,*arg2,*arg3,*arg4,*arg5,*arg6,*arg7;
+void bprintf(char *args, ...)
     {
     char x[256],a[40];  /* Max 240 chars/msg */
     long ct;
-    sprintf(x,args,arg1,arg2,arg3,arg4,arg5,arg6);
+    {
+      va_list varargs;
+      va_start(varargs,args);
+      vsnprintf(x,sizeof(x),args,varargs);
+      va_end(varargs);
+    }
+ /* sprintf(x,args,arg1,arg2,arg3,arg4,arg5,arg6); */
 if(strlen(x)>235)
 {
 syslog("Bprintf Short Buffer overflow");
@@ -56,9 +66,7 @@ void dcprnt(str,file)
        }
     }
 
-int pfile(str,ct,file)
- char *str;
- FILE *file;
+int pfile(char *str,int ct,FILE *file)
     {
     extern long debug_mode;
     char x[128];
@@ -68,9 +76,7 @@ int pfile(str,ct,file)
     return(ct);
     }
 
-int pndeaf(str,ct,file)
- char *str;
- FILE *file;
+int pndeaf(char *str,int ct,FILE *file)
     {
     char x[256];
     extern long ail_deaf;
@@ -79,9 +85,7 @@ int pndeaf(str,ct,file)
     return(ct);
     }
 
- pcansee(str,ct,file)
- char *str;
- FILE *file;
+ int pcansee(char *str,int ct,FILE *file)
     {
     char x[25];
     char z[257];
@@ -98,9 +102,7 @@ int pndeaf(str,ct,file)
     return(ct);
     }
 
- prname(str,ct,file)
- char *str;
- FILE *file;
+ int prname(char *str,int ct,FILE* file)
     {
     char x[24];
     ct=tocontinue(str,ct,x,24);
@@ -112,9 +114,7 @@ int pndeaf(str,ct,file)
     }
 
 
-int pndark(str,ct,file)
- char *str;
- FILE *file;
+int pndark(char *str,int ct,FILE *file)
     {
     char x[257];
     extern long ail_blind;
@@ -124,11 +124,7 @@ int pndark(str,ct,file)
     return(ct);
     }
 
-int tocontinue(str,ct,x,mx)
- char *str;
- long ct;
- char *x;
- long mx;
+int tocontinue(char *str,long ct,char *x,long mx)
     {
     long s;
     s=0;
@@ -146,7 +142,7 @@ crapup("Buffer OverRun in IO_TOcontinue");
     return(ct+1);
     }
 
-int seeplayer(x)
+int seeplayer(int x)
     {
     extern long mynum;
     extern long ail_blind;
@@ -155,13 +151,11 @@ int seeplayer(x)
     if(mynum==x) {return(1);} /* me */
     if(plev(mynum)<pvis(x)) return(0);
     if(ail_blind) return(0); /* Cant see */
-    if((curch==ploc(x))&&(isdark(curch)))return(0);
+    if((curch==ploc(x))&&(isdark(/*curch*/)))return(0);
     setname(x);
     return(1);
     }
-int ppndeaf(str,ct,file)
- char *str;
- FILE *file;
+int ppndeaf(char *str,int ct,FILE *file)
     {
     char x[24];
     extern long ail_deaf;
@@ -175,9 +169,7 @@ int ppndeaf(str,ct,file)
     return(ct);
     }
 
-int  ppnblind(str,ct,file)
-char *str;
-FILE *file;
+int  ppnblind(char *str,int ct,FILE *file)
     {
     extern long ail_blind;
     char x[24];
@@ -193,10 +185,9 @@ FILE *file;
 
 char *sysbuf=NULL;
 
-void makebfr()
+void makebfr(void)
     {
     extern char *sysbuf;
-    extern char *malloc();
     sysbuf=malloc(4096); /* 4K of chars should be enough for worst case */
     if(sysbuf==NULL) crapup("Out Of Memory");
     sysbuf[0]=0;
@@ -204,7 +195,7 @@ void makebfr()
     
 FILE * log_fl= 0; /* 0 = not logging */
 
-void logcom()
+void logcom(void)
     {
     extern FILE * log_fl;
     extern char globme[];
@@ -230,7 +221,7 @@ void logcom()
 
 long pr_qcr; 
 
-void pbfr()
+void pbfr(void)
     {
     FILE *fln;
     long mu;
@@ -263,8 +254,7 @@ iskb=0;
 
 long iskb=1;
 
-void quprnt(x)
- char *x;
+void quprnt(char *x)
     {
     if((strlen(x)+strlen(sysbuf))>4095)
        {
@@ -276,9 +266,7 @@ void quprnt(x)
     strcat(sysbuf,x);
     }
 
-int pnotkb(str,ct,file)
- char *str;
- FILE *file;
+int pnotkb(char *str,int ct,FILE *file)
     {
     extern long iskb;
     char x[128];
@@ -290,12 +278,9 @@ int pnotkb(str,ct,file)
 
 long snoopd= -1;
 
-FILE *opensnoop(user,per)
-char *per;
-char *user;
+FILE *opensnoop(char *user,char *per)
     {
     FILE *x;
-    extern FILE *openlock();
     char z[256];
     sprintf(z,"%s%s",SNOOP,user);
     x=openlock(z,per);
@@ -306,7 +291,7 @@ long snoopt= -1;
 
 char sntn[32];
 
-void snoopcom()
+void snoopcom(void)
     {
     FILE *fx;
     long x;
@@ -346,7 +331,7 @@ void snoopcom()
     fcloselock(fx);
     }
 
-void viewsnoop()
+void viewsnoop(void)
     {
     long x;
     char z[128];
@@ -365,14 +350,13 @@ void viewsnoop()
     */
     snoopt=x;
     }
-void chksnp()
+void chksnp(void)
 {
 if(snoopt==-1) return;
 sendsys(sntn,globme,-400,0,"");
 }
  
-void setname(x)  /* Assign Him her etc according to who it is */
-long x;
+void setname(long x)  /* Assign Him her etc according to who it is */
 {
 	if((x>15)&&(x!=fpbns("riatha"))&&(x!=fpbns("shazareth")))
 	{
